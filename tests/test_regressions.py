@@ -8,9 +8,9 @@ agreement's approval read as this one's, an alternative the parser could not
 read and passed anyway, a group exclusion read as a plain change, and a reader
 that executed a write.
 
-None of them is hypothetical: the input in each test is the input from
-``reviews-dutypath/probe_engine.py``, and the assertion is the answer the engine
-now gives instead of the false positive.
+None of them is hypothetical: each input is one that was run against commit
+b75322a and gave the wrong answer there, and the assertion is the answer the
+engine now gives instead of the false positive.
 """
 
 from __future__ import annotations
