@@ -108,7 +108,16 @@ def compare(conn, shipment: dict, on: date | None = None) -> dict:
             else None,
             "currency": currency,
         },
-        "claim_window": deadline.post_import_claim(conn, "KORUS", import_date, when),
+        "claim_window": {
+            **deadline.post_import_claim(conn, "KORUS", import_date, when),
+            # The row is Korea's own law, so it applies to the claim the
+            # exporter makes at home whichever market the goods went to.  The
+            # importing country's own refund period is a different rule and is
+            # not in this snapshot; saying so is cheaper than implying one
+            # number covers three jurisdictions.
+            "scope": "the Korean post import claim window, the same for every route; "
+                     "the importing country's own refund period is not in this snapshot",
+        },
     }
 
 
