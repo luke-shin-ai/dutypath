@@ -475,10 +475,18 @@ def test_the_relate_binary_agrees_with_the_engine_when_it_is_installed(store_pat
 
 
 def _local_relate() -> str | None:
-    for candidate in (Path("/workspace/.local/bin/relate"), Path.home() / ".local" / "bin" / "relate"):
-        if candidate.exists():
-            return str(candidate)
+    """The relate binary this environment already has, in any usual place."""
     from shutil import which
 
     found = which("relate")
-    return found
+    if found:
+        return found
+    candidates = (
+        Path(sys.executable).parent / "relate",
+        Path.home() / ".local" / "bin" / "relate",
+        Path("~/.local/bin/relate").expanduser(),
+    )
+    for candidate in candidates:
+        if candidate.exists():
+            return str(candidate)
+    return None

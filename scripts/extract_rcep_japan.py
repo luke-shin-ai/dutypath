@@ -14,9 +14,13 @@ copied as printed: this extractor does no arithmetic, so the number a verdict
 prints is the number in the schedule for the year it asks about.
 
 Japan's schedule carries partner specific rows for the same tariff line, marked
-in the Remarks column ("Treatment for China and Korea").  Both the general row
-and the Korea row are kept, each with its partner, because they give different
-answers for the same good.
+in the Remarks column ("Treatment for China and Korea", "Treatment for China").
+Every row is kept with the treatment it belongs to: `KR` when the remark names
+Korea, `ALL` when it has no remark and so speaks for every party, and
+`OTHER-<parties>` when it names only other parties (for example
+`OTHER-AS+AU+NZ`). A Korean shipment reads the Korea row, or the general row
+when there is one, and a row written for China alone is never mistaken for
+the general rate.
 
 Usage:
     python scripts/extract_rcep_japan.py --xlsx <schedule of japan>.xlsx \
@@ -52,10 +56,36 @@ def _text(value) -> str:
 
 
 def _partner(remarks: str) -> str:
+    """Whether the row is the Korea rate, the general rate, or another party's.
+
+    The Remarks column names the parties a row is written for: "Treatment for
+    Korea", "Treatment for China and Korea", "Treatment for ASEAN, Australia,
+    and New Zealand".  A row that names Korea is the rate a Korean exporter
+    gets; an empty remark is the rate every party gets; a remark that names
+    only other parties is neither, and must not be handed to a Korean shipment
+    as if it were the general rate.  The remark itself travels with the row, so
+    a reader sees which parties the number was written for.
+    """
     lowered = remarks.lower()
+    if not lowered.strip():
+        return "ALL"
     if "korea" in lowered:
         return "KR"
-    return "ALL"
+    named = [code for word, code in PARTIES.items() if word in lowered]
+    return "OTHER-" + "+".join(sorted(named)) if named else "OTHER"
+
+
+# The parties a Remarks cell can name, as the ISO code the rest of the project
+# uses.  The label says which parties a row was written for, so two rows for one
+# line never read as the same treatment.
+PARTIES = {
+    "asean": "AS",
+    "australia": "AU",
+    "new zealand": "NZ",
+    "china": "CN",
+    "japan": "JP",
+    "india": "IN",
+}
 
 
 def parse(xlsx: Path) -> list[dict]:

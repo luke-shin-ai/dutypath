@@ -18,32 +18,36 @@ repository; none of them is an estimate.
 | Measure | Value |
 | --- | --- |
 | Store file | `store/dutypath-rules.rl` |
-| File size | 5,410,816 bytes (5,284.0 kB, 5.16 MB) |
-| Nodes | 5,401 |
-| Relationships | 13,490 |
+| File size | 5,451,776 bytes (5,324.0 kB, 5.20 MB) |
+| Nodes | 5,454 |
+| Relationships | 13,559 |
 | Chapters | 3 (39, 84, 85) |
 | Headings | 161 |
 | Subheadings | 965 |
 | Origin rules | 401 (KORUS 222, RCEP 108, EU 71) |
-| Tariff lines | 3,843 (US 847, EU 1,726, Japan 1,270) |
+| Exclusion intervals (nodes) | 45, each one hop from its rule |
+| Tariff lines | 3,851 (US 847, EU 1,726, Japan 1,278) |
 | Applied MFN rows at six digits | 12 |
 | Agreements | 5 (three covered, one named and uncovered, one baseline) |
 | Claim window rows | 1 |
 | Source rows | 9 |
 
-The Japan count is 1,270 because eight of the 1,278 lines in the extract repeat
-the same code with the same partner, and the store keeps the first of each.
+The Japan count is 1,278 because every row of the extract reaches the store: a
+line can carry a general row and a treatment for Korea, or a treatment for Korea
+and one for other parties, and each is kept under its own treatment. The build
+refuses two rows that claim the same line and the same treatment, so a rate
+never depends on which row came first.
 
 ## Memory
 
 | Measure | Value |
 | --- | --- |
-| Resident set before the store is opened | 30,060 kB |
-| Resident set with the snapshot open | 58,952 kB |
-| Difference | 28,892 kB (28.2 MB) |
+| Resident set before the store is opened | 29,824 kB |
+| Resident set with the snapshot open | 58,620 kB |
+| Difference | 28,796 kB (28.1 MB) |
 
 Relate keeps the whole graph resident, so the file is not a disk map and the
-memory is what the engine actually holds. 5.16 MB of file costs 28.2 MB of
+memory is what the engine actually holds. 5.20 MB of file costs 28.1 MB of
 resident memory for this shape of graph, about five and a half times the file.
 
 ## Query time
@@ -52,15 +56,17 @@ Thirty runs of each query on the open snapshot, wall clock, median.
 
 | Query | Median | Min | Max |
 | --- | --- | --- | --- |
-| Rule for a good (interval match over 401 rules) | 0.736 ms | 0.672 ms | 1.368 ms |
-| Rate for a line (3,843 lines) | 0.117 ms | 0.114 ms | 0.224 ms |
-| Code tree above a good (catalogue walk) | 2.522 ms | 2.380 ms | 2.737 ms |
-| Rules that mention a heading (text search) | 0.284 ms | 0.264 ms | 0.584 ms |
+| Rule for a good (interval match over 401 rules) | 0.762 ms | 0.714 ms | 2.042 ms |
+| Rate for a line (3,851 lines) | 0.106 ms | 0.102 ms | 0.468 ms |
+| Code tree above a good (catalogue walk) | 2.704 ms | 2.642 ms | 3.472 ms |
+| Rules that mention a heading (text search) | 0.274 ms | 0.266 ms | 0.713 ms |
 
-An assessment runs one rule lookup, one rate lookup per agreement, one claim
-window lookup, and the in memory shipment graph. `scripts/benchmark.py` times
-the whole verdict at 7.7 ms per market, three markets for one shipment, which is
-the number to compare with the two baselines in `docs/BENCHMARK-EVAL.md`.
+An assessment runs one traversal per market that brings back the rule and the
+rate line together, one interval join per rule alternative against the material
+codes, one claim window lookup, and the in memory shipment graph.
+`scripts/benchmark.py` times the whole verdict at 7.5 ms per market, three
+markets for one shipment, which is the number to compare with the two baselines
+in `docs/BENCHMARK-EVAL.md`.
 
 ## The hub query, run
 
@@ -71,9 +77,9 @@ rather than their product.
 
 | Market | Rows | Rules | Rate lines | Claim window | Seconds |
 | --- | --- | --- | --- | --- | --- |
-| United States | 1,072 | 222 | 847 | 1 | 0.08 |
-| European Union | 1,800 | 71 | 1,726 | 1 | 0.11 |
-| Japan | 1,381 | 108 | 1,270 | 1 | 0.11 |
+| United States | 1,072 | 222 | 847 | 1 | 0.05 |
+| European Union | 1,800 | 71 | 1,726 | 1 | 0.08 |
+| Japan | 1,389 | 108 | 1,278 | 1 | 0.07 |
 
 The earlier form of that file matched the rules and the rates from the same
 agreement in one row with two OPTIONAL MATCH clauses, which returns 188,034 rows
@@ -122,7 +128,7 @@ Rate lines, by the shape of the schedule:
 | --- | --- | --- |
 | United States | 847 | base rate and a staging category A to K; 847 with an ad valorem base rate |
 | European Union | 1,726 | base rate and a numbered category: 1,677 at 0, 26 at 3, 23 at 5 |
-| Japan | 1,270 | a printed cell for each year 1 to 21: 1,074 free on the general row, 162 Korea rows of which 15 print U |
+| Japan | 1,278 | a printed cell for each year 1 to 21: the general row where there is one, 162 Korea rows, and 170 rows written for other parties only |
 
 ## Zero leak
 
@@ -147,7 +153,7 @@ refusal for each, and finds no `Material` node afterwards.
 
 ```
 $ pytest -q
-129 passed
+136 passed
 ```
 
 No test is skipped, on a bare `pip install -e ".[dev]"` as well as here. The
@@ -168,4 +174,6 @@ materials, a missing material value, a heading written where a subheading is
 asked for, separators and percent signs in typed numbers, a negative amount,
 another agreement's approval, an expired approval where none is required, an
 unreadable alternative, a group exclusion, an except clause read as a
-permission, an except range, the hub query, and the read only reader.
+permission, an except range, the hub query, and the read only reader, plus a
+Japan row written for another party, a duplicate partner treatment, and the
+interval join that now does the exclusion test in the graph.

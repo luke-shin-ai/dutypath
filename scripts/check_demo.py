@@ -57,15 +57,17 @@ def _ensure_chromium_libs() -> None:
 
     if ctypes.util.find_library("nspr4"):
         return
-    for candidate in (
-        Path("/workspace/.sysroot/usr/lib/x86_64-linux-gnu"),
-        Path("/workspace/.sysroot/lib/x86_64-linux-gnu"),
-        ROOT.parents[1] / ".sysroot" / "usr" / "lib" / "x86_64-linux-gnu",
-    ):
-        if (candidate / "libnspr4.so").exists():
-            current = os.environ.get("LD_LIBRARY_PATH", "")
-            os.environ["LD_LIBRARY_PATH"] = str(candidate) + (":" + current if current else "")
-            return
+    # Look for a .sysroot beside the checkout and beside any directory above
+    # it, so the search is the same on any machine and names no home path.
+    for base in (ROOT, *ROOT.parents):
+        for candidate in (
+            base / ".sysroot" / "usr" / "lib" / "x86_64-linux-gnu",
+            base / ".sysroot" / "lib" / "x86_64-linux-gnu",
+        ):
+            if (candidate / "libnspr4.so").exists():
+                current = os.environ.get("LD_LIBRARY_PATH", "")
+                os.environ["LD_LIBRARY_PATH"] = str(candidate) + (":" + current if current else "")
+                return
 
 
 def main() -> int:

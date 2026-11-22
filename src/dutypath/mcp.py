@@ -10,6 +10,12 @@ nothing anywhere: an answer is a response, not a record.  A shipment sent to it
 is read into memory and dropped with the call, so a tool call leaves the rule
 book byte for byte as it was.
 
+The boundary has a second side, and it is the one worth stating plainly: the
+bill of materials reaches this server as a tool argument, so the agent that
+calls it has that bill of materials in its own context, and an MCP host may keep
+the transcript.  Nothing here stores it, and nothing here can leak what it never
+held; what travels through the caller's context is the caller's to hold.
+
     python -m dutypath.mcp --stdio --store store/dutypath-rules.rl
 
 Every tool returns one JSON object in the tool result's text content.  A tool
@@ -39,7 +45,9 @@ TOOLS = [
             "Price one bill of materials in the United States (KORUS), the European Union "
             "(Korea-EU) and Japan (RCEP): the origin verdict under each agreement, the "
             "preferential and MFN rate, the duty each route pays, and the date until which a "
-            "refund can be claimed. Reads the local .rl snapshot only."
+            "refund can be claimed. Reads the local .rl snapshot only. The bill of materials "
+            "arrives as an argument and is never written to the graph, so it stays in the "
+            "calling agent's context and not in the rule file."
         ),
         "inputSchema": {
             "type": "object",
@@ -56,7 +64,8 @@ TOOLS = [
         "title": "Assess one market",
         "description": (
             "The same verdicts for the shipment's own market, one route per agreement, with the "
-            "material that breaks a rule named and the reason quoted from the rule."
+            "material that breaks a rule named and the reason quoted from the rule. The bill of "
+            "materials arrives as an argument and is not written to the graph."
         ),
         "inputSchema": {
             "type": "object",
@@ -115,7 +124,9 @@ TOOLS = [
         "title": "Prove the store is untouched",
         "description": (
             "Assess a shipment and report the sha256 of the store before and after, the label "
-            "counts, and whether any shipment, material, good, party or verdict node exists."
+            "counts, and whether any shipment, material, good, party or verdict node exists. "
+            "This proves the rule file and the graph; the bill of materials still travelled "
+            "through the caller's context to get here."
         ),
         "inputSchema": {
             "type": "object",

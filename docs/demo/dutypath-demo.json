@@ -8,8 +8,8 @@
  },
  "store": {
   "path": "store/dutypath-rules.rl",
-  "bytes": 5410816,
-  "sha256": "82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d"
+  "bytes": 5451776,
+  "sha256": "200d613c08a4c4c65cbff74d17ab46619e76f6032f9ffba9640999a90262aec8"
  },
  "cases": [
   {

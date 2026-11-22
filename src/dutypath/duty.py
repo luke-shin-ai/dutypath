@@ -23,8 +23,14 @@ from datetime import date
 from . import rates as staging
 from . import store
 
+# A schedule can carry more than one row for one line: Japan prints a general
+# rate and, on some lines, a treatment for Korea or for other parties only.  A
+# Korean shipment is priced on the Korea row when there is one, else on the
+# general row, and never on a row written for another party.  The filter is in
+# the traversal, so a partner specific row cannot stand in for the general rate.
 LINE_QUERY = """
 MATCH (r:RateLine {code: $code, market: $market, agreement: $agreement})
+WHERE coalesce(r.partner, 'ALL') IN ['KR', 'ALL']
 MATCH (r)-[:CITED_FROM]->(src:Source)
 RETURN r.code AS code, r.description AS description, r.base_rate_percent AS base_rate_percent,
        r.base_rate_text AS base_rate_text, r.base_rate_kind AS base_rate_kind,
@@ -43,9 +49,16 @@ RETURN r.percent AS percent, r.lines AS lines, r.exact AS exact, r.year AS year,
 """
 
 
-def line_rate(conn, market: str, agreement: str, code: str, on: date) -> dict:
-    """Rate for one tariff line under one agreement on one date."""
-    row = store.one(conn, LINE_QUERY, {"code": code, "market": market, "agreement": agreement})
+def line_rate(conn, market: str, agreement: str, code: str, on: date,
+              row: dict | None = None) -> dict:
+    """Rate for one tariff line under one agreement on one date.
+
+    ``row`` is the rate line a caller already has, for the paths that read the
+    rule and the line in one traversal (``rules.market_context``).  Without it
+    the row is looked up here.
+    """
+    if row is None:
+        row = store.one(conn, LINE_QUERY, {"code": code, "market": market, "agreement": agreement})
     if row is None:
         return {
             "percent": None,

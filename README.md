@@ -5,6 +5,33 @@ decides the invoice: under which agreement can this good claim a preference,
 what does the answer cost if it cannot, and until when can the money be
 recovered.
 
+## 60 seconds
+
+```
+pip install -e ".[dev]"
+dutypath compare --shipment fixtures/shipment-8504-converter.json
+```
+
+That is the whole setup: one install, one command, no account, no network call,
+and the verdict prints in about a second. Two more commands show the rest of the
+claim without reading any further:
+
+```
+dutypath verify-zero-leak --shipment fixtures/shipment-8504-converter.json
+pytest -q
+```
+
+The first proves the rule file came back byte for byte after an assessment. The
+second runs the suite on a bare install.
+
+In a browser, with nothing to install:
+**https://luke-shin-ai.github.io/dutypath/demo/**
+
+The five shipment files under `fixtures/` are synthetic. They were written to
+exercise a rule and they name no company, no client and no real shipment; the
+hackathon's rules on data and confidentiality are met by having nothing
+confidential in the first place.
+
 The tool stores no client data. The file it ships is the public rulebook:
 tariff codes, origin rules, duty rates, and the schedules that say what the rate
 is on a date.
@@ -13,8 +40,13 @@ It does not stop at what is missing. It prices the gap: which agreement wins,
 how much it saves, who the parts exclude, and until when a refund can be
 claimed.
 
-The rules are pulled from a Neo4j hub as a versioned snapshot, and the verdict
-says when that snapshot is too old to trust.
+The rulebook is one prebuilt `.rl` snapshot committed with the code, dated and
+versioned, so an assessment needs no database and no network; `dutypath
+freshness` says when that snapshot is too old to trust. Building the same rows
+from a hub is a separate, optional step: `neo4j/pull_rules.cypher` is the
+statement, and `dutypath pull-check` runs it against this snapshot so a reader
+can see it complete and count what it returns. The default answer is the local
+file, not a live hub query.
 
 ---
 
@@ -76,7 +108,7 @@ and it does not decide for the exporter. It prices the decision.
 | --- | --- | --- | --- | --- |
 | United States | KORUS | Annex 6-A (222 rules) | Annex 2-B, base rate and category A to K (847 lines) | not required |
 | European Union | Korea-EU | Protocol Annex II (71 rules) | Annex 2-A, base rate and numbered category (1,726 lines) | required |
-| Japan | RCEP | Annex 3A (108 rules) | Annex I, the printed rate for each year (1,270 lines) | required |
+| Japan | RCEP | Annex 3A (108 rules) | Annex I, the printed rate for each year (1,278 lines) | required |
 
 The three schedules do not speak the same language. KORUS prints a letter and
 Annex 2-B says what the letter does. The EU prints a number and Annex 2-A says
@@ -84,6 +116,16 @@ the number is the count of annual cuts. Japan prints the rate for every year, so
 nothing is computed and nothing is interpolated: the cell for that year is the
 answer, including the cells that read `U`, which is the schedule's own mark for
 a line it excludes for Korean goods.
+
+Japan's schedule also prints more than one row for some lines, under a Remarks
+column that names the parties the row is written for. Each row is kept with its
+treatment: `KR` when the remark names Korea, `ALL` when the row has no remark and
+speaks for every party, and `OTHER-<parties>` when it names only other parties.
+A Korean shipment is priced on the `KR` row when there is one, else on the `ALL`
+row, and never on a row written for another party. On 3901.20.010 that is the
+difference between a free rate and the compound duty Korea actually pays, so the
+build refuses to put two rows under one treatment and the snapshot carries all
+1,278 rows of the extract.
 
 ## How it uses Relate
 
@@ -112,7 +154,8 @@ and closed with it. The material list never has a file to leak from.
 | --- | --- | --- |
 | `Chapter`, `Heading`, `Subheading` | the nomenclature, as a tree | 3, 161, 965 |
 | `OriginRule` | one product specific origin rule, with the sentence it came from | 401 |
-| `RateLine` | one tariff line: base rate, staging, and for Japan the printed years | 3,843 |
+| `HsInterval` | one provision a rule excludes, or the group it excludes, as an interval the join tests | 45 |
+| `RateLine` | one tariff line and one partner treatment: base rate, staging, and for Japan the printed years | 3,851 |
 | `Agreement` | the agreement a rule or a rate belongs to: MFN as the baseline, KORUS, RCEP, EUKOR, and TURKOR which the snapshot names but does not cover | 5 |
 | `DeadlineRule` | a claim window, with its citation | 1 |
 | `Hs6Rate` | applied MFN at six digits, with the number of lines behind it | 12 |
@@ -121,15 +164,21 @@ and closed with it. The material list never has a file to leak from.
 
 Relationships are the ones a reader can say out loud: `(Subheading)-[:IN_HEADING]->(Heading)`,
 `(Heading)-[:IN_CHAPTER]->(Chapter)`, `(OriginRule)-[:FOR]->(Agreement)`,
-`(RateLine)-[:FOR]->(Subheading)`, and every rule and rate `-[:CITED_FROM]->(Source)`.
-The file is 5.16 MB, 5,401 nodes and 13,490 relationships.
+`(OriginRule)-[:EXCLUDES]->(HsInterval)`, `(RateLine)-[:FOR]->(Subheading)`, and every rule
+and rate `-[:CITED_FROM]->(Source)`.
+The file is 5.20 MB, 5,454 nodes and 13,559 relationships.
 
-The graph answers three questions, and the engine answers the rest:
+The graph answers four questions, and the engine answers the rest:
 
-* **Which rule applies.** One query matches a good's code against the rule
-  intervals: an exact subheading, a range, a heading, a chapter. A range and a
-  line live in the same comparison space because every code is normalised to
-  eight digits at build time.
+* **Which rule applies, and what prices it.** One traversal per market matches a
+good's code against the rule intervals and joins the rate line for the same
+Agreement node, so the rule, the line and both cited sources arrive together
+(`rules.market_context`). Two separate lookups became one walk.
+* **Which materials a rule excludes.** The provisions a rule bars are `HsInterval`
+nodes hanging off the rule, one per alternative and in the order the sentence
+names them. The material list goes into that join as codes, and the answer for
+each material comes back inside, outside or across an interval
+(`rules.material_intervals`, `cypher/07-material-against-rule.cypher`).
 * **What the rate is on a date.** The staging category is a row, the base rate
   is a row, and the arithmetic is the annex read as a function of the entry
   date. For Japan the row carries the whole printed schedule, so the graph
@@ -138,21 +187,25 @@ The graph answers three questions, and the engine answers the rest:
   is one hop from its source document, and a subheading is one hop from its
   heading and chapter.
 
-What the graph does not do is decide the verdict. The exclusion interval, the
-change of heading or subheading, the value content and the weight share are
-compared in Python, on the material codes, where the three answers (met, not
-met, cannot tell) are easier to give and to test than in a traversal. The
-traversal that reads a good's hierarchy is in `cypher/04-hierarchy-above-a-good.cypher`
-and the same walk is done in the shipment's own graph; the exclusion interval is
-`cypher/02-exclusion-interval.cypher`. `docs/MCP-SCENARIO.md` shows the rule
-lookup and the verdict side by side, so a reader can see which part answers what.
+What the graph does not do is decide the verdict. A change of heading or
+subheading, the value content and the weight share are compared in Python, on
+the material codes, where the three answers (met, not met, cannot tell) are
+easier to give and to test than in a traversal. The traversal that reads a
+good's hierarchy is in `cypher/04-hierarchy-above-a-good.cypher`
+and the same walk is done in the shipment's own graph; the interval files are
+`cypher/02-exclusion-interval.cypher` and `cypher/07-material-against-rule.cypher`.
+`docs/MCP-SCENARIO.md` shows the rule lookup and the verdict side by side, so a
+reader can see which part answers what.
 
-A hub holds the whole corpus and serves one market with one statement,
-`neo4j/pull_rules.cypher`; `dutypath pull-query --market US` prints it and
-`dutypath pull-check --market US` runs it against this snapshot and counts what
-came down. The statement is a union of one branch per part, so a market returns
-222 rules and 847 rate lines as 1,072 rows. The snapshot in this repository is
-the result of that pull, with its date on it.
+The rows in this snapshot were first built from an extraction of the nine public
+documents in `docs/SOURCES.md`, then written to one `.rl` file. Serving the same
+rows from a hub that holds the whole corpus is an optional path, not the default:
+`neo4j/pull_rules.cypher` is the statement, `dutypath pull-query --market US`
+prints it and `dutypath pull-check --market US` runs it against this snapshot and
+counts what came down. The statement is a union of one branch per part, so a
+market returns 222 rules and 847 rate lines as 1,072 rows. A reader can run the
+same statement against a hub; this repository does not require one, and no
+verdict in it calls a hub.
 
 ## Setup and run
 
@@ -273,6 +326,19 @@ RCEP and priced everywhere else.
 Nothing in this repository is client data. The fixtures and the twelve benchmark
 goods are synthetic, written to exercise a rule, and name no company.
 
+### The MCP boundary, stated
+
+Over MCP the material list travels as a tool argument. The graph keeps none of
+it: no `Shipment`, `Material`, `Good`, `Party` or `Verdict` node is written, and
+`verify-zero-leak` compares the file's sha256 before and after to show it. What
+the boundary does cover is the file and the graph, not the conversation: an
+agent that sends a bill of materials to `compare_markets` has put that bill of
+materials into its own context, and an MCP host may keep that transcript. So the
+tool stores no client data and cannot leak what it never held; the agent holding
+the bill of materials is the place to look for it. The server also refuses any
+statement that would write before it reaches the store, so a session cannot
+leave a node behind either.
+
 ## Limits and honest statements
 
 * This is a pre-declaration check, not a legal opinion and not a customs
@@ -301,13 +367,43 @@ goods are synthetic, written to exercise a rule, and name no company.
   alternative's exclusions, which is why the simpler reading does not change a
   verdict in this snapshot.
 
-## AI use
+## What it uses, and what was used to build it
 
-This project was built with an AI coding assistant (Claude based agent
-environment) for code, tests and documentation, working from public documents.
-No AI model runs inside DutyPath: every verdict is deterministic Cypher and
-Python over the committed snapshot, so the same input gives the same output
-offline. Every rate and rule in the snapshot cites the document it came from.
+**Relate features in the product.** `relate-db` 1.2.0, single file mode, no
+server. The engine opens `store/dutypath-rules.rl` read only; every read goes
+through one module (`src/dutypath/store.py`). Cypher does the interval match for
+a rule, the join that brings a market's rule and rate line back together, the
+interval join between a rule's exclusion nodes and the material codes, the
+catalogue walk above a good, the citation hops to the source documents, and the
+hub pull statement. The MCP server (`dutypath mcp`) speaks the Model Context
+Protocol over stdio with seven tools, and the shipment's own graph is a separate
+in memory Relate graph that closes with the run.
+
+**Third party code and data.** The only runtime dependency is `relate-db` from
+PyPI. The extraction scripts use `pypdf` (optional, `[extract]`) and `openpyxl`
+for the published spreadsheet; neither is needed to run a verdict. The nine
+source documents are public: the KORUS annexes, RCEP Annex 3A and Annex I
+(Japan), the Korea-EU schedule and rules of origin protocol, a Ministry of
+Economy and Finance strategy paper, and a World Bank WITS applied tariff query.
+`docs/SOURCES.md` lists each URL, date and sha256, and `NOTICE` names the
+publishers. The demo page uses no library, no font download and no analytics.
+
+The browser check uses Playwright, which is not in the dev extras, because a
+plain `pytest` run should not need a browser.
+
+**AI use.** This project was built with an AI coding assistant (a Claude based
+agent environment) for code, tests and documentation, working from public
+documents, as the hackathon's rules require disclosing. No AI model runs inside
+DutyPath: every verdict is deterministic Cypher and Python over the committed
+snapshot, so the same input gives the same output offline. Every rate and rule
+in the snapshot cites the document it came from. The review of this code that
+produced the fixes in `tests/test_regressions.py` also used language models as
+critics, and each finding was reproduced by hand before it was fixed.
+
+**Synthetic data.** Every shipment in `fixtures/`, in `benchmark/gold.json` and
+in the demo is written by hand for this project. None of them is a client file,
+a real company's material list or a real entry. The demo's three market example
+is the same synthetic converter.
 
 ## Licence
 

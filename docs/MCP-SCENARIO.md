@@ -50,8 +50,8 @@ The agent asks what it is holding.
                {"code":"MFN","market":"*","coverage":"rate"},
                {"code":"RCEP","market":"JP","coverage":"rules+rates"},
                {"code":"TURKOR","market":"TR","coverage":"none"}],
- "counts":{"Agreement":5,"Chapter":3,"DeadlineRule":1,"Heading":161,"Hs6Rate":12,
-           "OriginRule":401,"RateLine":3843,"Snapshot":1,"Source":9,"Subheading":965}}
+ "counts":{"Agreement":5,"Chapter":3,"DeadlineRule":1,"Heading":161,"Hs6Rate":12,"HsInterval":45,
+           "OriginRule":401,"RateLine":3851,"Snapshot":1,"Source":9,"Subheading":965}}
 ```
 
 It reads the rule before trusting the verdict.
@@ -127,8 +127,8 @@ Last, the agent proves it changed nothing.
 
 ```json
 {"store":"store/dutypath-rules.rl",
- "sha256_before":"82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d",
- "sha256_after":"82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d",
+ "sha256_before":"200d613c08a4c4c65cbff74d17ab46619e76f6032f9ffba9640999a90262aec8",
+ "sha256_after":"200d613c08a4c4c65cbff74d17ab46619e76f6032f9ffba9640999a90262aec8",
  "hash_unchanged":true,"labels_unchanged":true,
  "forbidden_labels":{"Shipment":0,"Material":0,"BomNode":0,"Good":0,"Party":0,"Verdict":0},
  "pass":true}
@@ -150,6 +150,18 @@ reader looks for a writing clause in the statement, so `CREATE`, `MERGE`, `SET`,
 `DELETE`, `REMOVE`, `DROP`, `FOREACH`, `CALL` and a second statement after a
 semicolon all come back with the clause named. A string literal that contains
 one of those words is not a clause and still reads.
+
+## What the zero leak proof covers, and what it does not
+
+The proof is about the file and the graph: after a tool call the store's sha256
+is the same, and no `Shipment`, `Material`, `Good`, `Party` or `Verdict` node
+exists in it.  It is not a claim about the agent's own memory.  A bill of
+materials reaches `compare_markets` as a tool argument, so the calling agent has
+that bill of materials in its context before this server sees it, and an MCP host
+may keep the transcript.  The boundary stated here is the one the tool can
+enforce: it stores nothing, and it cannot leak what it never held.  An agent that
+must not have the material list in its context should not be given the material
+list.
 
 ## When the agent asks a question the snapshot cannot answer
 

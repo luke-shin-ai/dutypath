@@ -115,6 +115,16 @@ def interval_relation(code: str, low: str, high: str) -> str:
     return "across"
 
 
+def pretty(code: str) -> str:
+    """A code as a schedule prints it, for a sentence a reader reads."""
+    digits = stated_digits(code)
+    if len(digits) == 6:
+        return "%s.%s" % (digits[:4], digits[4:])
+    if len(digits) == 8:
+        return "%s.%s.%s" % (digits[:4], digits[4:6], digits[6:])
+    return digits
+
+
 def is_under(child: str, parent: str) -> bool:
     """True when child sits inside parent at whatever level parent names.
 

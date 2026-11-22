@@ -42,7 +42,8 @@ def judge(snapshot: dict | None, on: date) -> dict:
         "age_days": age,
         "fresh": fresh,
         "status": "FRESH" if fresh else STALE,
-        "reason": "the snapshot is %d days old and the limit is %d" % (age, max_age),
+        "reason": "the snapshot is %d %s old and the limit is %d"
+        % (age, "day" if age == 1 else "days", max_age),
     }
 
 

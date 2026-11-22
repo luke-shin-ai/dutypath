@@ -143,7 +143,7 @@ def _rvc(materials: list[Material], parties: set[str], fob: float | None) -> dic
 
 
 def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | None = None,
-             good_code: str | None = None) -> dict:
+             good_code: str | None = None, rule: dict | None = None) -> dict:
     payload = validate.shipment(shipment, require_declared=False)
     goods = payload["goods"]
     good_code = good_code or goods.get("hts8") or goods.get("hs6") or goods.get("hs")
@@ -184,7 +184,8 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
         report["reason"] = f"agreement {agreement} is not in this snapshot"
         return report
 
-    rule = rules.resolve(conn, agreement, good_code)
+    if rule is None:
+        rule = rules.resolve(conn, agreement, good_code)
     if rule is None:
         report["reason"] = (
             "no origin rule for %s under %s in this snapshot" % (good_code, agreement)
@@ -235,8 +236,12 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
         report["missing"] = ["the tariff classification of material %s" % ", ".join(unclassified)]
         return report
 
+    # The intervals the rule names are nodes hanging off it, so the material
+    # list meets them in the graph once per alternative rather than in a Python
+    # loop per material.  The join sends codes, never a shipment.
     for index, alternative in enumerate(rules.alternatives(rule), start=1):
-        check = _check(alternative, index, good_code, materials, parties, fob, payload, content)
+        check = _check(conn, rule, alternative, index, good_code, materials, parties, fob,
+                       payload, content)
         report["checks"].append(check.__dict__)
         if check.missing:
             report["missing"].extend(item for item in check.missing if item not in report["missing"])
@@ -261,23 +266,12 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
 
 def _pretty(code: str) -> str:
     """A code as the schedule prints it, for a sentence a reader reads."""
-    digits = codes.stated_digits(code)
-    if len(digits) == 6:
-        return "%s.%s" % (digits[:4], digits[4:])
-    if len(digits) == 8:
-        return "%s.%s.%s" % (digits[:4], digits[4:6], digits[6:])
-    return digits
+    return codes.pretty(code)
 
 
-def _excluded_intervals(alternative: dict) -> list[tuple[str, str]]:
-    out = [(token, token) for token in alternative.get("excluded") or []]
-    for pair in alternative.get("excluded_ranges") or []:
-        out.append((pair[0], pair[1]))
-    return out
-
-
-def _check(alternative: dict, index: int, good_code: str, materials: list[Material],
-           parties: set[str], fob: float | None, shipment: dict, content: dict) -> Check:
+def _check(conn, rule: dict, alternative: dict, index: int, good_code: str,
+           materials: list[Material], parties: set[str], fob: float | None,
+           shipment: dict, content: dict) -> Check:
     path: list[str] = []
     reasons: list[str] = []
     satisfied: list[str] = []
@@ -301,30 +295,38 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
             ["a testable reading of the alternative: %s" % (text[:100] or "empty sentence")],
         )
 
-    intervals = _excluded_intervals(alternative)
+    # One join for the whole alternative: every material in the bill of
+    # materials against every interval node the rule carries.
+    # The key is the line's position, so two materials that share an id are
+    # still two materials here.
+    hits = rules.material_intervals(
+        conn, rule["id"], index,
+        [(position, material.code) for position, material in enumerate(materials)
+         if codes.stated_digits(material.code)],
+    ) if alternative["kinds"] else {}
 
     for kind in alternative["kinds"]:
-        for material in materials:
+        for position, material in enumerate(materials):
             if _is_party(material.origin, parties):
                 continue
             if not codes.stated_digits(material.code):
                 missing.append("the tariff classification of material %s" % material.id)
                 continue
+            material_hits = hits.get(str(position)) or []
             barred = None
-            for low, high in intervals:
-                relation = codes.interval_relation(material.code, low, high)
-                if relation == "across":
+            for hit in material_hits:
+                if hit["kind"] != "excluded":
+                    continue
+                if hit["relation"] == "across":
                     missing.append(
                         "a finer classification for material %s, which is stated at %s level and "
                         "sits across the exclusion %s"
-                        % (material.id, codes.level_name_of(material.code),
-                           _pretty(low) if low == high else "%s to %s" % (_pretty(low), _pretty(high)))
+                        % (material.id, codes.level_name_of(material.code), hit["label"])
                     )
                     barred = "unknown"
                     break
-                if relation == "inside":
-                    barred = "%s to %s" % (_pretty(low), _pretty(high)) if low != high else _pretty(low)
-                    break
+                barred = hit["label"]
+                break
             if barred == "unknown":
                 continue
             if barred is not None:
@@ -347,9 +349,10 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
                        ",".join(alternative["allowed_from"]))
                 )
                 continue
-            if alternative["group"]:
+            group_hits = [hit for hit in material_hits if hit["kind"] == "group"]
+            if alternative["group"] and group_hits:
                 low, high = alternative["group"]
-                relation = codes.interval_relation(material.code, low, high)
+                relation = group_hits[0]["relation"]
                 if relation == "across":
                     missing.append(
                         "a finer classification for material %s, which is stated at %s level and "

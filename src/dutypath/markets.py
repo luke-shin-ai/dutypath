@@ -23,6 +23,7 @@ from __future__ import annotations
 from datetime import date
 
 from . import deadline, duty, freshness, origin, store, validate
+from . import rules as rulebook
 
 MARKET_AGREEMENT = {"US": "KORUS", "EU": "EUKOR", "JP": "RCEP"}
 MARKET_NAMES = {
@@ -159,8 +160,12 @@ def _market(conn, shipment, market: str, agreement: str, when: date, declared: f
         block["verdict"] = "UNDECIDABLE"
         return block
 
-    verdict = origin.evaluate(conn, shipment, agreement, good_code=code)
-    rate = duty.line_rate(conn, market, agreement, code, when)
+    # One traversal brings back the rule that applies and the line that prices
+    # it, joined through the Agreement node and each with its cited source, so
+    # the market's two questions are answered from one walk of the graph.
+    context = rulebook.market_context(conn, agreement, market, code)
+    verdict = origin.evaluate(conn, shipment, agreement, good_code=code, rule=context["rule"])
+    rate = duty.line_rate(conn, market, agreement, code, when, row=context["line"])
     approval = deadline.approved_exporter(
         shipment, agreement, bool(row.get("approved_exporter_required")), when
     )

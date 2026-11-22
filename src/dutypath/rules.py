@@ -31,6 +31,62 @@ ORDER BY r.priority ASC, r.to_norm ASC
 LIMIT 1
 """
 
+# The rule that applies and the line that prices it, for one market, in one
+# traversal: the rule interval is matched against the good's normalised code,
+# the rate line is joined to the same Agreement node, and each row brings its
+# cited source with it.  Two lookups became one walk of the graph, and the join
+# is the Agreement the two rows name, not a key looked up twice in Python.
+MARKET_CONTEXT_QUERY = """
+MATCH (a:Agreement {code: $agreement})
+OPTIONAL MATCH (rule:OriginRule)-[:FOR]->(a)
+  WHERE rule.from_norm <= $norm AND rule.to_norm >= $norm
+WITH a, rule
+ORDER BY rule.priority ASC, rule.to_norm ASC
+WITH a, collect(rule)[0] AS rule
+OPTIONAL MATCH (rule)-[:CITED_FROM]->(rule_source:Source)
+OPTIONAL MATCH (line:RateLine)-[:FOR]->(a)
+  WHERE line.code = $code AND line.market = $market
+    AND coalesce(line.partner, 'ALL') IN ['KR', 'ALL']
+WITH a, rule, rule_source, line
+ORDER BY CASE WHEN line.partner = 'KR' THEN 0 ELSE 1 END
+WITH a, rule, rule_source, collect(line)[0] AS line
+OPTIONAL MATCH (line)-[:CITED_FROM]->(line_source:Source)
+RETURN a.code AS agreement, a.approved_exporter_required AS approved_exporter_required,
+       rule.id AS rule_id, rule.level AS rule_level, rule.code_from AS rule_code_from,
+       rule.code_to AS rule_code_to, rule.text AS rule_text, rule.kinds AS rule_kinds,
+       rule.rvc_build_down AS rule_rvc_down, rule.rvc_build_up AS rule_rvc_up,
+       rule.excluded_from AS rule_excluded_from, rule.group_exclude_from AS rule_group_from,
+       rule.group_exclude_to AS rule_group_to, rule.originating_weight_min AS rule_weight_min,
+       rule.structured AS rule_structured, rule.alternatives_json AS rule_alternatives_json,
+       rule.priority AS rule_priority, rule_source.id AS rule_source,
+       line.code AS line_code, line.description AS line_description,
+       line.base_rate_percent AS line_base_rate_percent,
+       line.base_rate_text AS line_base_rate_text, line.base_rate_kind AS line_base_rate_kind,
+       line.staging AS line_staging, line.years AS line_years, line.partner AS line_partner,
+       line.currency AS line_currency, line_source.id AS line_source,
+       line_source.title AS line_source_title, line_source.as_of AS line_source_as_of
+"""
+
+# Every interval a rule's alternative names, met by every material in one join.
+# The interval nodes hang off the rule (build._write_intervals), so the walk is
+# rule -> interval; the material list arrives as parameters, because a customer
+# bill of materials never enters the store.  The relation is computed with the
+# same eight digit bounds `codes.interval_relation` uses: inside, across (the
+# material is written too coarsely and the interval cuts it) or outside.
+MATERIAL_INTERVAL_QUERY = """
+UNWIND $materials AS m
+MATCH (r:OriginRule {id: $rule})-[:EXCLUDES]->(i:HsInterval)
+WHERE i.alternative = $alternative
+WITH m, i,
+  CASE WHEN m.end_norm < i.from_norm OR m.start_norm > i.to_norm THEN 'outside'
+       WHEN m.start_norm >= i.from_norm AND m.end_norm <= i.to_norm THEN 'inside'
+       ELSE 'across' END AS relation
+WHERE relation <> 'outside'
+RETURN m.key AS key, i.kind AS kind, i.ord AS ord, i.label AS label,
+       i.low AS low_code, i.high AS high_code, relation AS relation
+ORDER BY m.key, i.kind, i.ord
+"""
+
 SPLIT = re.compile(
     r"(?:;|\s)\s*\bor\b(?=\s+(?:a\s+change|no\s+change|assembly|rvc|cth|ctsh|cc|wo|manufacture|the\s+operation))",
     re.IGNORECASE,
@@ -39,6 +95,95 @@ SPLIT = re.compile(
 
 def resolve(conn, agreement: str, code: str) -> dict | None:
     return store.one(conn, RULE_QUERY, {"agreement": agreement, "norm": codes.normalise(code)})
+
+
+def market_context(conn, agreement: str, market: str, code: str) -> dict:
+    """The rule for a good and the line that prices it, in one traversal.
+
+    Returns ``{"rule": ..., "line": ..., "rule_source": ..., "line_source": ...}``
+    with each part ``None`` when the snapshot has no such row, so a caller keeps
+    the three answers (a rule, a rate, neither) apart instead of defaulting.
+    """
+    row = store.one(
+        conn,
+        MARKET_CONTEXT_QUERY,
+        {"agreement": agreement, "market": market, "code": code, "norm": codes.normalise(code)},
+    )
+    if row is None:
+        return {"rule": None, "line": None, "rule_source": None, "line_source": None}
+    rule = None
+    if row.get("rule_id"):
+        rule = {
+            "id": row["rule_id"],
+            "level": row["rule_level"],
+            "code_from": row["rule_code_from"],
+            "code_to": row["rule_code_to"],
+            "text": row["rule_text"],
+            "kinds": row["rule_kinds"],
+            "rvc_build_down": row["rule_rvc_down"],
+            "rvc_build_up": row["rule_rvc_up"],
+            "excluded_from": row["rule_excluded_from"],
+            "group_from": row["rule_group_from"],
+            "group_to": row["rule_group_to"],
+            "weight_min": row["rule_weight_min"],
+            "structured": row["rule_structured"],
+            "alternatives_json": row["rule_alternatives_json"],
+            "priority": row["rule_priority"],
+            "agreement": row["agreement"],
+            "source": row.get("rule_source"),
+        }
+    line = None
+    if row.get("line_code"):
+        line = {
+            "code": row["line_code"],
+            "description": row["line_description"],
+            "base_rate_percent": row["line_base_rate_percent"],
+            "base_rate_text": row["line_base_rate_text"],
+            "base_rate_kind": row["line_base_rate_kind"],
+            "staging": row["line_staging"],
+            "years": row["line_years"],
+            "partner": row["line_partner"],
+            "currency": row["line_currency"],
+            "source": row["line_source"],
+            "source_title": row["line_source_title"],
+            "source_as_of": row["line_source_as_of"],
+        }
+    return {
+        "rule": rule,
+        "line": line,
+        "rule_source": row.get("rule_source"),
+        "line_source": row.get("line_source"),
+        "approved_exporter_required": bool(row.get("approved_exporter_required")),
+    }
+
+
+def material_intervals(conn, rule_id: str, alternative: int, materials: list[tuple[str, str]]) -> dict:
+    """Which materials an alternative's intervals hold, joined in the graph.
+
+    ``materials`` is a list of ``(key, code)`` pairs, where ``key`` is whatever
+the caller will look the answer up by (a line's own position, for instance,
+so two materials that happen to share an id stay apart).  Each code goes in as
+the eight digit span it can name, so a heading written where a subheading is
+asked for comes back ``across`` rather than passing as the top line of its own
+interval.  The answer is a map from key to the interval rows that are not
+outside it, in the order the rule names them.
+    """
+    payload = []
+    for key, code in materials:
+        bounds = codes.span(code)
+        if bounds is None:
+            continue
+        payload.append({"key": str(key), "start_norm": bounds[0], "end_norm": bounds[1]})
+    if not payload:
+        return {}
+    rows = store.rows(
+        conn, MATERIAL_INTERVAL_QUERY,
+        {"rule": rule_id, "alternative": alternative, "materials": payload},
+    )
+    out: dict[str, list[dict]] = {}
+    for row in rows:
+        out.setdefault(row["key"], []).append(row)
+    return out
 
 
 def split_alternatives(text: str) -> list[str]:

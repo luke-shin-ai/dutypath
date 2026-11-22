@@ -183,6 +183,58 @@ def _optional(path: str) -> list[dict]:
     return _read(path) if os.path.exists(path) else []
 
 
+def _write_intervals(conn, rule_id: str, parsed: list[dict]) -> int:
+    """Hang the intervals a rule names off the rule as nodes.
+
+    A rule sentence bars materials by provision: a subheading, a list of them,
+    or a range, and for some rules the range the rule itself covers.  Written
+    as nodes rather than as an array property, each one is one hop from its
+    rule, so a material list can meet them in a single traversal instead of a
+    loop in Python.  ``alternative`` says which alternative of the sentence the
+    interval belongs to, ``ord`` keeps the order the sentence names them in,
+    and the eight digit bounds are what the comparison runs on.
+    """
+    written = 0
+    for alt_index, alternative in enumerate(parsed, start=1):
+        intervals = []
+        for token in alternative.get("excluded") or []:
+            intervals.append(("excluded", token, token))
+        for pair in alternative.get("excluded_ranges") or []:
+            intervals.append(("excluded", pair[0], pair[1]))
+        group = alternative.get("group") or []
+        if len(group) > 1:
+            intervals.append(("group", group[0], group[1]))
+        order = 0
+        for kind, low, high in intervals:
+            low_label = codes.pretty(low)
+            high_label = codes.pretty(high)
+            label = low_label if low_label == high_label else "%s to %s" % (low_label, high_label)
+            conn.execute(
+                """
+                MATCH (r:OriginRule {id: $rule})
+                CREATE (i:HsInterval {id: $id, kind: $kind, alternative: $alternative,
+                                      ord: $ord, low: $low, high: $high,
+                                      from_norm: $from_norm, to_norm: $to_norm, label: $label})
+                CREATE (r)-[:EXCLUDES {alternative: $alternative}]->(i)
+                """,
+                {
+                    "rule": rule_id,
+                    "id": "%s-A%d-I%d-%s" % (rule_id, alt_index, order, kind),
+                    "kind": kind,
+                    "alternative": alt_index,
+                    "ord": order,
+                    "low": low,
+                    "high": high,
+                    "from_norm": codes.normalise_low(low),
+                    "to_norm": codes.normalise(high),
+                    "label": label,
+                },
+            )
+            order += 1
+            written += 1
+    return written
+
+
 def _rate_text(text: str, staging: str) -> str:
     value = _first_percent(text, staging)
     if value is not None:
@@ -406,6 +458,7 @@ def build(conn, data_dir: str) -> dict:
                     "source": source_id,
                 },
             )
+            _write_intervals(conn, rule_id, parsed)
 
     # Tariff lines and the staging that decides the rate on a date.
     line_sets = [
@@ -472,9 +525,16 @@ def build(conn, data_dir: str) -> dict:
     seen_lines = set()
     for lines, source_id in line_sets:
         for row in lines:
+            # The id names the agreement, the line and the partner treatment the
+            # row belongs to.  Two rows that share all three are two different
+            # rates for one question, and quietly keeping the first would make
+            # the snapshot depend on row order; the build stops instead.
             line_id = f"RL-{row['agreement']}-{row['code']}-{row['partner'] or 'ALL'}"
             if line_id in seen_lines:
-                continue
+                raise ValueError(
+                    "two schedule rows claim %s: a rate line must name one partner treatment"
+                    % line_id
+                )
             seen_lines.add(line_id)
             conn.execute(
                 """

@@ -367,3 +367,124 @@ def test_korus_leaves_thirty_six_subheadings_without_a_rule(conn):
             missing.append(row["code"])
     assert len(missing) == 36
     assert "844210" in missing
+
+
+# ------------------------------------- D23: a schedule row for another partner
+#
+# Japan's schedule prints more than one row for some lines: a treatment for
+# Korea, a treatment for other parties, and on most lines a general row.  The
+# build used to name every row by the line alone, keep the first, and drop the
+# rest, so 390120010 answered with the free ASEAN row (0.0 percent) instead of
+# the compound duty Korea actually pays.  These three tests hold that open.
+
+
+def test_a_row_written_for_another_party_is_not_the_korean_rate(conn):
+    rows = store.rows(
+        conn,
+        "MATCH (r:RateLine {agreement: 'RCEP', code: '390120010'}) "
+        "RETURN r.partner AS partner ORDER BY partner",
+    )
+    partners = [row["partner"] for row in rows]
+    assert "KR" in partners
+    assert "OTHER-AS+AU+NZ" in partners
+    assert "OTHER-CN" in partners
+    result = duty.line_rate(conn, "JP", "RCEP", "390120010", date(2026, 12, 1))
+    assert result["partner"] == "KR"
+    assert result["percent"] is None
+    assert "does not compute" in result["reason"]
+
+
+def test_every_japan_row_in_the_extract_reaches_the_store(store_path):
+    japan = json.loads((DATA / "rcep_japan_rates.json").read_text(encoding="utf-8"))
+    treatments = {(row["code"], row["partner"]) for row in japan}
+    assert len(treatments) == len(japan), "two rows claim the same line and treatment"
+    connection = store.connect(store_path)
+    connection.autocommit = False
+    try:
+        counted = store.one(
+            connection,
+            "MATCH (r:RateLine {agreement: 'RCEP'}) RETURN count(r) AS n",
+        )
+    finally:
+        connection.close()
+    assert counted["n"] == len(japan)
+
+
+def test_the_remarks_cell_names_the_parties_a_japan_row_is_written_for():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "extract_rcep_japan", ROOT / "scripts" / "extract_rcep_japan.py"
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    assert module._partner("") == "ALL"
+    assert module._partner("Treatment for Korea") == "KR"
+    assert module._partner("Treatment for China and Korea") == "KR"
+    assert module._partner("Treatment for China") == "OTHER-CN"
+    assert module._partner("Treatment for ASEAN, Australia, and New Zealand") == "OTHER-AS+AU+NZ"
+
+
+def test_the_build_refuses_two_rows_for_one_partner_treatment(tmp_path):
+    import shutil
+
+    data = tmp_path / "data"
+    shutil.copytree(DATA, data)
+    path = data / "rcep_japan_rates.json"
+    rows = json.loads(path.read_text(encoding="utf-8"))
+    duplicate = dict(rows[0])
+    duplicate["base_rate_text"] = "something else"
+    rows.append(duplicate)
+    path.write_text(json.dumps(rows, indent=1, ensure_ascii=False), encoding="utf-8")
+    connection = store.connect(str(tmp_path / "dup.rl"))
+    connection.autocommit = False
+    try:
+        with pytest.raises(ValueError) as error:
+            build.build(connection, str(data))
+        assert "partner treatment" in str(error.value)
+    finally:
+        connection.close()
+
+
+# ------------------------------------- D24: the interval join is in the graph
+
+
+def test_the_interval_join_finds_the_material_the_rule_excludes(conn):
+    rule = rulebook.resolve(conn, "KORUS", "84181010")
+    hits = rulebook.material_intervals(
+        conn, rule["id"], 1,
+        [("M1", "84186990"), ("M2", "84189000"), ("M3", "8418")],
+    )
+    # Inside the group the rule excludes.
+    assert [hit["relation"] for hit in hits["M1"] if hit["kind"] == "group"] == ["inside"]
+    # Outside it, so the join says nothing about this material.
+    assert "M2" not in hits
+    # Written at heading level, so it sits across the interval.
+    assert [hit["relation"] for hit in hits["M3"] if hit["kind"] == "group"] == ["across"]
+
+
+def test_the_rule_and_the_line_come_back_from_one_traversal(conn):
+    context = rulebook.market_context(conn, "KORUS", "US", "85044095")
+    direct = rulebook.resolve(conn, "KORUS", "85044095")
+    assert context["rule"]["id"] == direct["id"]
+    assert context["line"]["code"] == "85044095"
+    assert context["line"]["source"] == "SRC-KORUS-2B"
+    assert context["rule_source"] == "SRC-KORUS-6A"
+    # A code the snapshot has no line for still brings back its rule.
+    missing = rulebook.market_context(conn, "KORUS", "US", "99999999")
+    assert missing["rule"] is None and missing["line"] is None
+
+
+def test_the_interval_a_rule_names_is_a_node_it_points_at(conn):
+    rows = store.rows(
+        conn,
+        "MATCH (r:OriginRule {id: 'OR-0043'})-[:EXCLUDES]->(i:HsInterval) "
+        "RETURN i.kind AS kind, i.label AS label, i.from_norm AS low, i.to_norm AS high "
+        "ORDER BY i.ord",
+    )
+    labels = {row["label"] for row in rows}
+    assert "8418.91" in labels
+    assert "8418.10 to 8418.69" in labels
+    group = [row for row in rows if row["kind"] == "group"][0]
+    assert group["low"] == "84181000"
+    assert group["high"] == "84186999"
