@@ -20,7 +20,7 @@ def _agreements(conn, market: str) -> list[dict]:
         conn,
         """
         MATCH (a:Agreement)
-        WHERE a.code <> 'MFN'
+        WHERE a.code <> 'MFN' AND a.coverage <> 'none'
         RETURN a.code AS code, a.name AS name, a.market AS market, a.coverage AS coverage,
                a.approved_exporter_required AS approved_exporter_required, a.note AS note
         ORDER BY a.code
@@ -86,15 +86,26 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
     )
     fresh = freshness.judge(snap, when)
 
-    mfn = duty.mfn_rate(conn, market, hts8, hs6)
+    mfn = duty.mfn_rate(conn, market, (shipment.get("goods") or {}).get("market_codes", {}).get(market) or hts8, hs6)
     mfn_duty = duty.duty_amount(mfn["percent"], declared)
     materials = _materials_from(order, shipment)
 
     results = []
     for agreement_row in _agreements(conn, market):
-        verdict = origin.evaluate(conn, shipment, agreement_row["code"], materials)
+        from . import markets as market_rules
+
+        own_code = market_rules.code_for_market(shipment, market)
+        verdict = origin.evaluate(conn, shipment, agreement_row["code"], materials, good_code=own_code)
         if agreement_row["market_matches"]:
-            rate = duty.line_rate(conn, market, agreement_row["code"], hts8, when)
+            if own_code is None:
+                rate = {
+                    "percent": None,
+                    "basis": "no_classification",
+                    "reason": "the shipment states no tariff line for %s, and a code from another "
+                    "nomenclature is not a classification in this one" % market_rules.MARKET_NAMES.get(market, market),
+                }
+            else:
+                rate = duty.line_rate(conn, market, agreement_row["code"], own_code, when)
         else:
             rate = {
                 "percent": None,

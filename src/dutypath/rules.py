@@ -12,6 +12,7 @@ verdict with the missing piece named.
 
 from __future__ import annotations
 
+import json
 import re
 
 from . import codes, store
@@ -24,13 +25,14 @@ RETURN r.id AS id, r.level AS level, r.code_from AS code_from, r.code_to AS code
        r.rvc_build_up AS rvc_build_up, r.excluded_from AS excluded_from,
        r.group_exclude_from AS group_from, r.group_exclude_to AS group_to,
        r.originating_weight_min AS weight_min, r.structured AS structured,
-       r.priority AS priority, r.agreement AS agreement
+       r.alternatives_json AS alternatives_json, r.priority AS priority,
+       r.agreement AS agreement
 ORDER BY r.priority ASC, r.to_norm ASC
 LIMIT 1
 """
 
 SPLIT = re.compile(
-    r"(?:;\s*)?\bor\b(?=\s+(?:a\s+change|no\s+change|assembly|rvc|cth|ctsh|cc|wo))",
+    r"(?:;|\s)\s*\bor\b(?=\s+(?:a\s+change|no\s+change|assembly|rvc|cth|ctsh|cc|wo|manufacture|the\s+operation))",
     re.IGNORECASE,
 )
 
@@ -56,6 +58,12 @@ def read_alternative(text: str) -> dict:
         kinds.append("CC")
     if "from any other heading" in lowered:
         kinds.append("CTH")
+    # The EU list says "manufacture from materials of any heading, except that
+    # of the product", which is the same condition as a change of heading.
+    if not kinds and "materials of any heading, except that of the product" in lowered:
+        kinds.append("CTH")
+    if not kinds and re.search(r"manufacture from materials of any heading\b", lowered):
+        kinds.append("CTH")
     if "from any other subheading" in lowered or "outside subheading" in lowered:
         kinds.append("CTSH")
     if not kinds and re.search(r"\bcth\b", lowered):
@@ -73,6 +81,13 @@ def read_alternative(text: str) -> dict:
     match = re.search(r"outside (?:subheadings? )?(\d{4}\.\d{2})(?: through |-)(\d{4}\.\d{2})", lowered)
     if match:
         group = (match.group(1), match.group(2))
+
+    # "a change from subheading 8513.90, whether or not there is also a change
+    # from any other heading" names a source the rule lets through.  The
+    # phrase starts with "from subheading", not "from any other subheading".
+    allowed_from = []
+    for match in re.finditer(r"(?<!any other )\bfrom subheadings? (\d{4}\.\d{2})", lowered):
+        allowed_from.append(match.group(1).replace(".", ""))
 
     rvc_down = None
     rvc_up = None
@@ -100,11 +115,20 @@ def read_alternative(text: str) -> dict:
     if match:
         weight_min = float(match.group(1))
 
+    # The EU ceiling on non originating materials, read as a build down floor.
+    match = re.search(
+        r"value of all the materials used does not exceed\s*(\d{2})\s*%\s*of the ex-works price",
+        lowered,
+    )
+    if match and rvc_down is None and rvc_up is None:
+        rvc_down = 100.0 - float(match.group(1))
+
     return {
         "text": text.strip(),
         "kinds": kinds,
         "excluded": excluded,
         "group": group,
+        "allowed_from": allowed_from,
         "rvc_down": rvc_down,
         "rvc_up": rvc_up,
         "weight_min": weight_min,
@@ -112,6 +136,35 @@ def read_alternative(text: str) -> dict:
 
 
 def alternatives(rule: dict) -> list[dict]:
+    """The alternatives a rule offers.
+
+    A rule read from a sentence is split at the ``or`` that separates the
+    alternatives.  A rule whose alternatives were read out of a table at build
+    time carries them as a stored list, so the sentence stays as printed and
+    the structure does not depend on splitting it again.
+    """
+    stored = rule.get("alternatives_json")
+    if stored:
+        try:
+            parsed = json.loads(stored) if isinstance(stored, str) else stored
+        except (TypeError, ValueError):
+            parsed = None
+        if parsed:
+            out = []
+            for item in parsed:
+                out.append(
+                    {
+                        "text": item.get("text", ""),
+                        "kinds": item.get("kinds") or [],
+                        "excluded": item.get("excluded") or [],
+                        "group": tuple(item["group"]) if item.get("group") else None,
+                        "allowed_from": item.get("allowed_from") or [],
+                        "rvc_down": item.get("rvc_down"),
+                        "rvc_up": item.get("rvc_up"),
+                        "weight_min": item.get("weight_min"),
+                    }
+                )
+            return out
     parts = split_alternatives(rule["text"])
     if not parts:
         parts = [rule["text"]]

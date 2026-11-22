@@ -7,6 +7,8 @@
     dutypath footprint         measure the snapshot and print the numbers
     dutypath freshness         judge the snapshot against a date
     dutypath pull-query        print the Cypher a hub uses to serve a market
+    dutypath compare           price one shipment in the US, the EU and Japan
+    dutypath mcp               serve the snapshot to an AI agent over MCP stdio
 """
 
 from __future__ import annotations
@@ -19,7 +21,6 @@ from datetime import date
 
 from . import assess as assessment
 from . import bom, build, duty, freshness, leak, store
-
 DEFAULT_DATA = os.path.join("data", "extract-2026-11-22")
 
 
@@ -145,11 +146,80 @@ def cmd_freshness(args) -> int:
     return 0
 
 
+def cmd_compare(args) -> int:
+    from . import markets as comparison
+
+    shipment = _load(args.shipment)
+    on = date.fromisoformat(args.on) if args.on else None
+    conn = store.connect(_store(args), read_only=True)
+    conn.autocommit = False
+    try:
+        report = comparison.compare(conn, shipment, on)
+    finally:
+        conn.close()
+    if args.json:
+        print(json.dumps(report, indent=2, ensure_ascii=False, default=str))
+        return 0
+    print(_render_compare(report))
+    return 0
+
+
+def cmd_mcp(args) -> int:
+    from . import mcp as server
+
+    return server.Server(_store(args)).serve()
+
+
 def cmd_pull(args) -> int:
     path = os.path.join("neo4j", "pull_rules.cypher")
     with open(path, encoding="utf-8") as handle:
         print(handle.read() % {"market": args.market})
     return 0
+
+
+def _render_compare(report: dict) -> str:
+    shipment = report["shipment"]
+    lines = [
+        "%s  %s" % (shipment["id"], shipment["description"][:80]),
+        "declared %s %s   assessed %s   snapshot %s (%s)"
+        % (shipment["declared_value"], shipment["currency"], shipment["assessed_on"],
+           report["snapshot"]["id"], report["snapshot"]["status"]),
+        "",
+        "market  code        origin            pref    mfn    duty      route",
+    ]
+    for block in report["markets"]:
+        origin_text = (block.get("origin") or {}).get("verdict", "-")
+        rate = block["rate"].get("percent")
+        mfn = block["mfn"].get("percent")
+        claim = "CLAIM" if block["claim"]["allowed"] else "MFN"
+        lines.append(
+            "%-6s  %-10s  %-16s  %5s  %5s  %8s  %s"
+            % (
+                block["market"],
+                block["code"] or "-",
+                origin_text,
+                "-" if rate is None else "%.1f%%" % rate,
+                "-" if mfn is None else "%.1f%%" % mfn,
+                block["duty"]["amount"],
+                claim + ("" if block["claim"]["allowed"] else ": " + (block["claim"]["blocked_by"] or "")),
+            )
+        )
+    best = report["best_claim"]
+    ranking = report["ranking"]
+    lines.append("")
+    if best["market"]:
+        lines.append("best route   %s (%s), duty %s %s, saving %s %s"
+                     % (best["market"], best["agreement"], best["duty"], ranking["currency"],
+                        best["saving"], ranking["currency"]))
+    else:
+        lines.append("best route   none: no route can be claimed on this material list")
+    if ranking["spread"] is not None:
+        lines.append("spread       %s %s between %s and %s"
+                     % (ranking["spread"], ranking["currency"], ranking["cheapest"], ranking["dearest"]))
+    window = report["claim_window"]
+    if window.get("deadline"):
+        lines.append("claim window %s (%s, %s)" % (window["deadline"], window["status"], window["legal_ref"]))
+    return "\n".join(lines)
 
 
 def _render(report: dict) -> str:
@@ -264,6 +334,18 @@ def main(argv: list[str] | None = None) -> int:
     pull = sub.add_parser("pull-query", help="print the hub query a market is served with")
     pull.add_argument("--market", default="US")
     pull.set_defaults(func=cmd_pull)
+
+    compare = sub.add_parser("compare", help="price one shipment in three markets")
+    compare.add_argument("--shipment", required=True)
+    compare.add_argument("--on", default=None)
+    compare.add_argument("--json", action="store_true")
+    compare.add_argument("--store", default=argparse.SUPPRESS)
+    compare.set_defaults(func=cmd_compare)
+
+    mcp = sub.add_parser("mcp", help="serve the snapshot to an AI agent over MCP stdio")
+    mcp.add_argument("--stdio", action="store_true", default=True)
+    mcp.add_argument("--store", default=argparse.SUPPRESS)
+    mcp.set_defaults(func=cmd_mcp)
 
     args = parser.parse_args(argv)
     return args.func(args)

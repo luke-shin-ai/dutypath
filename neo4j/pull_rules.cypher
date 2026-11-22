@@ -5,8 +5,8 @@
 //
 // What comes down is the public corpus only: the nomenclature the market's
 // lines sit in, the origin rules of the agreements that cover it, the tariff
-// lines with their staging, the claim deadlines, and the sources every row
-// cites. A customer bill of materials is never part of this query, because it
+// lines with their staging or printed years, the claim deadlines, and the
+// sources every row cites. A customer bill of materials is never part of this query, because it
 // never enters the hub.
 MATCH (a:Agreement)
 WHERE a.market = '%(market)s'

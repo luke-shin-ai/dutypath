@@ -18,7 +18,7 @@ from . import codes, store
 
 SNAPSHOT_ID = "dutypath-rules-2026-11-22"
 AS_OF = "2026-11-22"
-RULE_VERSION = "1.0"
+RULE_VERSION = "2.0"
 MAX_AGE_DAYS = 120
 
 CHAPTER_TITLES = {
@@ -59,6 +59,24 @@ SOURCES = [
         "as_of": "2025-02-12",
     },
     {
+        "id": "SRC-EUKOR-2A",
+        "title": "Korea-EU FTA Annex 2-A, tariff schedule of the EU Party (Korean language copy of OJ L 127)",
+        "url": "https://fta.motir.go.kr/webmodule/_PSD_FTA/eu/doc/kor/k_eu_2_eu_kor.pdf",
+        "as_of": "2011-07-01",
+    },
+    {
+        "id": "SRC-EUKOR-ROO",
+        "title": "Korea-EU FTA Protocol on rules of origin, Annex II (product specific rules)",
+        "url": "https://fta.motir.go.kr/webmodule/_PSD_FTA/eu/doc/eng/k_eu_roo_eng.pdf",
+        "as_of": "2011-07-01",
+    },
+    {
+        "id": "SRC-RCEP-1-JP",
+        "title": "RCEP Annex I, Schedule of Tariff Commitments of Japan",
+        "url": "https://www.dfat.gov.au/sites/default/files/recp-schedule-of-japan.xlsx",
+        "as_of": "2022-01-01",
+    },
+    {
         "id": "SRC-WITS-2023",
         "title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
         "url": "https://wits.worldbank.org/API/V1/SDMX/V21/datasource/TRN/reporter/840/partner/000/product/850760/year/2023/datatype/reported",
@@ -90,8 +108,8 @@ AGREEMENTS = [
         "market": "JP",
         "in_force": "2022-02-01",
         "approved_exporter_required": True,
-        "coverage": "rules",
-        "note": "product specific rules from Annex 3A; rate schedules are not in this snapshot",
+        "coverage": "rules+rates",
+        "note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
     },
     {
         "code": "EUKOR",
@@ -99,8 +117,8 @@ AGREEMENTS = [
         "market": "EU",
         "in_force": "2011-07-01",
         "approved_exporter_required": True,
-        "coverage": "none",
-        "note": "rules and rates are not in this snapshot; listed so the gap is visible",
+        "coverage": "rules+rates",
+        "note": "product specific rules from the protocol's Annex II; rates from the EU schedule in Annex 2-A",
     },
     {
         "code": "TURKOR",
@@ -139,10 +157,34 @@ def _read(path: str) -> list[dict]:
         return json.load(handle)
 
 
+def _optional(path: str) -> list[dict]:
+    return _read(path) if os.path.exists(path) else []
+
+
+def _rate_text(text: str, staging: str) -> str:
+    value = _first_percent(text, staging)
+    if value is not None:
+        return "%g%%" % value
+    return text or "not printed"
+
+
+def _first_percent(text: str, staging: str) -> float | None:
+    """The base rate of a schedule that prints the rate in words."""
+    from . import rates
+
+    if staging == "FREE":
+        return 0.0
+    value = rates.parse_percent(text)
+    return value
+
+
 def build(conn, data_dir: str) -> dict:
     korus_rules = _read(os.path.join(data_dir, "korus_psr.json"))
     rcep_rules = _read(os.path.join(data_dir, "rcep_psr.json"))
     rate_rows = _read(os.path.join(data_dir, "korus_rates.json"))
+    eukor_rules = _optional(os.path.join(data_dir, "eukor_psr.json"))
+    eukor_rows = _optional(os.path.join(data_dir, "eukor_rates.json"))
+    japan_rows = _optional(os.path.join(data_dir, "rcep_japan_rates.json"))
     wits_path = os.path.join(data_dir, "us_mfn_applied.json")
     wits_rows = _read(wits_path) if os.path.exists(wits_path) else []
 
@@ -229,6 +271,10 @@ def build(conn, data_dir: str) -> dict:
         code = re.sub(r"[^0-9]", "", row["code_from"])
         if len(code) == 6 and row.get("description"):
             subheading_titles.setdefault(code, row["description"])
+    for row in eukor_rows:
+        subheading_titles.setdefault(row["cn8"][:6], row["description"])
+    for row in japan_rows:
+        subheading_titles.setdefault(row["code"][:6], row["description"])
 
     heading_titles: dict[str, str] = {}
     for row in rcep_rules:
@@ -238,7 +284,13 @@ def build(conn, data_dir: str) -> dict:
 
     seen_headings = set()
     seen_subheadings = set()
-    for digits in sorted({row["hts8"] for row in rate_rows} | set(subheading_titles)):
+    line_codes = (
+        {row["hts8"] for row in rate_rows}
+        | {row["cn8"] for row in eukor_rows}
+        | {row["code"] for row in japan_rows}
+        | set(subheading_titles)
+    )
+    for digits in sorted(line_codes):
         heading = digits[:4]
         subheading = digits[:6]
         if heading not in seen_headings:
@@ -269,79 +321,164 @@ def build(conn, data_dir: str) -> dict:
 
     # Origin rules.
     counter = 0
-    for row in korus_rules + rcep_rules:
-        counter += 1
-        rule_id = f"OR-{counter:04d}"
-        priority = {"subheading": 1, "range": 2, "heading": 3, "chapter": 4}.get(row["level"], 5)
-        group = row.get("group_exclude") or []
-        conn.execute(
-            """
-            MATCH (a:Agreement {code: $agreement})
-            MATCH (src:Source {id: $source})
-            CREATE (r:OriginRule {id: $id, agreement: $agreement, level: $level,
-                                  code_from: $code_from, code_to: $code_to,
-                                  from_norm: $from_norm, to_norm: $to_norm,
-                                  text: $text, kinds: $kinds,
-                                  rvc_build_down: $rvc_down, rvc_build_up: $rvc_up,
-                                  excluded_from: $excluded, group_exclude_from: $group_from,
-                                  group_exclude_to: $group_to,
-                                  originating_weight_min: $weight_min,
-                                  structured: $structured, priority: $priority})
-            CREATE (r)-[:FOR]->(a)
-            CREATE (r)-[:CITED_FROM]->(src)
-            """,
-            {
-                "id": rule_id,
-                "agreement": row["agreement"],
-                "level": row["level"],
-                "code_from": row["code_from"],
-                "code_to": row["code_to"],
-                "from_norm": row["from_norm"],
-                "to_norm": row["to_norm"],
-                "text": row["text"],
-                "kinds": row["kinds"],
-                "rvc_down": row.get("rvc_build_down"),
-                "rvc_up": row.get("rvc_build_up"),
-                "excluded": row.get("excluded_from") or [],
-                "group_from": group[0] if group else None,
-                "group_to": group[1] if len(group) > 1 else None,
-                "weight_min": row.get("originating_weight_min"),
-                "structured": not row.get("unstructured", False),
-                "priority": priority,
-                "source": "SRC-KORUS-6A" if row["agreement"] == "KORUS" else "SRC-RCEP-3A",
-            },
-        )
+    rule_sets = [
+        (korus_rules, "SRC-KORUS-6A"),
+        (rcep_rules, "SRC-RCEP-3A"),
+        (eukor_rules, "SRC-EUKOR-ROO"),
+    ]
+    for rows, source_id in rule_sets:
+        for row in rows:
+            counter += 1
+            rule_id = f"OR-{counter:04d}"
+            priority = {"subheading": 1, "range": 2, "heading": 3, "chapter": 4}.get(row["level"], 5)
+            group = row.get("group_exclude") or []
+            alternatives = row.get("alternatives")
+            conn.execute(
+                """
+                MATCH (a:Agreement {code: $agreement})
+                MATCH (src:Source {id: $source})
+                CREATE (r:OriginRule {id: $id, agreement: $agreement, level: $level,
+                                      code_from: $code_from, code_to: $code_to,
+                                      from_norm: $from_norm, to_norm: $to_norm,
+                                      text: $text, kinds: $kinds,
+                                      rvc_build_down: $rvc_down, rvc_build_up: $rvc_up,
+                                      excluded_from: $excluded, group_exclude_from: $group_from,
+                                      group_exclude_to: $group_to,
+                                      originating_weight_min: $weight_min,
+                                      alternatives_json: $alternatives_json,
+                                      structured: $structured, priority: $priority})
+                CREATE (r)-[:FOR]->(a)
+                CREATE (r)-[:CITED_FROM]->(src)
+                """,
+                {
+                    "id": rule_id,
+                    "agreement": row["agreement"],
+                    "level": row["level"],
+                    "code_from": row["code_from"],
+                    "code_to": row["code_to"],
+                    "from_norm": row["from_norm"],
+                    "to_norm": row["to_norm"],
+                    "text": row["text"],
+                    "kinds": row["kinds"],
+                    "rvc_down": row.get("rvc_build_down"),
+                    "rvc_up": row.get("rvc_build_up"),
+                    "excluded": row.get("excluded_from") or [],
+                    "group_from": group[0] if group else None,
+                    "group_to": group[1] if len(group) > 1 else None,
+                    "weight_min": row.get("originating_weight_min"),
+                    "alternatives_json": json.dumps(alternatives, ensure_ascii=False)
+                    if alternatives
+                    else None,
+                    "structured": not row.get("unstructured", False),
+                    "priority": priority,
+                    "source": source_id,
+                },
+            )
 
     # Tariff lines and the staging that decides the rate on a date.
-    for row in rate_rows:
-        rule_id = f"RL-{row['hts8']}"
-        conn.execute(
-            """
-            MATCH (s:Subheading {code: $subheading})
-            MATCH (a:Agreement {code: $agreement})
-            MATCH (src:Source {id: 'SRC-KORUS-2B'})
-            CREATE (r:RateLine {id: $id, hts8: $hts8, hs6: $hs6, market: $market,
-                                agreement: $agreement, description: $description,
-                                base_rate_percent: $percent, base_rate_text: $text,
-                                base_rate_kind: $kind, staging: $staging, currency: 'USD'})
-            CREATE (r)-[:FOR]->(s)
-            CREATE (r)-[:FOR]->(a)
-            CREATE (r)-[:CITED_FROM]->(src)
-            """,
-            {
-                "id": rule_id,
-                "hts8": row["hts8"],
-                "hs6": row["hts8"][:6],
-                "market": row["market"],
-                "agreement": row["agreement"],
-                "description": row["description"],
-                "percent": row["base_rate_percent"],
-                "text": row["base_rate_text"],
-                "kind": row["base_rate_kind"],
-                "staging": row["staging"],
-                "subheading": row["hts8"][:6],
-            },
-        )
+    line_sets = [
+        (
+            [
+                {
+                    "code": row["hts8"],
+                    "market": row["market"],
+                    "agreement": row["agreement"],
+                    "description": row["description"],
+                    "base_rate_text": row["base_rate_text"],
+                    "base_rate_percent": row["base_rate_percent"],
+                    "base_rate_kind": row["base_rate_kind"],
+                    "staging": row["staging"],
+                    "years": None,
+                    "partner": None,
+                    "currency": "USD",
+                }
+                for row in rate_rows
+            ],
+            "SRC-KORUS-2B",
+        ),
+        (
+            [
+                {
+                    "code": row["cn8"],
+                    "market": row["market"],
+                    "agreement": row["agreement"],
+                    "description": row["description"],
+                    "base_rate_text": row["base_rate_text"],
+                    "base_rate_percent": row["base_rate_percent"],
+                    "base_rate_kind": row["base_rate_kind"],
+                    "staging": row["staging"],
+                    "years": None,
+                    "partner": None,
+                    "currency": "EUR",
+                }
+                for row in eukor_rows
+            ],
+            "SRC-EUKOR-2A",
+        ),
+        (
+            [
+                {
+                    "code": row["code"],
+                    "market": row["market"],
+                    "agreement": row["agreement"],
+                    "description": row["description"],
+                    "base_rate_text": _rate_text(row["base_rate_text"], row["staging"]),
+                    "base_rate_percent": _first_percent(row["base_rate_text"], row["staging"]),
+                    "base_rate_kind": "percent"
+                    if _first_percent(row["base_rate_text"], row["staging"]) is not None
+                    else "specific",
+                    "staging": row["staging"],
+                    "years": row["years"],
+                    "partner": row["partner"],
+                    "currency": "JPY",
+                }
+                for row in japan_rows
+            ],
+            "SRC-RCEP-1-JP",
+        ),
+    ]
+    seen_lines = set()
+    for lines, source_id in line_sets:
+        for row in lines:
+            line_id = f"RL-{row['agreement']}-{row['code']}-{row['partner'] or 'ALL'}"
+            if line_id in seen_lines:
+                continue
+            seen_lines.add(line_id)
+            conn.execute(
+                """
+                MATCH (s:Subheading {code: $subheading})
+                MATCH (a:Agreement {code: $agreement})
+                MATCH (src:Source {id: $source})
+                CREATE (r:RateLine {id: $id, code: $code, hts8: $code, hs6: $hs6,
+                                    market: $market, agreement: $agreement,
+                                    description: $description,
+                                    base_rate_percent: $percent, base_rate_text: $text,
+                                    base_rate_kind: $kind, staging: $staging,
+                                    years: $years, partner: $partner,
+                                    currency: $currency, nomenclature: $nomenclature})
+                CREATE (r)-[:FOR]->(s)
+                CREATE (r)-[:FOR]->(a)
+                CREATE (r)-[:CITED_FROM]->(src)
+                """,
+                {
+                    "id": line_id,
+                    "code": row["code"],
+                    "hs6": row["code"][:6],
+                    "market": row["market"],
+                    "agreement": row["agreement"],
+                    "description": row["description"],
+                    "percent": row["base_rate_percent"],
+                    "text": row["base_rate_text"],
+                    "kind": row["base_rate_kind"],
+                    "staging": row["staging"],
+                    "years": row["years"],
+                    "partner": row["partner"] or "ALL",
+                    "currency": row["currency"],
+                    "nomenclature": {"US": "HTS", "EU": "CN", "JP": "JP"}.get(row["market"], ""),
+                    "subheading": row["code"][:6],
+                    "source": source_id,
+                },
+            )
 
     # Applied MFN at six digits, from WITS.  Kept apart from the line level
     # rates because an average of several lines is not a rate for a shipment.

@@ -59,14 +59,24 @@ def _parties(agreement: str) -> set[str]:
     if agreement == "RCEP":
         return {"KR", "CN", "JP", "AU", "NZ", "SG", "MY", "TH", "VN", "ID", "PH", "BN", "KH", "LA", "MM"}
     if agreement == "EUKOR":
-        return {"KR", "EU"}
+        return {"KR"} | EU_MEMBER_STATES
     return {"KR"}
+
+
+# The EU Party is named as one party in the agreement and as member states in a
+# bill of materials.  The codes are the ISO 3166-1 alpha-2 codes of the states
+# that were members when the agreement was signed.
+EU_MEMBER_STATES = {
+    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GR", "HR",
+    "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI",
+    "SK",
+}
 
 
 def _is_party(origin: str, parties: set[str]) -> bool:
     value = (origin or "").upper()
     if value == "EU":
-        return "EU" in parties
+        return bool(parties & EU_MEMBER_STATES)
     return value in parties
 
 
@@ -92,9 +102,10 @@ def _rvc(materials: list[Material], parties: set[str], fob: float) -> tuple[floa
     return (fob - non_party) / fob * 100.0, party / fob * 100.0, non_party
 
 
-def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | None = None) -> dict:
+def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | None = None,
+             good_code: str | None = None) -> dict:
     goods = shipment["goods"]
-    good_code = goods.get("hts8") or goods.get("hs6") or goods.get("hs")
+    good_code = good_code or goods.get("hts8") or goods.get("hs6") or goods.get("hs")
     fob = float(goods.get("declared_value") or goods.get("fob") or 0.0)
     if materials is None:
         materials = [
@@ -212,6 +223,15 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
                        ",".join(alternative["excluded"]))
                 )
                 continue
+            if alternative.get("allowed_from") and any(
+                codes.is_under(material.code, allowed) for allowed in alternative["allowed_from"]
+            ):
+                path.append(
+                    "%s (%s, %s) -[%s]-> permitted material from subheading %s"
+                    % (material.id, material.code, material.origin, kind,
+                       ",".join(alternative["allowed_from"]))
+                )
+                continue
             if alternative["group"]:
                 low, high = alternative["group"]
                 material_digits = material.code.replace(".", "")
@@ -243,34 +263,39 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
             )
 
     down, up, non_party = _rvc(materials, parties, fob)
-    if alternative["rvc_down"]:
+    floor_down = alternative["rvc_down"]
+    floor_up = alternative["rvc_up"]
+    if floor_down or floor_up:
+        # A rule that prints both thresholds is the same rule under either
+        # method: "not less than 35 percent under the build-up method, or 45
+        # percent under the build-down method" is met by either one, so asking
+        # for both would refuse a good the agreement accepts.
         if not fob:
             missing.append("declared value to compute regional value content")
-        elif down + 1e-9 < alternative["rvc_down"]:
-            holds = False
-            reasons.append(
-                "regional value content %.2f percent is under the %.0f percent the rule asks for"
-                % (down, alternative["rvc_down"])
-            )
-            path.append(
-                "build down (declared value %s - non party materials %s) / %s = %.2f percent"
-                % (fob, non_party, fob, down)
-            )
         else:
-            path.append(
-                "build down %.2f percent is at or above %.0f percent" % (down, alternative["rvc_down"])
-            )
-    if alternative["rvc_up"]:
-        if not fob:
-            missing.append("declared value to compute regional value content")
-        elif up + 1e-9 < alternative["rvc_up"]:
-            holds = False
-            reasons.append(
-                "party content %.2f percent is under the %.0f percent the rule asks for"
-                % (up, alternative["rvc_up"])
-            )
-        else:
-            path.append("build up %.2f percent is at or above %.0f percent" % (up, alternative["rvc_up"]))
+            down_ok = floor_down is not None and down + 1e-9 >= floor_down
+            up_ok = floor_up is not None and up + 1e-9 >= floor_up
+            if down_ok or up_ok:
+                if floor_down is not None and down_ok:
+                    path.append(
+                        "build down (declared value %s - non party materials %s) / %s = %.2f percent, "
+                        "at or above %.0f percent" % (fob, non_party, fob, down, floor_down)
+                    )
+                if floor_up is not None and up_ok:
+                    path.append(
+                        "build up %.2f percent is at or above %.0f percent" % (up, floor_up)
+                    )
+            else:
+                holds = False
+                reasons.append(
+                    "regional value content %.2f percent under the build down and %.2f percent under "
+                    "the build up are both under the thresholds the rule asks for (%.0f down, %.0f up)"
+                    % (down, up, floor_down or 0.0, floor_up or 0.0)
+                )
+                path.append(
+                    "build down %.2f percent, build up %.2f percent, non party materials %s"
+                    % (down, up, non_party)
+                )
 
     if alternative["weight_min"]:
         supplied = (shipment.get("attributes") or {}).get("originating_polymer_weight_percent")

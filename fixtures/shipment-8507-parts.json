@@ -8,11 +8,34 @@
     "hs6": "850790",
     "description": "Parts of lead-acid storage batteries, separators",
     "declared_value": 1000000,
-    "currency": "USD"
+    "currency": "USD",
+    "market_codes": {
+      "US": "85079040",
+      "EU": "85079030",
+      "JP": "850790000"
+    }
   },
   "materials": [
-    {"id": "M1", "hts8": "85079040", "origin": "CN", "value": 260000, "description": "separator sheet, sintered"},
-    {"id": "M2", "hts8": "39201098", "origin": "KR", "value": 90000, "description": "polyethylene film"},
-    {"id": "M3", "hts8": "79060000", "origin": "KR", "value": 120000, "description": "zinc strip"}
+    {
+      "id": "M1",
+      "hts8": "85079040",
+      "origin": "CN",
+      "value": 260000,
+      "description": "separator sheet, sintered"
+    },
+    {
+      "id": "M2",
+      "hts8": "39201098",
+      "origin": "KR",
+      "value": 90000,
+      "description": "polyethylene film"
+    },
+    {
+      "id": "M3",
+      "hts8": "79060000",
+      "origin": "KR",
+      "value": 120000,
+      "description": "zinc strip"
+    }
   ]
 }

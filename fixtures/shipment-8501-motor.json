@@ -8,12 +8,41 @@
     "hs6": "850131",
     "description": "DC motor, output above 74.6 W up to 735 W",
     "declared_value": 250000,
-    "currency": "USD"
+    "currency": "USD",
+    "market_codes": {
+      "US": "85013140",
+      "EU": "85013100",
+      "JP": "850131000"
+    }
   },
   "materials": [
-    {"id": "M1", "hts8": "85051100", "origin": "CN", "value": 40000, "description": "permanent magnet"},
-    {"id": "M2", "hts8": "84821050", "origin": "JP", "value": 15000, "description": "ball bearing"},
-    {"id": "M3", "hts8": "73269085", "origin": "KR", "value": 30000, "description": "steel shaft"},
-    {"id": "M4", "hts8": "85030095", "origin": "US", "value": 20000, "description": "end plate, cast"}
+    {
+      "id": "M1",
+      "hts8": "85051100",
+      "origin": "CN",
+      "value": 40000,
+      "description": "permanent magnet"
+    },
+    {
+      "id": "M2",
+      "hts8": "84821050",
+      "origin": "JP",
+      "value": 15000,
+      "description": "ball bearing"
+    },
+    {
+      "id": "M3",
+      "hts8": "73269085",
+      "origin": "KR",
+      "value": 30000,
+      "description": "steel shaft"
+    },
+    {
+      "id": "M4",
+      "hts8": "85030095",
+      "origin": "US",
+      "value": 20000,
+      "description": "end plate, cast"
+    }
   ]
 }

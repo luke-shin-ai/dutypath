@@ -299,7 +299,9 @@ def test_bracket_passes_both_sets_of_rules(conn):
 
 
 def test_an_agreement_without_rules_is_undecidable_and_says_so(conn):
-    report = origin.evaluate(conn, shipment("shipment-8501-motor.json"), "EUKOR")
+    # Turkiye is named in the snapshot with no rules and no rates, so the gap is
+    # visible instead of silent.
+    report = origin.evaluate(conn, shipment("shipment-8501-motor.json"), "TURKOR")
     assert report["verdict"] == origin.UNDECIDABLE
     assert "no origin rule" in report["reason"]
 
@@ -422,4 +424,4 @@ def test_the_leak_proof_would_notice_a_written_shipment(store_path):
 def test_the_snapshot_records_its_own_date_and_version(conn):
     row = store.one(conn, "MATCH (s:Snapshot) RETURN toString(s.as_of) AS as_of, s.rule_version AS v")
     assert row["as_of"] == "2026-11-22"
-    assert row["v"] == "1.0"
+    assert row["v"] == "2.0"

@@ -1,0 +1,670 @@
+[
+ {
+  "id": "SKU-01",
+  "description": "Static converter, industrial power supply",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-01",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85044095",
+    "hs6": "850440",
+    "description": "Static converter, industrial power supply",
+    "declared_value": 480000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85044095",
+     "EU": "85044090",
+     "JP": "850440090"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85043140",
+     "origin": "CN",
+     "value": 150000,
+     "description": "transformer, dry type"
+    },
+    {
+     "id": "M2",
+     "hts8": "85322200",
+     "origin": "JP",
+     "value": 24000,
+     "description": "aluminium electrolytic capacitor"
+    },
+    {
+     "id": "M3",
+     "hts8": "85340000",
+     "origin": "KR",
+     "value": 60000,
+     "description": "printed circuit board"
+    },
+    {
+     "id": "M4",
+     "hts8": "39269098",
+     "origin": "KR",
+     "value": 18000,
+     "description": "moulded housing"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "NOT_ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50: the transformer is 8504.31, which is inside",
+   "EUKOR": "the value of all the materials used does not exceed 45 percent of the ex-works price: non party value is 174000 of 480000",
+   "RCEP": "RVC40, and China and Japan are parties, so non party value is nil"
+  },
+  "edges": [
+   "a rule that excludes an interval"
+  ]
+ },
+ {
+  "id": "SKU-02",
+  "description": "DC motor, output above 74.6 W up to 735 W",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-02",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85013140",
+    "hs6": "850131",
+    "description": "DC motor, output above 74.6 W up to 735 W",
+    "declared_value": 250000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85013140",
+     "EU": "85013100",
+     "JP": "850131000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85051100",
+     "origin": "CN",
+     "value": 40000,
+     "description": "permanent magnet"
+    },
+    {
+     "id": "M2",
+     "hts8": "84821050",
+     "origin": "JP",
+     "value": 15000,
+     "description": "ball bearing"
+    },
+    {
+     "id": "M3",
+     "hts8": "73269085",
+     "origin": "KR",
+     "value": 30000,
+     "description": "steel shaft"
+    },
+    {
+     "id": "M4",
+     "hts8": "85030095",
+     "origin": "US",
+     "value": 20000,
+     "description": "end plate, cast"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8501.20 through 8501.64 from any other heading; the magnet is 8505 and the bearing 8482",
+   "EUKOR": "manufacture from materials of any heading, except that of the product",
+   "RCEP": "CTH or RVC40"
+  },
+  "edges": []
+ },
+ {
+  "id": "SKU-03",
+  "description": "Polyethylene, specific gravity below 0.94, primary forms",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-03",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "39011050",
+    "hs6": "390110",
+    "description": "Polyethylene, specific gravity below 0.94, primary forms",
+    "declared_value": 900000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "39011050",
+     "EU": "39011090",
+     "JP": "390110090"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "29012100",
+     "origin": "SA",
+     "value": 700000,
+     "description": "ethylene monomer"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "UNDECIDABLE",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content is not less than 50 percent by weight: the bill of materials carries no weight share",
+   "EUKOR": "manufacture from materials of any heading, except that of the product: 2901 to 3901",
+   "RCEP": "CTH or RVC40"
+  },
+  "edges": [
+   "a value the bill of materials does not carry"
+  ]
+ },
+ {
+  "id": "SKU-04",
+  "description": "Mounting bracket, moulded plastic",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-04",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "39269098",
+    "hs6": "392690",
+    "description": "Mounting bracket, moulded plastic",
+    "declared_value": 120000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "39269098",
+     "EU": "39269097",
+     "JP": "392690029"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "39011050",
+     "origin": "SA",
+     "value": 66000,
+     "description": "polyethylene resin, low density"
+    },
+    {
+     "id": "M2",
+     "hts8": "32064990",
+     "origin": "DE",
+     "value": 6000,
+     "description": "colour masterbatch"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "NOT_ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to heading 39.16 through 39.26 from any other heading: 3901 and 3206 both",
+   "EUKOR": "3922 to 3926 offers no heading change, only a ceiling of 50 percent, and the non party resin is 66000 of 120000, which is 55 percent",
+   "RCEP": "CTH or RVC40"
+  },
+  "edges": [
+   "a value ceiling with no heading change"
+  ]
+ },
+ {
+  "id": "SKU-05",
+  "description": "Parts of lead-acid batteries, separators",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-05",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85079040",
+    "hs6": "850790",
+    "description": "Parts of lead-acid batteries, separators",
+    "declared_value": 1000000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85079040",
+     "EU": "85079030",
+     "JP": "850790000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85079040",
+     "origin": "CN",
+     "value": 260000,
+     "description": "separator sheet, sintered"
+    },
+    {
+     "id": "M2",
+     "hts8": "39201098",
+     "origin": "KR",
+     "value": 90000,
+     "description": "polyethylene film"
+    },
+    {
+     "id": "M3",
+     "hts8": "79060000",
+     "origin": "KR",
+     "value": 120000,
+     "description": "zinc strip"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "NOT_ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "UNDECIDABLE"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8507.90 from any other heading; the separator is 8507.90",
+   "EUKOR": "ex chapter 85: a change of heading or a ceiling of 45 percent; the ceiling holds at 26 percent, so the heading change is not needed",
+   "RCEP": "no product specific rule for 85.07 in this snapshot"
+  },
+  "edges": [
+   "a material in the same heading",
+   "an agreement with no rule for this line"
+  ]
+ },
+ {
+  "id": "SKU-06",
+  "description": "Insulated winding wire, enamelled",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-06",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85441100",
+    "hs6": "854411",
+    "description": "Insulated winding wire, enamelled",
+    "declared_value": 300000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85441100",
+     "EU": "85441190",
+     "JP": "854411000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85441900",
+     "origin": "CN",
+     "value": 90000,
+     "description": "insulated wire, other"
+    },
+    {
+     "id": "M2",
+     "hts8": "39041000",
+     "origin": "KR",
+     "value": 20000,
+     "description": "pvc compound"
+    },
+    {
+     "id": "M3",
+     "hts8": "85369010",
+     "origin": "JP",
+     "value": 15000,
+     "description": "terminal"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8544.11 from any other subheading with a build down of 45; 8544.19 to 8544.11 changes subheading and the build down is 65 percent",
+   "EUKOR": "8544: a ceiling of 50 percent, and non party value is 105000 of 300000",
+   "RCEP": "CTH or RVC40: the wire is 8544 so the heading does not change, but the value content of a party only material list is 100 percent"
+  },
+  "edges": []
+ },
+ {
+  "id": "SKU-07",
+  "description": "Safety or relief valve for pipes and boilers",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-07",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "84814000",
+    "hs6": "848140",
+    "description": "Safety or relief valve for pipes and boilers",
+    "declared_value": 150000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "84814000",
+     "EU": "84814090",
+     "JP": "848140000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "73269085",
+     "origin": "CN",
+     "value": 20000,
+     "description": "steel bracket"
+    },
+    {
+     "id": "M2",
+     "hts8": "84819090",
+     "origin": "KR",
+     "value": 10000,
+     "description": "valve body, machined"
+    },
+    {
+     "id": "M3",
+     "hts8": "40169300",
+     "origin": "JP",
+     "value": 5000,
+     "description": "rubber gasket"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "UNDECIDABLE"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8481.10 through 8481.80 from any other heading; 7326",
+   "EUKOR": "ex chapter 84: a change of heading, 7326 to 8481",
+   "RCEP": "no product specific rule for 84.81 in this snapshot"
+  },
+  "edges": [
+   "an agreement with no rule for this line"
+  ]
+ },
+ {
+  "id": "SKU-08",
+  "description": "Polyethylene terephthalate, viscosity number 78 or more",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-08",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "39076000",
+    "hs6": "390760",
+    "description": "Polyethylene terephthalate, viscosity number 78 or more",
+    "declared_value": 500000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "39076000",
+     "EU": "39076020",
+     "JP": "390760000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "29173600",
+     "origin": "CN",
+     "value": 250000,
+     "description": "terephthalic acid"
+    },
+    {
+     "id": "M2",
+     "hts8": "29051100",
+     "origin": "KR",
+     "value": 200000,
+     "description": "methanol"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "UNDECIDABLE",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content is not less than 50 percent by weight: no weight share",
+   "EUKOR": "3907.20: manufacture from materials of any heading, and 2917 is another heading",
+   "RCEP": "CTH or RVC40"
+  },
+  "edges": [
+   "a value the bill of materials does not carry"
+  ]
+ },
+ {
+  "id": "SKU-09",
+  "description": "Centrifugal pump for liquids, not fitted with a measuring device",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-09",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "84137020",
+    "hs6": "841370",
+    "description": "Centrifugal pump for liquids, not fitted with a measuring device",
+    "declared_value": 200000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "84137020",
+     "EU": "84137021",
+     "JP": "841370010"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "84139100",
+     "origin": "KR",
+     "value": 40000,
+     "description": "pump parts"
+    },
+    {
+     "id": "M2",
+     "hts8": "84137090",
+     "origin": "CN",
+     "value": 40000,
+     "description": "pump body, cast"
+    },
+    {
+     "id": "M3",
+     "hts8": "85011060",
+     "origin": "KR",
+     "value": 30000,
+     "description": "motor, 20 W"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "NOT_ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8413.11 through 8413.82 from any other subheading, and the Chinese body is 8413.70, the same subheading",
+   "EUKOR": "ex chapter 84 offers a ceiling of 50 percent as well, and non party value is 40000 of 200000",
+   "RCEP": "CTSH or RVC40: China is a party, so the value content is 100 percent"
+  },
+  "edges": [
+   "a material in the same heading"
+  ]
+ },
+ {
+  "id": "SKU-10",
+  "description": "Electrical motor starter, for a voltage not exceeding 1000 V",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-10",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85365040",
+    "hs6": "853650",
+    "description": "Electrical motor starter, for a voltage not exceeding 1000 V",
+    "declared_value": 90000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85365040",
+     "EU": "85365011",
+     "JP": "853650090"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85365090",
+     "origin": "CN",
+     "value": 50000,
+     "description": "switch, moulded"
+    },
+    {
+     "id": "M2",
+     "hts8": "74081100",
+     "origin": "KR",
+     "value": 10000,
+     "description": "copper wire"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "NOT_ORIGINATING",
+   "EUKOR": "NOT_ORIGINATING",
+   "RCEP": "ORIGINATING"
+  },
+  "basis": {
+   "KORUS": "a change to subheading 8535.10 through 8536.90 from any other subheading, and the Chinese switch is 8536.50, the same subheading",
+   "EUKOR": "8536: a change of heading or a ceiling of 50 percent, and the non party switch is 50000 of 90000, which is 55 percent",
+   "RCEP": "CTH or RVC40: China is a party, so the value content is 100 percent"
+  },
+  "edges": [
+   "a material in the same heading",
+   "a value ceiling with no heading change"
+  ]
+ },
+ {
+  "id": "SKU-11",
+  "description": "Flashlight, battery powered",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-11",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85131020",
+    "hs6": "851310",
+    "description": "Flashlight, battery powered",
+    "declared_value": 100000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85131020",
+     "EU": "85131000",
+     "JP": "851310000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85139000",
+     "origin": "CN",
+     "value": 30000,
+     "description": "parts of flashlights"
+    },
+    {
+     "id": "M2",
+     "hts8": "85011060",
+     "origin": "KR",
+     "value": 10000,
+     "description": "motor, 20 W"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "UNDECIDABLE"
+  },
+  "basis": {
+   "KORUS": "the second alternative: a change to subheading 8513.10 from subheading 8513.90, whether or not there is also a change of heading",
+   "EUKOR": "ex chapter 85: a ceiling of 45 percent, and non party value is 30000 of 100000",
+   "RCEP": "no product specific rule for 85.13 in this snapshot"
+  },
+  "edges": [
+   "a second alternative of the rule",
+   "an agreement with no rule for this line"
+  ]
+ },
+ {
+  "id": "SKU-12",
+  "description": "Electromechanical domestic appliance, with self contained motor",
+  "shipment": {
+   "shipment_id": "GOLD-SKU-12",
+   "market": "US",
+   "export_date": "2026-12-01",
+   "import_date": "2026-12-08",
+   "goods": {
+    "hts8": "85098000",
+    "hs6": "850980",
+    "description": "Electromechanical domestic appliance, with self contained motor",
+    "declared_value": 120000,
+    "currency": "USD",
+    "market_codes": {
+     "US": "85098000",
+     "EU": "85098000",
+     "JP": "850980000"
+    }
+   },
+   "materials": [
+    {
+     "id": "M1",
+     "hts8": "85099000",
+     "origin": "CN",
+     "value": 25000,
+     "description": "parts of domestic appliances"
+    },
+    {
+     "id": "M2",
+     "hts8": "85011060",
+     "origin": "KR",
+     "value": 30000,
+     "description": "motor, 20 W"
+    },
+    {
+     "id": "M3",
+     "hts8": "85444290",
+     "origin": "JP",
+     "value": 6000,
+     "description": "cord set"
+    }
+   ]
+  },
+  "labels": {
+   "KORUS": "ORIGINATING",
+   "EUKOR": "ORIGINATING",
+   "RCEP": "UNDECIDABLE"
+  },
+  "basis": {
+   "KORUS": "the second alternative: a subheading change with a build down of 45; 8509.90 to 8509.80 changes subheading and the build down is 74 percent",
+   "EUKOR": "8509: a ceiling of 50 percent, and non party value is 31000 of 120000",
+   "RCEP": "no product specific rule for 85.09 in this snapshot"
+  },
+  "edges": [
+   "a second alternative of the rule",
+   "an agreement with no rule for this line"
+  ]
+ }
+]

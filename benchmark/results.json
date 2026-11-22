@@ -1,0 +1,762 @@
+{
+ "sku": [
+  {
+   "id": "SKU-01",
+   "labels": {
+    "KORUS": "NOT_ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a rule that excludes an interval"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-02",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-03",
+   "labels": {
+    "KORUS": "UNDECIDABLE",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a value the bill of materials does not carry"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "NOT_ORIGINATING",
+     "RCEP": "NOT_ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-04",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "NOT_ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a value ceiling with no heading change"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "NOT_ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-05",
+   "labels": {
+    "KORUS": "NOT_ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "UNDECIDABLE"
+   },
+   "edges": [
+    "a material in the same heading",
+    "an agreement with no rule for this line"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    },
+    "keyword": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    },
+    "flat table": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    }
+   }
+  },
+  {
+   "id": "SKU-06",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-07",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "UNDECIDABLE"
+   },
+   "edges": [
+    "an agreement with no rule for this line"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    },
+    "keyword": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    }
+   }
+  },
+  {
+   "id": "SKU-08",
+   "labels": {
+    "KORUS": "UNDECIDABLE",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a value the bill of materials does not carry"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-09",
+   "labels": {
+    "KORUS": "NOT_ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a material in the same heading"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-10",
+   "labels": {
+    "KORUS": "NOT_ORIGINATING",
+    "EUKOR": "NOT_ORIGINATING",
+    "RCEP": "ORIGINATING"
+   },
+   "edges": [
+    "a material in the same heading",
+    "a value ceiling with no heading change"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "NOT_ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "keyword": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "ORIGINATING"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "NOT_ORIGINATING",
+     "RCEP": "ORIGINATING"
+    }
+   }
+  },
+  {
+   "id": "SKU-11",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "UNDECIDABLE"
+   },
+   "edges": [
+    "a second alternative of the rule",
+    "an agreement with no rule for this line"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    },
+    "keyword": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    },
+    "flat table": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "UNDECIDABLE",
+     "RCEP": "UNDECIDABLE"
+    }
+   }
+  },
+  {
+   "id": "SKU-12",
+   "labels": {
+    "KORUS": "ORIGINATING",
+    "EUKOR": "ORIGINATING",
+    "RCEP": "UNDECIDABLE"
+   },
+   "edges": [
+    "a second alternative of the rule",
+    "an agreement with no rule for this line"
+   ],
+   "methods": {
+    "DutyPath": {
+     "KORUS": "ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    },
+    "keyword": {
+     "KORUS": "NOT_ORIGINATING",
+     "EUKOR": "ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    },
+    "flat table": {
+     "KORUS": "UNDECIDABLE",
+     "EUKOR": "NOT_ORIGINATING",
+     "RCEP": "UNDECIDABLE"
+    }
+   }
+  }
+ ],
+ "methods": {
+  "keyword": {
+   "correct": 23,
+   "total": 36,
+   "accuracy": 63.9,
+   "errors": [
+    {
+     "sku": "SKU-01",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-02",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "KORUS",
+     "expected": "UNDECIDABLE",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-05",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    }
+   ],
+   "exception_correct": 18,
+   "exception_total": 30,
+   "exception_rate": 60.0,
+   "exception_missed": [
+    {
+     "sku": "SKU-01",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "KORUS",
+     "expected": "UNDECIDABLE",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-05",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    }
+   ],
+   "median_ms_per_verdict": 0.01
+  },
+  "flat table": {
+   "correct": 17,
+   "total": 36,
+   "accuracy": 47.2,
+   "errors": [
+    {
+     "sku": "SKU-01",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-02",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-02",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "KORUS",
+     "expected": "UNDECIDABLE",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "RCEP",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-05",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-08",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    }
+   ],
+   "exception_correct": 13,
+   "exception_total": 30,
+   "exception_rate": 43.3,
+   "exception_missed": [
+    {
+     "sku": "SKU-01",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "KORUS",
+     "expected": "UNDECIDABLE",
+     "predicted": "ORIGINATING"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-03",
+     "agreement": "RCEP",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-04",
+     "agreement": "EUKOR",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-05",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-07",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-08",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-09",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-10",
+     "agreement": "KORUS",
+     "expected": "NOT_ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    },
+    {
+     "sku": "SKU-11",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "KORUS",
+     "expected": "ORIGINATING",
+     "predicted": "UNDECIDABLE"
+    },
+    {
+     "sku": "SKU-12",
+     "agreement": "EUKOR",
+     "expected": "ORIGINATING",
+     "predicted": "NOT_ORIGINATING"
+    }
+   ],
+   "median_ms_per_verdict": 0.016
+  },
+  "DutyPath": {
+   "correct": 36,
+   "total": 36,
+   "accuracy": 100.0,
+   "errors": [],
+   "exception_correct": 30,
+   "exception_total": 30,
+   "exception_rate": 100.0,
+   "exception_missed": [],
+   "median_ms_per_verdict": 7.904
+  }
+ },
+ "zero_leak": {
+  "sha256_before": "0843d1a5c77c5b7bdc2f32e2908bd472ce099920c34ec66406e7658d13ab0849",
+  "sha256_after": "0843d1a5c77c5b7bdc2f32e2908bd472ce099920c34ec66406e7658d13ab0849",
+  "unchanged": true,
+  "shipment_rows": 0,
+  "bytes_written": 0
+ },
+ "dataset": {
+  "goods": 12,
+  "labels": 36,
+  "exception_labels": 30,
+  "agreements": [
+   "KORUS",
+   "EUKOR",
+   "RCEP"
+  ]
+ }
+}

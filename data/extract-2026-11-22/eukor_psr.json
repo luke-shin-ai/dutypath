@@ -1,0 +1,2235 @@
+[
+ {
+  "agreement": "EUKOR",
+  "level": "range",
+  "code_from": "3901",
+  "code_to": "3921",
+  "from_norm": "39010000",
+  "to_norm": "39219999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 75.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 75.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 43
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "subheading",
+  "code_from": "3907.30",
+  "code_to": "3907.40",
+  "from_norm": "39073000",
+  "to_norm": "39074099",
+  "text": "Manufacture from materials of any heading",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 0.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 43
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "subheading",
+  "code_from": "3907.20",
+  "code_to": "3907.91",
+  "from_norm": "39072000",
+  "to_norm": "39079199",
+  "text": "Manufacture from materials of any heading",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 0.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 43
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "range",
+  "code_from": "3922",
+  "code_to": "3926",
+  "from_norm": "39220000",
+  "to_norm": "39269999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 43
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "chapter",
+  "code_from": "84",
+  "code_to": "84",
+  "from_norm": "84000000",
+  "to_norm": "84999999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 71
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8401",
+  "code_to": "8401",
+  "from_norm": "84010000",
+  "to_norm": "84019999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 71
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8404",
+  "code_to": "8404",
+  "from_norm": "84040000",
+  "to_norm": "84049999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 71
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8407",
+  "code_to": "8407",
+  "from_norm": "84070000",
+  "to_norm": "84079999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 71
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8408",
+  "code_to": "8408",
+  "from_norm": "84080000",
+  "to_norm": "84089999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 71
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8423",
+  "code_to": "8423",
+  "from_norm": "84230000",
+  "to_norm": "84239999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8425",
+  "code_to": "8425",
+  "from_norm": "84250000",
+  "to_norm": "84259999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8426",
+  "code_to": "8426",
+  "from_norm": "84260000",
+  "to_norm": "84269999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8427",
+  "code_to": "8427",
+  "from_norm": "84270000",
+  "to_norm": "84279999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8428",
+  "code_to": "8428",
+  "from_norm": "84280000",
+  "to_norm": "84289999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8429",
+  "code_to": "8429",
+  "from_norm": "84290000",
+  "to_norm": "84299999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8430",
+  "code_to": "8430",
+  "from_norm": "84300000",
+  "to_norm": "84309999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8432",
+  "code_to": "8432",
+  "from_norm": "84320000",
+  "to_norm": "84329999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8433",
+  "code_to": "8433",
+  "from_norm": "84330000",
+  "to_norm": "84339999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8434",
+  "code_to": "8434",
+  "from_norm": "84340000",
+  "to_norm": "84349999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 72
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8443",
+  "code_to": "8443",
+  "from_norm": "84430000",
+  "to_norm": "84439999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8444",
+  "code_to": "8444",
+  "from_norm": "84440000",
+  "to_norm": "84449999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8445",
+  "code_to": "8445",
+  "from_norm": "84450000",
+  "to_norm": "84459999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8446",
+  "code_to": "8446",
+  "from_norm": "84460000",
+  "to_norm": "84469999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8447",
+  "code_to": "8447",
+  "from_norm": "84470000",
+  "to_norm": "84479999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8456",
+  "code_to": "8456",
+  "from_norm": "84560000",
+  "to_norm": "84569999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8457",
+  "code_to": "8457",
+  "from_norm": "84570000",
+  "to_norm": "84579999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8458",
+  "code_to": "8458",
+  "from_norm": "84580000",
+  "to_norm": "84589999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8459",
+  "code_to": "8459",
+  "from_norm": "84590000",
+  "to_norm": "84599999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 73
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8460",
+  "code_to": "8460",
+  "from_norm": "84600000",
+  "to_norm": "84609999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8461",
+  "code_to": "8461",
+  "from_norm": "84610000",
+  "to_norm": "84619999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8462",
+  "code_to": "8462",
+  "from_norm": "84620000",
+  "to_norm": "84629999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8463",
+  "code_to": "8463",
+  "from_norm": "84630000",
+  "to_norm": "84639999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8464",
+  "code_to": "8464",
+  "from_norm": "84640000",
+  "to_norm": "84649999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8465",
+  "code_to": "8465",
+  "from_norm": "84650000",
+  "to_norm": "84659999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8466",
+  "code_to": "8466",
+  "from_norm": "84660000",
+  "to_norm": "84669999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8467",
+  "code_to": "8467",
+  "from_norm": "84670000",
+  "to_norm": "84679999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 74
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8469",
+  "code_to": "8469",
+  "from_norm": "84690000",
+  "to_norm": "84699999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8470",
+  "code_to": "8470",
+  "from_norm": "84700000",
+  "to_norm": "84709999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8471",
+  "code_to": "8471",
+  "from_norm": "84710000",
+  "to_norm": "84719999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8474",
+  "code_to": "8474",
+  "from_norm": "84740000",
+  "to_norm": "84749999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8480",
+  "code_to": "8480",
+  "from_norm": "84800000",
+  "to_norm": "84809999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "chapter",
+  "code_from": "85",
+  "code_to": "85",
+  "from_norm": "85000000",
+  "to_norm": "85999999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8504",
+  "code_to": "8504",
+  "from_norm": "85040000",
+  "to_norm": "85049999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 75
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8505",
+  "code_to": "8505",
+  "from_norm": "85050000",
+  "to_norm": "85059999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8508",
+  "code_to": "8508",
+  "from_norm": "85080000",
+  "to_norm": "85089999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8509",
+  "code_to": "8509",
+  "from_norm": "85090000",
+  "to_norm": "85099999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8511",
+  "code_to": "8511",
+  "from_norm": "85110000",
+  "to_norm": "85119999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8512",
+  "code_to": "8512",
+  "from_norm": "85120000",
+  "to_norm": "85129999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8514",
+  "code_to": "8514",
+  "from_norm": "85140000",
+  "to_norm": "85149999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8515",
+  "code_to": "8515",
+  "from_norm": "85150000",
+  "to_norm": "85159999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 76
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8516",
+  "code_to": "8516",
+  "from_norm": "85160000",
+  "to_norm": "85169999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8519",
+  "code_to": "8519",
+  "from_norm": "85190000",
+  "to_norm": "85199999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8521",
+  "code_to": "8521",
+  "from_norm": "85210000",
+  "to_norm": "85219999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8523",
+  "code_to": "8523",
+  "from_norm": "85230000",
+  "to_norm": "85239999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8525",
+  "code_to": "8525",
+  "from_norm": "85250000",
+  "to_norm": "85259999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8526",
+  "code_to": "8526",
+  "from_norm": "85260000",
+  "to_norm": "85269999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8527",
+  "code_to": "8527",
+  "from_norm": "85270000",
+  "to_norm": "85279999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8528",
+  "code_to": "8528",
+  "from_norm": "85280000",
+  "to_norm": "85289999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 77
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8529",
+  "code_to": "8529",
+  "from_norm": "85290000",
+  "to_norm": "85299999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8530",
+  "code_to": "8530",
+  "from_norm": "85300000",
+  "to_norm": "85309999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8531",
+  "code_to": "8531",
+  "from_norm": "85310000",
+  "to_norm": "85319999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8536",
+  "code_to": "8536",
+  "from_norm": "85360000",
+  "to_norm": "85369999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8538",
+  "code_to": "8538",
+  "from_norm": "85380000",
+  "to_norm": "85389999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8539",
+  "code_to": "8539",
+  "from_norm": "85390000",
+  "to_norm": "85399999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8540",
+  "code_to": "8540",
+  "from_norm": "85400000",
+  "to_norm": "85409999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "range",
+  "code_from": "8542.31",
+  "code_to": "8542.39",
+  "from_norm": "85423100",
+  "to_norm": "85423999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 78
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8544",
+  "code_to": "8544",
+  "from_norm": "85440000",
+  "to_norm": "85449999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 79
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8545",
+  "code_to": "8545",
+  "from_norm": "85450000",
+  "to_norm": "85459999",
+  "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture from materials of any heading, except that of the product",
+    "kinds": [
+     "CTH"
+    ],
+    "rvc_down": null
+   },
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 50.0
+   }
+  ],
+  "kinds": [
+   "CTH"
+  ],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 79
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8546",
+  "code_to": "8546",
+  "from_norm": "85460000",
+  "to_norm": "85469999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 79
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8547",
+  "code_to": "8547",
+  "from_norm": "85470000",
+  "to_norm": "85479999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 79
+ },
+ {
+  "agreement": "EUKOR",
+  "level": "heading",
+  "code_from": "8548",
+  "code_to": "8548",
+  "from_norm": "85480000",
+  "to_norm": "85489999",
+  "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+  "alternatives": [
+   {
+    "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+    "kinds": [],
+    "rvc_down": 55.0
+   }
+  ],
+  "kinds": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "excluded_from": [],
+  "group_exclude": [],
+  "originating_weight_min": null,
+  "structured": true,
+  "source": "Korea-EU FTA, Protocol on rules of origin, Annex II",
+  "source_page": 79
+ }
+]

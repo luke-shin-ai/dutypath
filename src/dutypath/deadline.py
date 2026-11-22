@@ -56,8 +56,23 @@ def post_import_claim(conn, agreement: str, import_date: date, claimed_on: date)
     }
 
 
+def _approval_for(shipment: dict, agreement: str) -> dict:
+    """The approval on file for this agreement, from one or from a list.
+
+    An exporter holds an approval per agreement, so a shipment may carry
+    ``approved_exporters`` as a list.  The single ``approved_exporter`` form is
+    still read, so a shipment written before the list existed keeps working.
+    """
+    many = shipment.get("approved_exporters")
+    if isinstance(many, list) and many:
+        for item in many:
+            if isinstance(item, dict) and item.get("agreement") in (agreement, "ALL"):
+                return item
+    return shipment.get("approved_exporter") or {}
+
+
 def approved_exporter(shipment: dict, agreement: str, required: bool, claimed_on: date) -> dict:
-    approval = shipment.get("approved_exporter") or {}
+    approval = _approval_for(shipment, agreement)
     covers = approval.get("agreement") in (agreement, "ALL", None)
     if not approval:
         return {

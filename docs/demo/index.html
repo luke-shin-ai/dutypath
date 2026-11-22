@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DutyPath: one bill of materials, three markets</title>
+<style>
+  :root {
+    --ink: #10161f;
+    --muted: #5a6672;
+    --line: #d9dee5;
+    --page: #f4f6f9;
+    --card: #ffffff;
+    --claim: #0f766e;
+    --blocked: #b45309;
+    --refused: #b91c1c;
+    --unknown: #475569;
+    --accent: #1d4ed8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 20px 20px 56px; }
+  header.top {
+    background: var(--ink);
+    color: #f8fafc;
+    padding: 22px 0 20px;
+  }
+  header.top .wrap { padding-bottom: 4px; }
+  .brand { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .brand h1 { font-size: 21px; margin: 0; letter-spacing: 0.2px; }
+  .brand .sub { color: #b6c2cf; font-size: 14px; }
+  .snap { color: #93a4b6; font-size: 12.5px; margin-top: 8px; word-break: break-word; }
+  .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .controls {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: minmax(240px, 1.4fr) 150px 150px minmax(220px, 1fr);
+    gap: 14px;
+    align-items: end;
+  }
+  label.field { display: block; font-size: 12px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  select, input[type="date"], input[type="number"] {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 8px 9px;
+  }
+  .hashbox { font-size: 12.5px; color: var(--muted); }
+  .hashbox input[type="file"] { width: 100%; font-size: 12px; margin-top: 4px; }
+  .badge {
+    display: inline-block;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+    white-space: nowrap;
+  }
+  .b-claim { color: var(--claim); }
+  .b-blocked { color: var(--blocked); }
+  .b-refused { color: var(--refused); }
+  .b-unknown { color: var(--unknown); }
+  .b-check { color: var(--claim); }
+  .b-fail { color: var(--refused); }
+  .b-idle { color: var(--unknown); }
+  .summary {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+  }
+  .summary .panel { padding: 12px 14px; }
+  .k { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .v { font-size: 18px; font-weight: 650; margin-top: 2px; }
+  .v small { font-size: 12.5px; font-weight: 500; color: var(--muted); }
+  .markets { margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .market { display: flex; flex-direction: column; gap: 10px; }
+  .market .head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+  .market h2 { font-size: 16px; margin: 0; }
+  .market .agreement { color: var(--muted); font-size: 12.5px; }
+  .code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+  dl.rows { margin: 0; display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 4px 10px; font-size: 13.5px; }
+  dl.rows dt { color: var(--muted); }
+  dl.rows dd { margin: 0; overflow-wrap: anywhere; }
+  .money { font-size: 20px; font-weight: 650; }
+  .note { font-size: 12.5px; color: var(--muted); overflow-wrap: anywhere; }
+  .warn {
+    border-left: 3px solid var(--refused);
+    background: #fef2f2;
+    padding: 8px 10px;
+    border-radius: 0 6px 6px 0;
+    font-size: 13px;
+  }
+  .ok { border-left-color: var(--claim); background: #f0fdfa; }
+  .why { font-size: 12.5px; color: var(--muted); }
+  .foot { margin-top: 22px; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 14px; }
+  .foot h3 { font-size: 13px; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); }
+  .foot p { margin: 0 0 8px; font-size: 13px; color: #26303b; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; overflow-wrap: anywhere; }
+  .hidden { display: none; }
+  @media (max-width: 900px) {
+    .controls { grid-template-columns: 1fr 1fr; }
+    .summary, .markets { grid-template-columns: 1fr; }
+    .foot { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 14px 14px 40px; }
+    .controls { grid-template-columns: 1fr; }
+    dl.rows { grid-template-columns: 92px minmax(0, 1fr); }
+    .brand h1 { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>DutyPath</h1>
+      <span class="sub">One bill of materials, three markets, three answers</span>
+    </div>
+    <div class="snap" id="snapshot-line">loading snapshot</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="panel controls">
+    <div>
+      <label class="field" for="case">Shipment</label>
+      <select id="case"></select>
+    </div>
+    <div>
+      <label class="field" for="on">Entry date</label>
+      <input id="on" type="date">
+    </div>
+    <div>
+      <label class="field" for="value">Declared value</label>
+      <input id="value" type="number" min="0" step="1000">
+    </div>
+    <div class="hashbox">
+      <span class="k">Rule file check</span>
+      <div id="hash-state"><span class="badge b-idle" id="hash-badge">not checked</span></div>
+      <input id="rules-file" type="file" accept=".rl">
+      <div id="hash-detail" class="mono"></div>
+    </div>
+  </section>
+
+  <section class="summary">
+    <div class="panel">
+      <div class="k">Best route</div>
+      <div class="v" id="best-route">-</div>
+      <div class="note" id="best-route-note"></div>
+    </div>
+    <div class="panel">
+      <div class="k">Difference between markets</div>
+      <div class="v" id="spread">-</div>
+      <div class="note" id="spread-note"></div>
+    </div>
+    <div class="panel">
+      <div class="k">Post import claim window</div>
+      <div class="v" id="window">-</div>
+      <div class="note" id="window-note"></div>
+    </div>
+  </section>
+
+  <section class="markets" id="markets"></section>
+
+  <section class="foot">
+    <div class="panel">
+      <h3>What this page computes, and what it does not</h3>
+      <p>The rate on a date and the duty on a value are computed here, in your browser, from the
+      schedule rows in the bundle: a base rate and a staging category for the United States and the
+      European Union, and the printed yearly cells for Japan. Change the date and the numbers move.</p>
+      <p>The origin verdict is not computed here. It comes from the engine in this repository, which
+      read the rule sentences and the exclusion intervals; the page shows its verdict, the rule code
+      and the sentence it followed. <span class="mono">tests/test_demo.py</span> fails if the bundle
+      and the engine ever disagree.</p>
+      <p>The page makes no network call and writes nothing. The claim window is the Korean one year
+      post import period, quoted from the snapshot's own deadline row.</p>
+    </div>
+    <div class="panel">
+      <h3>Snapshot</h3>
+      <dl class="rows">
+        <dt>Snapshot</dt><dd id="f-snap" class="mono"></dd>
+        <dt>As of</dt><dd id="f-date"></dd>
+        <dt>Rule version</dt><dd id="f-version"></dd>
+        <dt>Store bytes</dt><dd id="f-bytes"></dd>
+        <dt>Store sha256</dt><dd id="f-sha" class="mono"></dd>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<script src="dutypath-demo.js"></script>
+<script>
+(function () {
+  var DATA = window.DUTYPATH_DEMO;
+  var state = { index: 0, on: "", value: 0 };
+  var FORBIDDEN = /[\u2014\u2013\u00b7\u2192\u2026\u201c\u201d\u2018\u2019]/;
+
+  function money(amount, currency) {
+    if (amount === null || amount === undefined) { return "-"; }
+    var rounded = Math.round(amount * 100) / 100;
+    return rounded.toLocaleString("en-US") + " " + currency;
+  }
+  function pct(value) {
+    if (value === null || value === undefined) { return "-"; }
+    return (Math.round(value * 10) / 10).toFixed(1) + "%";
+  }
+  function roundDown(value) {
+    return Math.floor(Math.round(value * 1e6) / 1e5 + 1e-9) / 10;
+  }
+  function euYear(on) {
+    var d = new Date(on + "T00:00:00Z");
+    if (isNaN(d.getTime())) { return null; }
+    var years = d.getUTCFullYear() - 2011 + 1;
+    if (d < new Date("2011-07-01T00:00:00Z")) { return null; }
+    return years;
+  }
+  function korYear(on) {
+    var d = new Date(on + "T00:00:00Z");
+    if (isNaN(d.getTime()) || d < new Date("2012-03-15T00:00:00Z")) { return null; }
+    return d.getUTCFullYear() - 2012 + 1;
+  }
+  var EQUAL = { A: 1, B: 2, C: 3, D: 5, E: 6, F: 7, G: 10, H: 15 };
+  var PERCENT_OF_BASE = { 1: 5, 2: 10, 3: 17, 4: 24, 5: 31, 6: 41, 7: 51, 8: 63, 9: 80, 10: 100 };
+
+  function korRate(base, staging, on) {
+    var year = korYear(on);
+    if (year === null) { return null; }
+    var cat = String(staging || "").toUpperCase();
+    if (cat === "K" || cat === "A") { return 0; }
+    if (EQUAL[cat]) {
+      var stages = EQUAL[cat];
+      if (year >= stages) { return 0; }
+      return roundDown(base * (stages - year) / stages);
+    }
+    if (cat === "I") {
+      var removed = PERCENT_OF_BASE[Math.min(year, 10)];
+      return roundDown(base * (100 - removed) / 100);
+    }
+    if (cat === "J") {
+      if (year <= 8) { return base; }
+      if (year >= 12) { return 0; }
+      return roundDown(base * (12 - year) / 4);
+    }
+    return null;
+  }
+  function euRate(base, staging, on) {
+    var year = euYear(on);
+    if (year === null) { return null; }
+    var cat = String(staging || "").toUpperCase();
+    if (cat === "0") { return 0; }
+    if (cat === "E") { return base; }
+    if (cat === "X") { return null; }
+    var n = parseInt(cat, 10);
+    if (isNaN(n)) { return null; }
+    var stages = n + 1;
+    if (year >= stages) { return 0; }
+    return roundDown(base * (stages - year) / stages);
+  }
+  function parseCell(cell) {
+    var text = String(cell || "").trim();
+    if (!text) { return null; }
+    if (text.toLowerCase() === "free") { return 0; }
+    if (text.indexOf("%") >= 0 || text.toLowerCase().indexOf("yen") >= 0) { return null; }
+    var number = parseFloat(text);
+    if (isNaN(number)) { return null; }
+    if (number <= 1 && text.indexOf(".") >= 0) { return Math.round(number * 10000) / 100; }
+    return number;
+  }
+  function jpRate(row, on) {
+    var d = new Date(on + "T00:00:00Z");
+    if (isNaN(d.getTime()) || d < new Date("2022-01-01T00:00:00Z")) { return null; }
+    var year = d.getUTCFullYear() - 2022 + 1;
+    var cells = row.years || [];
+    if (!cells.length) { return null; }
+    var index = Math.min(year, 21) - 1;
+    if (index >= cells.length) { return null; }
+    return parseCell(cells[index]);
+  }
+  function rateOn(row, on) {
+    if (!row) { return null; }
+    if (row.market === "JP") { return jpRate(row, on); }
+    if (row.base_rate_kind !== "percent" || row.base_rate_percent === null) { return null; }
+    if (row.market === "EU") { return euRate(row.base_rate_percent, row.staging, on); }
+    return korRate(row.base_rate_percent, row.staging, on);
+  }
+  window.dutypathRate = rateOn;
+
+  function badge(text, kind) {
+    return '<span class="badge ' + kind + '">' + text + '</span>';
+  }
+  function originBadge(verdict) {
+    if (verdict === "ORIGINATING") { return badge("ORIGINATING", "b-claim"); }
+    if (verdict === "NOT_ORIGINATING") { return badge("NOT ORIGINATING", "b-refused"); }
+    return badge("UNDECIDABLE", "b-unknown");
+  }
+
+  function render() {
+    var item = DATA.cases[state.index];
+    var report = item.report;
+    var currency = report.shipment.currency;
+    var value = state.value;
+    var on = state.on;
+
+    document.getElementById("on").value = on;
+    document.getElementById("value").value = value;
+
+    var best = null;
+    var dollars = [];
+    var html = "";
+    report.markets.forEach(function (block) {
+      var row = DATA.rates[block.market + ":" + block.code];
+      var pref = rateOn(row, on);
+      var mfn = rateOn(row, on);
+      var mfnRow = row ? row : null;
+      var mfnPercent = block.mfn.percent;
+      if (row) {
+        mfnPercent = row.market === "JP" ? (row.base_rate_percent === null ? 0 : row.base_rate_percent) : row.base_rate_percent;
+        if (row.market === "JP" && row.base_rate_percent === null) { mfnPercent = 0; }
+      }
+      var allowed = block.claim.allowed && pref !== null;
+      var duty = allowed ? value * pref / 100 : (mfnPercent === null ? null : value * mfnPercent / 100);
+      var potential = pref === null ? null : value * pref / 100;
+
+      if (duty !== null) { dollars.push({ market: block.market, duty: duty, allowed: allowed }); }
+      if (allowed && (best === null || duty < best.duty)) { best = { market: block.market, duty: duty, agreement: block.agreement }; }
+
+      var claimKind = allowed ? "b-claim" : (block.verdict === "UNDECIDABLE" ? "b-unknown" : "b-blocked");
+      var claimText = allowed ? "CLAIM" : (block.verdict === "UNDECIDABLE" ? "NO ANSWER" : "MFN");
+      var excluded = (block.excluded_materials || []).filter(function (line) { return true; });
+      html += '<article class="panel market">';
+      html += '<div class="head"><div><h2>' + block.market_name + '</h2>' +
+              '<div class="agreement">' + block.agreement + ' <span class="code">' + (block.code || "no code") + '</span></div></div>' +
+              '<div>' + originBadge((block.origin || {}).verdict) + '</div></div>';
+      html += '<dl class="rows">';
+      html += '<dt>Rule</dt><dd class="code">' + ((block.origin || {}).rule ? block.origin.rule.code_from : "-") + '</dd>';
+      html += '<dt>Rate now</dt><dd>' + pct(pref) + ' <span class="why">preferential</span></dd>';
+      html += '<dt>MFN</dt><dd>' + pct(mfnPercent) + '</dd>';
+      html += '<dt>Duty</dt><dd><span class="money">' + money(duty, currency) + '</span></dd>';
+      html += '<dt>Route</dt><dd>' + badge(claimText, claimKind) + '</dd>';
+      html += '</dl>';
+      if (block.verdict === "UNDECIDABLE") {
+        html += '<div class="note">Not priced: the origin question is open, so the preferential rate ' +
+                'is not a rate this shipment can claim yet.</div>';
+      } else if (!allowed && potential !== null && duty !== null && potential < duty) {
+        html += '<div class="note">Claimable at ' + pct(pref) + ': ' + money(potential, currency) +
+                ', a saving of ' + money(duty - potential, currency) + ' if the block clears.</div>';
+      }
+      if (block.claim.blocked_by) {
+        html += '<div class="warn">' + block.claim.blocked_by + '</div>';
+      } else if (allowed) {
+        html += '<div class="warn ok">Origin holds, the rate is in the snapshot, the documents are in order.</div>';
+      }
+      if (excluded.length) {
+        html += '<div class="warn">Excluded or shared provision named in the path: <span class="why">' +
+                excluded[0] + '</span></div>';
+      }
+      var rule = (block.origin || {}).rule;
+      if (rule && rule.text) {
+        html += '<div class="why"><span class="code">' + rule.code_from + '</span> ' +
+                rule.text.slice(0, 150) + (rule.text.length > 150 ? "..." : "") + '</div>';
+      }
+      if ((block.origin || {}).reason) {
+        html += '<div class="why">' + block.origin.reason + '</div>';
+      }
+      if (block.missing && block.missing.length) {
+        html += '<div class="why">Needed: ' + block.missing.join("; ") + '</div>';
+      }
+      html += '</article>';
+    });
+    document.getElementById("markets").innerHTML = html;
+
+    var cheapest = null;
+    var dearest = null;
+    dollars.forEach(function (entry) {
+      if (cheapest === null || entry.duty < cheapest.duty) { cheapest = entry; }
+      if (dearest === null || entry.duty > dearest.duty) { dearest = entry; }
+    });
+    var bestEl = document.getElementById("best-route");
+    var bestNote = document.getElementById("best-route-note");
+    if (best) {
+      bestEl.textContent = best.market + " at " + money(best.duty, currency);
+      bestNote.textContent = "lowest duty that can actually be claimed on this material list";
+    } else {
+      bestEl.textContent = "none";
+      bestNote.textContent = "no route can be claimed as the documents and the rules stand";
+    }
+    var spreadEl = document.getElementById("spread");
+    if (cheapest && dearest) {
+      spreadEl.textContent = money(dearest.duty - cheapest.duty, currency);
+      document.getElementById("spread-note").textContent =
+        cheapest.market + " pays " + money(cheapest.duty, currency) + ", " +
+        dearest.market + " pays " + money(dearest.duty, currency);
+    } else {
+      spreadEl.textContent = "-";
+    }
+    var windowEl = document.getElementById("window");
+    var windowNote = document.getElementById("window-note");
+    var deadline = report.claim_window ? report.claim_window.deadline : null;
+    if (deadline) {
+      windowEl.textContent = deadline;
+      var days = Math.round((new Date(deadline + "T00:00:00Z") - new Date(on + "T00:00:00Z")) / 86400000);
+      windowNote.textContent = (days >= 0 ? days + " days left" : Math.abs(days) + " days past") +
+        " from " + on + ", " + report.claim_window.legal_ref;
+    } else {
+      windowEl.textContent = "unknown";
+    }
+  }
+
+  function fillSnapshot() {
+    var snap = DATA.snapshot;
+    document.getElementById("snapshot-line").textContent =
+      "snapshot " + snap.id + " as of " + snap.as_of + "  |  rule version " + snap.rule_version +
+      "  |  three chapters, three agreements, " + DATA.cases.length + " shipments";
+    document.getElementById("f-snap").textContent = snap.id;
+    document.getElementById("f-date").textContent = snap.as_of;
+    document.getElementById("f-version").textContent = snap.rule_version;
+    document.getElementById("f-bytes").textContent = DATA.store.bytes.toLocaleString("en-US") + " bytes";
+    document.getElementById("f-sha").textContent = DATA.store.sha256;
+  }
+
+  function fillCases() {
+    var select = document.getElementById("case");
+    DATA.cases.forEach(function (item, index) {
+      var option = document.createElement("option");
+      option.value = String(index);
+      option.textContent = item.id + "  " + item.description;
+      select.appendChild(option);
+    });
+    var preferred = 0;
+    DATA.cases.forEach(function (item, index) {
+      if (item.id === "SHP-2026-1201-001") { preferred = index; }
+    });
+    select.value = String(preferred);
+    state.index = preferred;
+    select.addEventListener("change", function () {
+      state.index = parseInt(select.value, 10);
+      var item = DATA.cases[state.index];
+      state.on = item.report.shipment.assessed_on;
+      state.value = item.report.shipment.declared_value;
+      render();
+    });
+  }
+
+  async function hashFile(file) {
+    var buffer = await file.arrayBuffer();
+    var digest = await crypto.subtle.digest("SHA-256", buffer);
+    return Array.from(new Uint8Array(digest)).map(function (byte) {
+      return byte.toString(16).padStart(2, "0");
+    }).join("");
+  }
+
+  function wireHash() {
+    var input = document.getElementById("rules-file");
+    input.addEventListener("change", async function () {
+      var badgeEl = document.getElementById("hash-badge");
+      var detail = document.getElementById("hash-detail");
+      if (!input.files || !input.files.length) { return; }
+      detail.textContent = "hashing " + input.files[0].name;
+      try {
+        var digest = await hashFile(input.files[0]);
+        window.DUTYPATH_LAST_HASH = digest;
+        if (digest === DATA.store.sha256) {
+          badgeEl.className = "badge b-check";
+          badgeEl.textContent = "rule file matches";
+          detail.textContent = digest.slice(0, 32) + "...";
+        } else {
+          badgeEl.className = "badge b-fail";
+          badgeEl.textContent = "does not match";
+          detail.textContent = digest.slice(0, 32) + "...";
+        }
+      } catch (error) {
+        badgeEl.className = "badge b-fail";
+        badgeEl.textContent = "could not read";
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!DATA) { return; }
+    fillSnapshot();
+    fillCases();
+    wireHash();
+    var first = DATA.cases[state.index];
+    state.on = first.report.shipment.assessed_on;
+    state.value = first.report.shipment.declared_value;
+    document.getElementById("on").addEventListener("change", function (event) {
+      state.on = event.target.value;
+      render();
+    });
+    document.getElementById("value").addEventListener("input", function (event) {
+      state.value = parseFloat(event.target.value) || 0;
+      render();
+    });
+    render();
+    var text = document.body.innerText;
+    window.DUTYPATH_FORBIDDEN_FOUND = FORBIDDEN.test(text);
+  });
+})();
+</script>
+</body>
+</html>
