@@ -22,11 +22,11 @@ Seven tools are listed by `tools/list`:
 | `rate_on_date` | the preferential rate for one line on one date, or the reason there is none |
 | `snapshot_info` | the snapshot's identity, coverage and counts |
 | `verify_zero_leak` | the sha256 before and after an assessment, and the label counts |
-| `read_cypher` | one read only Cypher statement against the snapshot |
+| `read_cypher` | one read only Cypher statement against the snapshot; a statement that would write is refused before it reaches the store |
 
 ## The exchange, as it ran
 
-Six messages on stdin, six lines on stdout. The log below is the output of
+Seven messages on stdin, seven lines on stdout. The log below is the output of
 `scripts/check_mcp.py`, trimmed to the fields that decide the answer.
 
 ```json
@@ -65,7 +65,8 @@ It reads the rule before trusting the verdict.
  "rule":{"id":"OR-0131","level":"range","code_from":"8504.32","code_to":"8504.50",
          "text":"A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50.",
          "alternatives":[{"text":"A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50.",
-                          "kinds":["CTSH"],"group":["8504.10","8504.50"],"rvc_down":null}]},
+                          "kinds":["CTSH"],"excluded":[],"excluded_ranges":[],"group":["8504.10","8504.50"],
+                          "allowed_from":[],"rvc_down":null,"rvc_up":null,"weight_min":null}]},
  "source":{"id":"SRC-KORUS-6A","title":"KORUS FTA Annex 6-A, Specific Rules of Origin",
            "url":"https://ustr.gov/sites/default/files/Annex_6-A_SPECIFIC_RULES_OF_ORIGIN.pdf","as_of":"2012-03-15"}}
 ```
@@ -93,27 +94,30 @@ The answer, trimmed to the numbers that decide it:
 ```json
 {"best_claim":{"market":"EU","agreement":"EUKOR","duty":0.0,"saving":15840.0},
  "ranking":{"cheapest":"EU","dearest":"US","spread":7200.0,"currency":"USD"},
- "claim_window":{"status":"OPEN","deadline":"2027-12-08","legal_ref":"협정관세 사후적용 신청기간 1년"},
+ "claim_window":{"status":"OPEN","deadline":"2027-12-08","legal_ref":"협정관세 사후적용 신청기간 1년",
+                 "scope":"the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"},
  "markets":[
    {"market":"US","code":"85044095","verdict":"NO CLAIM",
     "origin":{"verdict":"NOT_ORIGINATING","reason":"M1 85043140 sits inside 8504.10 to 8504.50, the group the rule excludes"},
     "rate":{"percent":0.0},"mfn":{"percent":1.5},"duty":{"amount":7200.0},
     "claim":{"allowed":false,"blocked_by":"origin: NOT_ORIGINATING"}},
    {"market":"EU","code":"85044090","verdict":"CLAIM",
-    "origin":{"verdict":"ORIGINATING","reason":"every non party material changes tariff classification as the rule asks"},
+    "origin":{"verdict":"ORIGINATING","reason":"regional value content 63.75 percent on the build down method meets the 55 percent the rule asks for"},
     "rate":{"percent":0.0},"mfn":{"percent":3.3},"duty":{"amount":0.0},
     "claim":{"allowed":true,"blocked_by":null}},
    {"market":"JP","code":"850440090","verdict":"NO CLAIM",
-    "origin":{"verdict":"ORIGINATING"},
+    "origin":{"verdict":"ORIGINATING","reason":"regional value content 100.00 percent on the build down method meets the 40 percent the rule asks for"},
     "rate":{"percent":0.0},"mfn":{"percent":0.0},"duty":{"amount":0.0},
-    "claim":{"allowed":false,"blocked_by":"document: approved exporter expired"}}]}
+    "claim":{"allowed":false,"blocked_by":"document: the approved exporter approval expired before the claim date"}}]}
 ```
 
 Three markets, three answers, and the one the broker would have missed is the
 one that pays: the same transformer that blocks the American claim is allowed by
 the EU rule, whose ceiling is met at 36 percent, and the EU claim is worth
 15,840 dollars. Japan is free either way, and the RCEP approval on file ran out
-on 2026-08-31.
+on 2026-08-31. The reasons read differently because the rules do: the American
+answer is a classification test, the European and Japanese answers are value
+content, and each says which test it ran.
 
 Last, the agent proves it changed nothing.
 
@@ -123,18 +127,40 @@ Last, the agent proves it changed nothing.
 
 ```json
 {"store":"store/dutypath-rules.rl",
- "sha256_before":"0843d1a5c77c5b7bdc2f32e2908bd472ce099920c34ec66406e7658d13ab0849",
- "sha256_after":"0843d1a5c77c5b7bdc2f32e2908bd472ce099920c34ec66406e7658d13ab0849",
+ "sha256_before":"82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d",
+ "sha256_after":"82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d",
  "hash_unchanged":true,"labels_unchanged":true,
  "forbidden_labels":{"Shipment":0,"Material":0,"BomNode":0,"Good":0,"Party":0,"Verdict":0},
  "pass":true}
 ```
+
+Then it tries to write, and is told no.
+
+```json
+{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"read_cypher",
+ "arguments":{"statement":"CREATE (:Material {id: 'LEAK-1', value: 999})"}}}
+```
+
+```json
+{"error":"read_cypher runs read only statements: this one contains CREATE, so it was not sent to the store. The snapshot is a rule book and an answer never edits it."}
+```
+
+The refusal happens in the engine, before the statement reaches Relate: the
+reader looks for a writing clause in the statement, so `CREATE`, `MERGE`, `SET`,
+`DELETE`, `REMOVE`, `DROP`, `FOREACH`, `CALL` and a second statement after a
+semicolon all come back with the clause named. A string literal that contains
+one of those words is not a clause and still reads.
 
 ## When the agent asks a question the snapshot cannot answer
 
 An agent that is told "undecidable" can act on it, which is the point of having
 the third verdict. Two shapes of that answer, both produced by the tools above:
 
+* **No classification for a material.** A bill of materials with a line that
+  carries no tariff code gets `"verdict": "UNDECIDABLE"` and `missing: ["the
+  tariff classification of material M1"]`, whatever the rule asks, because the
+  tool cannot say whether that line should have been tested. The agent asks the
+  broker for the code.
 * **No classification for a market.** A shipment written with no EU line gets
   `"blocked_by": "classification: the shipment states no line for this market's
   nomenclature"` and `missing: ["the good's CN eight digit code for European
@@ -164,7 +190,7 @@ relate serve --database store/dutypath-rules.rl --mcp stdio --read-only
 ```
 
 That surface exposes `read_cypher` and `get_schema`, so an agent can read the
-graph directly with the queries in `cypher/`. `tests/test_markets.py` launches
-it and checks that the rate row it returns for EU 85044090 has the same base
-rate and staging category the engine uses, which is what "parity" means here:
-two readers, one file, one answer.
+graph directly with the queries in `cypher/`. `tests/test_markets.py` reads the
+same EU rate row two ways, through this package's Cypher and through
+`duty.line_rate`, and compares them; when the binary is installed it compares
+through that too, and says so in the test name rather than skipping.

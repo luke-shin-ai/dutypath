@@ -24,11 +24,11 @@ heading, a second alternative, or an agreement with no rule for the line.
 
 | Method | Labels correct | Accuracy | Exception labels correct | Exception capture | Median time per market verdict |
 | --- | --- | --- | --- | --- | --- |
-| A, keyword | 23 / 36 | 63.9% | 18 / 30 | 60.0% | 0.010 ms |
-| B, flat table | 17 / 36 | 47.2% | 13 / 30 | 43.3% | 0.016 ms |
-| C, DutyPath | 36 / 36 | 100.0% | 30 / 30 | 100.0% | 7.904 ms |
+| A, keyword | 23 / 36 | 63.9% | 18 / 30 | 60.0% | 0.009 ms |
+| B, flat table | 17 / 36 | 47.2% | 13 / 30 | 43.3% | 0.015 ms |
+| C, DutyPath | 36 / 36 | 100.0% | 30 / 30 | 100.0% | 7.370 ms |
 
-Zero leak, measured on the store the run used: sha256 before `0843d1a5c77c5b7b`, after `0843d1a5c77c5b7b`, unchanged `True`.
+Zero leak, measured on the store the run used: sha256 before `82378e268466cd7a`, after `82378e268466cd7a`, unchanged `True`.
 No method wrote a shipment row: A and B read a JSON export of the rules and never open the
 store, and C opens it read only and proves it with the hash and the label counts. The
 numbers say the same thing in three different ways, and the third way is checkable by a

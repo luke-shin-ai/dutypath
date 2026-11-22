@@ -126,7 +126,11 @@ TOOLS = [
     {
         "name": "read_cypher",
         "title": "Read the graph",
-        "description": "Run one read only Cypher statement against the rule snapshot and return its rows.",
+        "description": (
+            "Run one read only Cypher statement against the rule snapshot and return its rows. A "
+            "statement that would write is refused before it reaches the store, and the refusal "
+            "names the clause it found."
+        ),
         "inputSchema": {
             "type": "object",
             "properties": {
@@ -245,6 +249,12 @@ class Server:
 
     def read_cypher(self, args: dict) -> dict:
         statement = str(args.get("statement") or "")
+        clause = store.write_keyword(statement)
+        if clause:
+            raise ValueError(
+                "read_cypher runs read only statements: this one contains %s, so it was not sent "
+                "to the store. The snapshot is a rule book and an answer never edits it." % clause
+            )
         rows = store.rows(self.conn, statement, args.get("parameters") or {})
         return {"rows": rows, "count": len(rows)}
 

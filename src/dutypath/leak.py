@@ -15,18 +15,19 @@ from __future__ import annotations
 
 from datetime import date
 
-from . import assess, bom, store
+from . import assess, bom, store, validate
 
 FORBIDDEN = ("Shipment", "Material", "BomNode", "Good", "Party", "Verdict")
 
 
 def verify(store_path: str, shipment: dict, on: date | None = None) -> dict:
+    shipment = validate.shipment(shipment)
     before = store.file_sha256(store_path)
     counts_before = _counts(store_path)
 
     rules_conn = store.connect(store_path, read_only=True)
     order = bom.build(shipment)
-    report = assess.assess(rules_conn, shipment, on)
+    report = assess.assess(rules_conn, shipment, on, order=order)
     after_counts = store.label_counts(rules_conn)
     forbidden = {label: after_counts.get(label, 0) for label in FORBIDDEN}
     order.close()

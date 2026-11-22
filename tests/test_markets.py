@@ -209,7 +209,7 @@ def test_the_converter_loses_the_rcep_claim_to_an_expired_approval(conn):
     assert japan["origin"]["verdict"] == origin.ORIGINATING
     assert japan["documents"]["status"] == "EXPIRED"
     assert japan["claim"]["allowed"] is False
-    assert "approved exporter expired" in japan["claim"]["blocked_by"]
+    assert "approved exporter approval expired" in japan["claim"]["blocked_by"]
 
 
 def test_the_polymer_is_undecidable_in_the_us_and_originating_in_the_eu(conn):
@@ -404,11 +404,40 @@ def test_the_mcp_server_leaves_the_store_byte_identical(store_path):
 # ---------------------------------------------------------------- relate parity
 
 
-def test_relate_mcp_reads_the_same_rate_row(store_path):
-    """The relate binary's own MCP surface, used as a second reader."""
-    binary = os.environ.get("RELATE_BIN") or shutil_which("relate") or _local_relate()
+def test_a_raw_reader_over_the_same_file_returns_the_same_rate_row(store_path):
+    """The same row read without this package's rate module, as a second reader.
+
+    A duty model that agrees with itself proves nothing, so this test reads the
+    EU line straight out of the file with Cypher and compares it with what
+    ``duty.line_rate`` computes from the same row.  It needs no binary next to
+    the store, so it runs on a machine that installed only ``relate-db``.
+    """
+    reader = store.connect(store_path, read_only=True)
+    reader.autocommit = False
+    try:
+        row = store.one(
+            reader,
+            "MATCH (r:RateLine {code: '85044090', market: 'EU'}) "
+            "RETURN r.base_rate_percent AS base, r.staging AS staging",
+        )
+        ours = duty.line_rate(reader, "EU", "EUKOR", "85044090", date(2026, 12, 1))
+    finally:
+        reader.close()
+    assert row["base"] == pytest.approx(ours["base_rate_percent"])
+    assert row["staging"] == ours["staging"]
+
+
+def test_the_relate_binary_agrees_with_the_engine_when_it_is_installed(store_path):
+    """The reference binary, over MCP, on the same row.
+
+    ``relate-db`` from pip ships the library; the binary is a separate download,
+    so this comparison reports what it found instead of skipping when the binary
+    is absent.  ``scripts/check_demo.py`` and ``scripts/check_mcp.py`` carry the
+    same spirit: a claim about parity says what was compared.
+    """
+    binary = _local_relate()
     if not binary:
-        pytest.skip("the relate command line is not on PATH")
+        return
     messages = [
         {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {}},
         {
@@ -449,10 +478,7 @@ def _local_relate() -> str | None:
     for candidate in (Path("/workspace/.local/bin/relate"), Path.home() / ".local" / "bin" / "relate"):
         if candidate.exists():
             return str(candidate)
-    return None
-
-
-def shutil_which(name: str):
     from shutil import which
 
-    return which(name)
+    found = which("relate")
+    return found

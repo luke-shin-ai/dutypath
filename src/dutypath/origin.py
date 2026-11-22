@@ -9,13 +9,26 @@ Three verdicts, the same three the rest of the project uses:
 The rule is read from the graph, the tariff hierarchy is walked in the graph,
 and the material list arrives in memory with the shipment.  No material, no
 value and no shipment identifier is ever written to the store.
+
+What the verdict refuses to do is the part worth reading.  A material with no
+classification, a bill of materials with no lines, a material with no value
+where the rule prices one, a code written too coarsely for the level the rule
+tests, and an alternative the parser could not read: each of those is
+``UNDECIDABLE`` with the piece named.  None of them is a pass.  A test that did
+not run is not a test that was met.
+
+One assumption is worth stating: the build-up figure counts a material whose
+origin is a party as a party material.  The bill of materials does not carry
+whether that material itself meets an origin rule, so the figure is the
+agreement's own party content, not the accumulated originating content of the
+whole supply chain.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from . import codes, rules, store
+from . import codes, rules, store, validate
 
 ORIGINATING = "ORIGINATING"
 NOT_ORIGINATING = "NOT_ORIGINATING"
@@ -34,12 +47,8 @@ class Material:
     id: str
     code: str
     origin: str
-    value: float
+    value: float | None
     description: str = ""
-
-    @property
-    def originating(self) -> bool:
-        return False  # replaced per agreement
 
 
 @dataclass
@@ -63,11 +72,13 @@ def _parties(agreement: str) -> set[str]:
     return {"KR"}
 
 
-# The EU Party is named as one party in the agreement and as member states in a
-# bill of materials.  The codes are the ISO 3166-1 alpha-2 codes of the states
-# that were members when the agreement was signed.
+# The EU Party is one party in the agreement and many member states in a bill of
+# materials.  These are the ISO 3166-1 alpha-2 codes of the states that were
+# members on 2011-07-01, the day the agreement entered into force.  Croatia
+# joined the Union in 2013 and the United Kingdom left in 2020; neither date is
+# this snapshot's, and moving the set would change a verdict without a source.
 EU_MEMBER_STATES = {
-    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GR", "HR",
+    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR",
     "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI",
     "SK",
 }
@@ -80,43 +91,73 @@ def _is_party(origin: str, parties: set[str]) -> bool:
     return value in parties
 
 
-def _ctc_ok(material_code: str, good_code: str, kind: str) -> tuple[bool, str]:
-    level = {"CC": 4, "CTH": 4, "CTSH": 6}[kind]
-    good = codes.normalise(good_code)
-    material = codes.normalise(material_code)
+LEVEL_OF_KIND = {"CC": 2, "CTH": 4, "CTSH": 6}
+LEVEL_WORDS = {2: "chapter", 4: "heading", 6: "subheading"}
+
+
+def _ctc_ok(material_code: str, good_code: str, kind: str) -> tuple[bool | None, str]:
+    """Whether a material changes classification at the level the rule names.
+
+    The good's prefix is the interval the material has to fall outside, and the
+    material is a statement that may be coarser than that interval.  Three
+    answers follow: outside passes, inside fails, and a material whose own span
+    straddles the interval is ``None``, because the exporter has not said enough
+    to answer.
+    """
+    level = LEVEL_OF_KIND[kind]
+    good = codes.stated_digits(good_code)
+    if len(good) < level:
+        return None, "the good is stated at %s level and a %s change needs the %s" % (
+            codes.level_name_of(good_code), kind, LEVEL_WORDS[level]
+        )
+    prefix = good[:level]
+    relation = codes.interval_relation(material_code, prefix, prefix)
+    word = LEVEL_WORDS[level]
+    if relation == "across":
+        return None, "a finer classification than the %s this material is stated at, to place it " \
+                     "against %s %s" % (codes.level_name_of(material_code), word, _pretty(prefix))
+    if relation == "outside":
+        return True, ("chapter changes" if level == 2 else
+                      "heading changes" if level == 4 else "subheading changes")
     if kind == "CC":
-        changed = good[:2] != material[:2]
-        return changed, ("chapter changes" if changed else "same chapter %s" % material[:2])
+        return False, "same chapter %s" % prefix
     if kind == "CTH":
-        changed = good[:4] != material[:4]
-        return changed, ("heading changes" if changed else "same heading %s" % material[:4])
-    changed = good[:6] != material[:6]
-    return changed, ("subheading changes" if changed else "same subheading %s" % material[:6])
+        return False, "same heading %s" % prefix
+    return False, "same subheading %s" % prefix
 
 
-def _rvc(materials: list[Material], parties: set[str], fob: float) -> tuple[float, float, float]:
-    non_party = sum(m.value for m in materials if not _is_party(m.origin, parties))
-    party = sum(m.value for m in materials if _is_party(m.origin, parties))
-    if not fob:
-        return 0.0, 0.0, non_party
-    return (fob - non_party) / fob * 100.0, party / fob * 100.0, non_party
+def _rvc(materials: list[Material], parties: set[str], fob: float | None) -> dict:
+    unknown = [m.id for m in materials if m.value is None]
+    non_party = sum(m.value for m in materials if m.value is not None and not _is_party(m.origin, parties))
+    party = sum(m.value for m in materials if m.value is not None and _is_party(m.origin, parties))
+    if unknown or not fob:
+        return {"down": None, "up": None, "non_party": None if unknown else non_party,
+                "unknown_values": unknown, "no_fob": not fob}
+    return {
+        "down": (fob - non_party) / fob * 100.0,
+        "up": party / fob * 100.0,
+        "non_party": non_party,
+        "unknown_values": [],
+        "no_fob": False,
+    }
 
 
 def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | None = None,
              good_code: str | None = None) -> dict:
-    goods = shipment["goods"]
+    payload = validate.shipment(shipment, require_declared=False)
+    goods = payload["goods"]
     good_code = good_code or goods.get("hts8") or goods.get("hs6") or goods.get("hs")
-    fob = float(goods.get("declared_value") or goods.get("fob") or 0.0)
+    fob = float(goods.get("declared_value") or 0.0) or None
     if materials is None:
         materials = [
             Material(
                 id=str(item.get("id", f"M{index}")),
                 code=str(item.get("hts8") or item.get("hs") or ""),
                 origin=str(item.get("origin", "")),
-                value=float(item.get("value") or 0.0),
+                value=item.get("value"),
                 description=str(item.get("description", "")),
             )
-            for index, item in enumerate(shipment.get("materials") or [], start=1)
+            for index, item in enumerate(payload.get("materials") or [], start=1)
         ]
     parties = _parties(agreement)
     agreement_row = store.one(conn, PARTY_QUERY, {"code": agreement})
@@ -169,13 +210,33 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
         report["missing"] = ["a structured form of the rule"]
         return report
 
-    down, up, non_party = _rvc(materials, parties, fob)
-    report["rvc_build_down"] = round(down, 2)
-    report["rvc_build_up"] = round(up, 2)
-    report["non_party_value"] = non_party
+    content = _rvc(materials, parties, fob)
+    report["rvc_build_down"] = None if content["down"] is None else round(content["down"], 2)
+    report["rvc_build_up"] = None if content["up"] is None else round(content["up"], 2)
+    report["non_party_value"] = content["non_party"]
+
+    if not materials:
+        # Nothing was given to test.  An empty bill of materials meets no rule;
+        # it is the exporter's input that is missing, not the engine's answer.
+        report["reason"] = "the bill of materials has no material lines, so no condition can be tested"
+        report["missing"] = ["the bill of materials: at least one material line"]
+        return report
+
+    unclassified = [m.id for m in materials if not codes.stated_digits(m.code)]
+    if unclassified:
+        # A line with no classification cannot be placed against any rule, and
+        # pretending it passed is how a bill of materials gets better by being
+        # less complete.  The value content could still be computed, but the
+        # exporter is one code away from a verdict and is told which line.
+        report["reason"] = (
+            "the bill of materials has a material with no tariff classification, so no material "
+            "can be tested against the rule"
+        )
+        report["missing"] = ["the tariff classification of material %s" % ", ".join(unclassified)]
+        return report
 
     for index, alternative in enumerate(rules.alternatives(rule), start=1):
-        check = _check(alternative, index, good_code, materials, parties, fob, shipment)
+        check = _check(alternative, index, good_code, materials, parties, fob, payload, content)
         report["checks"].append(check.__dict__)
         if check.missing:
             report["missing"].extend(item for item in check.missing if item not in report["missing"])
@@ -187,7 +248,7 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
 
     if report["missing"]:
         report["verdict"] = UNDECIDABLE
-        report["reason"] = "a value the rule needs is not in the shipment"
+        report["reason"] = "cannot decide under this rule: %s" % "; ".join(report["missing"][:3])
         return report
 
     report["verdict"] = NOT_ORIGINATING
@@ -198,29 +259,83 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
     return report
 
 
+def _pretty(code: str) -> str:
+    """A code as the schedule prints it, for a sentence a reader reads."""
+    digits = codes.stated_digits(code)
+    if len(digits) == 6:
+        return "%s.%s" % (digits[:4], digits[4:])
+    if len(digits) == 8:
+        return "%s.%s.%s" % (digits[:4], digits[4:6], digits[6:])
+    return digits
+
+
+def _excluded_intervals(alternative: dict) -> list[tuple[str, str]]:
+    out = [(token, token) for token in alternative.get("excluded") or []]
+    for pair in alternative.get("excluded_ranges") or []:
+        out.append((pair[0], pair[1]))
+    return out
+
+
 def _check(alternative: dict, index: int, good_code: str, materials: list[Material],
-           parties: set[str], fob: float, shipment: dict) -> Check:
+           parties: set[str], fob: float | None, shipment: dict, content: dict) -> Check:
     path: list[str] = []
     reasons: list[str] = []
+    satisfied: list[str] = []
     missing: list[str] = []
     holds = True
+
+    down = content["down"]
+    up = content["up"]
+    non_party = content["non_party"]
+
+    if rules.condition_count(alternative) == 0:
+        text = (alternative.get("text") or "").strip()
+        return Check(
+            index,
+            False,
+            "cannot decide this alternative: its sentence asks for a condition this parser did "
+            "not read (%s)" % (text[:120] or "empty sentence"),
+            [],
+            None if down is None else round(down, 2),
+            None if up is None else round(up, 2),
+            ["a testable reading of the alternative: %s" % (text[:100] or "empty sentence")],
+        )
+
+    intervals = _excluded_intervals(alternative)
 
     for kind in alternative["kinds"]:
         for material in materials:
             if _is_party(material.origin, parties):
                 continue
-            if alternative["excluded"] and any(
-                codes.is_under(material.code, excluded) for excluded in alternative["excluded"]
-            ):
+            if not codes.stated_digits(material.code):
+                missing.append("the tariff classification of material %s" % material.id)
+                continue
+            barred = None
+            for low, high in intervals:
+                relation = codes.interval_relation(material.code, low, high)
+                if relation == "across":
+                    missing.append(
+                        "a finer classification for material %s, which is stated at %s level and "
+                        "sits across the exclusion %s"
+                        % (material.id, codes.level_name_of(material.code),
+                           _pretty(low) if low == high else "%s to %s" % (_pretty(low), _pretty(high)))
+                    )
+                    barred = "unknown"
+                    break
+                if relation == "inside":
+                    barred = "%s to %s" % (_pretty(low), _pretty(high)) if low != high else _pretty(low)
+                    break
+            if barred == "unknown":
+                continue
+            if barred is not None:
                 holds = False
                 reasons.append(
                     "%s %s is in an excluded provision (%s): %s"
-                    % (material.id, material.code, ",".join(alternative["excluded"]), material.origin)
+                    % (material.id, material.code, barred, material.origin)
                 )
                 path.append(
                     "%s (%s, %s) -[%s]-> excluded provision %s"
-                    % (material.id, material.code, material.origin, kind,
-                       ",".join(alternative["excluded"]))
+                    % (material.id, material.code, material.origin, kind, barred)
                 )
                 continue
             if alternative.get("allowed_from") and any(
@@ -234,19 +349,30 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
                 continue
             if alternative["group"]:
                 low, high = alternative["group"]
-                material_digits = material.code.replace(".", "")
-                if low.replace(".", "") <= material_digits <= high.replace(".", ""):
+                relation = codes.interval_relation(material.code, low, high)
+                if relation == "across":
+                    missing.append(
+                        "a finer classification for material %s, which is stated at %s level and "
+                        "sits across the group %s to %s the rule excludes"
+                        % (material.id, codes.level_name_of(material.code), _pretty(low), _pretty(high))
+                    )
+                    continue
+                if relation == "inside":
                     holds = False
                     reasons.append(
                         "%s %s sits inside %s to %s, the group the rule excludes"
-                        % (material.id, material.code, low, high)
+                        % (material.id, material.code, _pretty(low), _pretty(high))
                     )
                     path.append(
-                        "%s (%s, %s) -[%s]-> inside group %s to %s"
-                        % (material.id, material.code, material.origin, kind, low, high)
+                        "%s (%s, %s) -[%s]-> inside group %s to %s" % (material.id, material.code,
+                                                                      material.origin, kind, _pretty(low),
+                                                                      _pretty(high))
                     )
                     continue
             ok, why = _ctc_ok(material.code, good_code, kind)
+            if ok is None:
+                missing.append("a finer classification for material %s: %s" % (material.id, why))
+                continue
             if ok:
                 path.append(
                     "%s (%s, %s) -[%s]-> %s" % (material.id, material.code, material.origin, kind, why)
@@ -261,29 +387,53 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
                 "%s (%s, %s) -[%s]-> %s"
                 % (material.id, material.code, material.origin or "?", kind, why)
             )
+        tested = [m for m in materials if not _is_party(m.origin, parties) and codes.stated_digits(m.code)]
+        if tested:
+            satisfied.append(
+                "every non party material (%d tested) changes classification as the %s requirement asks"
+                % (len(tested), kind)
+            )
+        else:
+            satisfied.append(
+                "no non party material is in the bill of materials, so the %s requirement is met "
+                "without a material test" % kind
+            )
 
-    down, up, non_party = _rvc(materials, parties, fob)
     floor_down = alternative["rvc_down"]
     floor_up = alternative["rvc_up"]
-    if floor_down or floor_up:
+    if floor_down is not None or floor_up is not None:
         # A rule that prints both thresholds is the same rule under either
         # method: "not less than 35 percent under the build-up method, or 45
         # percent under the build-down method" is met by either one, so asking
         # for both would refuse a good the agreement accepts.
-        if not fob:
-            missing.append("declared value to compute regional value content")
+        if down is None or up is None:
+            if content["unknown_values"]:
+                missing.append(
+                    "a declared value for material %s, which the regional value content is "
+                    "computed from" % ", ".join(content["unknown_values"])
+                )
+            if content["no_fob"]:
+                missing.append("declared value to compute regional value content")
         else:
             down_ok = floor_down is not None and down + 1e-9 >= floor_down
             up_ok = floor_up is not None and up + 1e-9 >= floor_up
             if down_ok or up_ok:
-                if floor_down is not None and down_ok:
+                if down_ok:
                     path.append(
                         "build down (declared value %s - non party materials %s) / %s = %.2f percent, "
                         "at or above %.0f percent" % (fob, non_party, fob, down, floor_down)
                     )
-                if floor_up is not None and up_ok:
+                    satisfied.append(
+                        "regional value content %.2f percent on the build down method meets the "
+                        "%.0f percent the rule asks for" % (down, floor_down)
+                    )
+                if up_ok:
                     path.append(
                         "build up %.2f percent is at or above %.0f percent" % (up, floor_up)
+                    )
+                    satisfied.append(
+                        "regional value content %.2f percent on the build up method meets the "
+                        "%.0f percent the rule asks for" % (up, floor_up)
                     )
             else:
                 holds = False
@@ -315,6 +465,13 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
                 "originating polymer content %.1f percent meets %.0f percent"
                 % (float(supplied), alternative["weight_min"])
             )
+            satisfied.append(
+                "originating polymer content %.1f percent by weight meets the %.0f percent the rule "
+                "asks for" % (float(supplied), alternative["weight_min"])
+            )
+
+    rounded_down = None if down is None else round(down, 2)
+    rounded_up = None if up is None else round(up, 2)
 
     if missing:
         return Check(
@@ -322,14 +479,11 @@ def _check(alternative: dict, index: int, good_code: str, materials: list[Materi
             False,
             "cannot decide this alternative: %s" % "; ".join(missing),
             path,
-            round(down, 2),
-            round(up, 2),
+            rounded_down,
+            rounded_up,
             missing,
         )
     if holds:
-        reason = "alternative %d holds" % index
-        if not reasons:
-            reason = "every non party material changes tariff classification as the rule asks"
-        return Check(index, True, reason, path or ["rule %s met" % alternative["text"][:90]],
-                     round(down, 2), round(up, 2), [])
-    return Check(index, False, "; ".join(reasons), path, round(down, 2), round(up, 2), missing)
+        return Check(index, True, "; ".join(satisfied) or "alternative %d holds" % index,
+                     path or ["rule %s met" % alternative["text"][:90]], rounded_down, rounded_up, [])
+    return Check(index, False, "; ".join(reasons), path, rounded_down, rounded_up, missing)

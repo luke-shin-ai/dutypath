@@ -3,18 +3,38 @@
 The snapshot is one Relate file.  Every read goes through here, so the mode
 and the file stay visible in one place, and the hash of the file is easy to
 compare before and after a run.
+
+Relate accepts a write on a connection opened read only and refuses it at
+commit, which leaves the file intact but lets a session see its own write.  So
+the engine also refuses the statement itself: ``write_keyword`` names the
+writing clause in a statement before anything is sent to the store, and the
+MCP reader refuses on that answer.  The promise is then a property of the code
+and the mode together, which is what the README says.
 """
 
 from __future__ import annotations
 
 import hashlib
 import os
+import re
 from contextlib import contextmanager
 from typing import Iterator
 
 import relate
 
 DEFAULT_STORE = os.path.join("store", "dutypath-rules.rl")
+
+# Clauses that change the graph.  CALL is on the list because a subquery is the
+# one place a write could hide behind a read: a procedure call is not something
+# this snapshot needs and a reader can point that out.
+WRITE_CLAUSE = re.compile(
+    r"\b(CREATE|MERGE|DELETE|DETACH|SET|REMOVE|DROP|FOREACH|LOAD\s+CSV|CALL|GRANT|REVOKE|"
+    r"TRUNCATE|ALTER|INSERT|UPDATE)\b",
+    re.IGNORECASE,
+)
+STRING_LITERAL = re.compile(r"'(?:[^'\\]|\\.)*'|\"(?:[^\"\\]|\\.)*\"")
+COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.DOTALL)
+
 
 
 def connect(path: str, read_only: bool = False):
@@ -30,12 +50,29 @@ def connect(path: str, read_only: bool = False):
 
 @contextmanager
 def open_store(path: str, read_only: bool = False) -> Iterator:
-    conn = connect(path)
+    conn = connect(path, read_only=read_only)
     conn.autocommit = not read_only
     try:
         yield conn
     finally:
         conn.close()
+
+
+def write_keyword(statement: str) -> str | None:
+    """The clause that would write in a statement, or None when it only reads.
+
+    String literals and comments are removed first, so a property value that
+    happens to read "created" is not mistaken for a clause.
+    """
+    if not statement or not statement.strip():
+        return "an empty statement"
+    cleaned = COMMENT.sub(" ", statement)
+    cleaned = STRING_LITERAL.sub("''", cleaned)
+    body = cleaned.strip().rstrip(";").strip()
+    if ";" in body:
+        return "more than one statement"
+    match = WRITE_CLAUSE.search(body)
+    return match.group(0).upper() if match else None
 
 
 def rows(conn, statement: str, params: dict | None = None) -> list[dict]:

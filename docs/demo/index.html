@@ -191,6 +191,9 @@
       read the rule sentences and the exclusion intervals; the page shows its verdict, the rule code
       and the sentence it followed. <span class="mono">tests/test_demo.py</span> fails if the bundle
       and the engine ever disagree.</p>
+      <p>The rate arithmetic above is the only thing the page does twice. 
+      <span class="mono">scripts/check_demo.py</span> compares it with the engine's on seven dates
+      for every schedule row in the bundle, so the two cannot drift apart quietly.</p>
       <p>The page makes no network call and writes nothing. The claim window is the Korean one year
       post import period, quoted from the snapshot's own deadline row.</p>
     </div>
@@ -329,12 +332,14 @@
     report.markets.forEach(function (block) {
       var row = DATA.rates[block.market + ":" + block.code];
       var pref = rateOn(row, on);
-      var mfn = rateOn(row, on);
-      var mfnRow = row ? row : null;
+      // The MFN figure is the engine's, assessment date and all.  The
+      // interactive date moves the preferential rate; it does not move the
+      // baseline, and the page does not overwrite a number it was given.
       var mfnPercent = block.mfn.percent;
-      if (row) {
-        mfnPercent = row.market === "JP" ? (row.base_rate_percent === null ? 0 : row.base_rate_percent) : row.base_rate_percent;
-        if (row.market === "JP" && row.base_rate_percent === null) { mfnPercent = 0; }
+      var mfnFromSchedule = false;
+      if (mfnPercent === null && row && row.base_rate_percent !== null) {
+        mfnPercent = row.base_rate_percent;
+        mfnFromSchedule = true;
       }
       var allowed = block.claim.allowed && pref !== null;
       var duty = allowed ? value * pref / 100 : (mfnPercent === null ? null : value * mfnPercent / 100);
@@ -353,7 +358,8 @@
       html += '<dl class="rows">';
       html += '<dt>Rule</dt><dd class="code">' + ((block.origin || {}).rule ? block.origin.rule.code_from : "-") + '</dd>';
       html += '<dt>Rate now</dt><dd>' + pct(pref) + ' <span class="why">preferential</span></dd>';
-      html += '<dt>MFN</dt><dd>' + pct(mfnPercent) + '</dd>';
+      html += '<dt>MFN</dt><dd>' + pct(mfnPercent) +
+              (mfnFromSchedule ? ' <span class="why">schedule base rate</span>' : '') + '</dd>';
       html += '<dt>Duty</dt><dd><span class="money">' + money(duty, currency) + '</span></dd>';
       html += '<dt>Route</dt><dd>' + badge(claimText, claimKind) + '</dd>';
       html += '</dl>';

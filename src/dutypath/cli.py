@@ -7,6 +7,7 @@
     dutypath footprint         measure the snapshot and print the numbers
     dutypath freshness         judge the snapshot against a date
     dutypath pull-query        print the Cypher a hub uses to serve a market
+    dutypath pull-check        run that query and count what comes down
     dutypath compare           price one shipment in the US, the EU and Japan
     dutypath mcp               serve the snapshot to an AI agent over MCP stdio
 """
@@ -17,10 +18,11 @@ import argparse
 import json
 import os
 import sys
+import time
 from datetime import date
 
 from . import assess as assessment
-from . import bom, build, duty, freshness, leak, store
+from . import bom, build, duty, freshness, leak, store, validate
 DEFAULT_DATA = os.path.join("data", "extract-2026-11-22")
 
 
@@ -31,6 +33,20 @@ def _store(args) -> str:
 def _load(path: str) -> dict:
     with open(path, encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def _read_shipment(path: str) -> dict:
+    """One shipment file, with the errors a reader can act on."""
+    try:
+        payload = _load(path)
+    except FileNotFoundError:
+        raise SystemExit("input error: no shipment file at %s" % path)
+    except ValueError as error:
+        raise SystemExit("input error: %s is not JSON: %s" % (path, error))
+    try:
+        return validate.shipment(payload)
+    except validate.InputError as error:
+        raise SystemExit("input error: %s" % error)
 
 
 def cmd_seed(args) -> int:
@@ -81,6 +97,7 @@ def cmd_info(args) -> int:
         )
         counts = store.label_counts(conn)
         relationships = store.relationship_count(conn)
+        unreadable = _unreadable_alternatives(conn)
     finally:
         conn.close()
     print(json.dumps(
@@ -92,6 +109,7 @@ def cmd_info(args) -> int:
             "origin_rules": rules,
             "rate_lines": rates,
             "sources": sources,
+            "unreadable_alternatives": unreadable,
         },
         indent=2,
         ensure_ascii=False,
@@ -99,8 +117,37 @@ def cmd_info(args) -> int:
     return 0
 
 
+def _unreadable_alternatives(conn) -> dict:
+    """The alternatives the parser read no condition out of, named by rule.
+
+    Those alternatives answer ``UNDECIDABLE`` rather than passing, so the count
+    is the size of the honest gap and not a list of hidden passes.
+    """
+    from . import rules as rulebook
+
+    rows = store.rows(
+        conn,
+        "MATCH (r:OriginRule) RETURN r.id AS id, r.agreement AS agreement, "
+        "r.code_from AS code_from, r.code_to AS code_to, r.text AS text, "
+        "r.alternatives_json AS alternatives_json ORDER BY r.id",
+    )
+    named = []
+    total = 0
+    for row in rows:
+        count = sum(
+            1 for alternative in rulebook.alternatives(row)
+            if rulebook.condition_count(alternative) == 0
+        )
+        if count:
+            total += count
+            named.append({"rule": row["id"], "agreement": row["agreement"],
+                          "code_from": row["code_from"], "code_to": row["code_to"],
+                          "alternatives": count})
+    return {"rules": len(named), "alternatives": total, "named": named}
+
+
 def cmd_assess(args) -> int:
-    shipment = _load(args.shipment)
+    shipment = _read_shipment(args.shipment)
     on = date.fromisoformat(args.on) if args.on else None
     conn = store.connect(_store(args), read_only=True)
     conn.autocommit = False
@@ -116,7 +163,7 @@ def cmd_assess(args) -> int:
 
 
 def cmd_verify(args) -> int:
-    shipment = _load(args.shipment)
+    shipment = _read_shipment(args.shipment)
     result = leak.verify(_store(args), shipment)
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0 if result["pass"] else 1
@@ -149,7 +196,7 @@ def cmd_freshness(args) -> int:
 def cmd_compare(args) -> int:
     from . import markets as comparison
 
-    shipment = _load(args.shipment)
+    shipment = _read_shipment(args.shipment)
     on = date.fromisoformat(args.on) if args.on else None
     conn = store.connect(_store(args), read_only=True)
     conn.autocommit = False
@@ -170,10 +217,51 @@ def cmd_mcp(args) -> int:
     return server.Server(_store(args)).serve()
 
 
-def cmd_pull(args) -> int:
+def _pull_statement() -> str:
     path = os.path.join("neo4j", "pull_rules.cypher")
     with open(path, encoding="utf-8") as handle:
-        print(handle.read() % {"market": args.market})
+        return handle.read()
+
+
+def _pull_body(statement: str) -> str:
+    return "\n".join(line for line in statement.splitlines() if not line.strip().startswith("//"))
+
+
+def cmd_pull(args) -> int:
+    print(_pull_statement())
+    print("-- parameters: market=%s" % args.market)
+    return 0
+
+
+def cmd_pull_check(args) -> int:
+    """Run the hub query against this snapshot and report what came down.
+
+    The point is that the file a reader is pointed at actually completes: a
+    query that builds a cartesian product finishes on nothing and this command
+    would say so.
+    """
+    body = _pull_body(_pull_statement())
+    conn = store.connect(_store(args), read_only=True)
+    conn.autocommit = False
+    try:
+        started = time.time()
+        rows = store.rows(conn, body, {"market": args.market})
+        elapsed = time.time() - started
+    finally:
+        conn.close()
+    parts: dict[str, int] = {}
+    for row in rows:
+        parts[row["part"]] = parts.get(row["part"], 0) + 1
+    print(json.dumps(
+        {
+            "market": args.market,
+            "rows": len(rows),
+            "rows_by_part": parts,
+            "seconds": round(elapsed, 3),
+            "completes": True,
+        },
+        indent=2,
+    ))
     return 0
 
 
@@ -334,6 +422,11 @@ def main(argv: list[str] | None = None) -> int:
     pull = sub.add_parser("pull-query", help="print the hub query a market is served with")
     pull.add_argument("--market", default="US")
     pull.set_defaults(func=cmd_pull)
+
+    pull_check = sub.add_parser("pull-check", help="run the hub query and count what came down")
+    pull_check.add_argument("--market", default="US")
+    pull_check.add_argument("--store", default=argparse.SUPPRESS)
+    pull_check.set_defaults(func=cmd_pull_check)
 
     compare = sub.add_parser("compare", help="price one shipment in three markets")
     compare.add_argument("--shipment", required=True)

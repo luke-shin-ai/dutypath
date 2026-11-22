@@ -24,9 +24,12 @@ origin verdict, and the approval window.
 > 2. 한-튀르키예 FTA에서 역외산 원사로 생산한 경우 원산지결정기준 불충족 -> 특혜 배제
 
 Both are modelled. The first is `deadline.approved_exporter`, which returns
-`EXPIRED` when the approval on file ended before the claim date. The second is a
-bill of materials whose material does not satisfy the tariff shift, which is
-what the converter and battery parts fixtures show.
+`EXPIRED` when the approval on file ended before the claim date, and
+`deadline.blocks_claim` applies that status only where the agreement asks for the
+approval: KORUS asks for none, so a stale KORUS approval on file is a note about
+the file and not a reason to refuse a preference the agreement grants. The
+second is a bill of materials whose material does not satisfy the tariff shift,
+which is what the converter and battery parts fixtures show.
 
 ## The claim window
 

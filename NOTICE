@@ -8,13 +8,28 @@ published by others:
   Annex 2-B (Tariff Schedule of the United States), Office of the United
   States Trade Representative.
 
+  Korea-European Union Free Trade Agreement, Annex 2-A (tariff schedule of the
+  EU Party), published in the Official Journal of the European Union, L 127,
+  and the Korean language copy of the same table issued by the Ministry of
+  Trade, Industry and Energy.
+
+  Korea-European Union Free Trade Agreement, Protocol on rules of origin,
+  Annex II (product specific rules), published in the Official Journal of the
+  European Union, L 127.
+
   Regional Comprehensive Economic Partnership, Annex 3A (Product-Specific
   Rules), HS 2022 transposition adopted by the RCEP Joint Committee.
+
+  Regional Comprehensive Economic Partnership, Annex I, Schedule of Tariff
+  Commitments of Japan.
 
   FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12.
 
   World Integrated Trade Solution / TRAINS applied tariff data, World Bank.
 
-Those extracts are reproduced as cited quotations for a compliance check; the
-documents remain the property of their publishers and are not relicensed here.
-The code in this repository is licensed under the Apache License, Version 2.0.
+The schedule and rule rows carry the id of the document they came from, and
+docs/SOURCES.md lists each document with its URL, its download date and its
+sha256. Those extracts are reproduced as cited quotations for a compliance
+check; the documents remain the property of their publishers and are not
+relicensed here. The code in this repository is licensed under the Apache
+License, Version 2.0.

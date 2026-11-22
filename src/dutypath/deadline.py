@@ -9,6 +9,12 @@ Two deadlines decide whether a preference survives:
 
 Both are read from the store; the window length is a row with a citation, not
 a number in the code.
+
+An approval only decides anything where the agreement asks for one.  KORUS does
+not, so a stale KORUS approval on file is a note about the file, not a reason to
+refuse a preference the agreement grants without it.  Where the agreement does
+ask, every status other than a valid approval is a bar: absent, expired, not
+yet valid, or an approval written for a different agreement.
 """
 
 from __future__ import annotations
@@ -56,6 +62,30 @@ def post_import_claim(conn, agreement: str, import_date: date, claimed_on: date)
     }
 
 
+BLOCKING = {
+    "ABSENT": "no approved exporter approval is on file for this agreement",
+    "EXPIRED": "the approved exporter approval expired before the claim date",
+    "NOT_YET_VALID": "the approved exporter approval is not valid yet on the claim date",
+    "OTHER_AGREEMENT": "the approval on file is written for another agreement",
+}
+
+
+def blocks_claim(approval: dict | None) -> tuple[bool, str | None]:
+    """Whether the approval on file bars the preference, and why.
+
+    The requirement comes from the agreement, not from the file: an approval
+    that this agreement does not ask for cannot block a claim under it.
+    """
+    if not approval or not approval.get("required"):
+        return False, None
+    status = approval.get("status")
+    if status == "VALID":
+        return False, None
+    if status in BLOCKING:
+        return True, "document: %s" % BLOCKING[status]
+    return True, "document: approved exporter %s" % str(status).lower()
+
+
 def _approval_for(shipment: dict, agreement: str) -> dict:
     """The approval on file for this agreement, from one or from a list.
 
@@ -67,6 +97,11 @@ def _approval_for(shipment: dict, agreement: str) -> dict:
     if isinstance(many, list) and many:
         for item in many:
             if isinstance(item, dict) and item.get("agreement") in (agreement, "ALL"):
+                return item
+        for item in many:
+            if isinstance(item, dict) and item.get("agreement"):
+                # An approval exists, just not for this agreement: the answer is
+                # that, not that there is no approval at all.
                 return item
     return shipment.get("approved_exporter") or {}
 

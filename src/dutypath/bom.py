@@ -31,7 +31,7 @@ def build(shipment: dict):
         {
             "id": str(shipment.get("shipment_id") or ""),
             "market": str(shipment.get("market") or ""),
-            "value": float(goods.get("declared_value") or 0.0),
+            "value": goods.get("declared_value"),
         },
     )
     conn.execute(
@@ -48,6 +48,9 @@ def build(shipment: dict):
     for index, item in enumerate(shipment.get("materials") or [], start=1):
         material_id = str(item.get("id") or f"M{index}")
         code = str(item.get("hts8") or item.get("hs") or "")
+        # A value the bill of materials does not carry stays absent here rather
+        # than becoming zero, so the rule that needs it can say which material
+        # is missing one instead of pricing it at nothing.
         conn.execute(
             """
             MATCH (s:Shipment)
@@ -57,12 +60,18 @@ def build(shipment: dict):
             {
                 "id": material_id,
                 "origin": str(item.get("origin") or ""),
-                "value": float(item.get("value") or 0.0),
+                "value": item.get("value"),
                 "description": str(item.get("description") or ""),
             },
         )
+        conn.execute(
+            "MATCH (m:Material {id: $id}) SET m.classified = $classified",
+            {"id": material_id, "classified": bool(code)},
+        )
         for entry in _codes_with_ancestors(code):
             _ensure_code(conn, entry)
+        if not code:
+            continue
         conn.execute(
             """
             MATCH (m:Material {id: $id}) MATCH (c:Code {code: $code})
@@ -110,7 +119,6 @@ RETURN g.code AS code, s.value AS value, s.market AS market, s.id AS shipment
 
 def materials(conn) -> list[dict]:
     return [dict(row) for row in conn.execute(MATERIALS_QUERY)]
-
 
 def good(conn) -> dict | None:
     row = conn.execute(GOOD_QUERY).single()

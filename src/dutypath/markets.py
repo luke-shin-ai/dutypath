@@ -22,7 +22,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from . import deadline, duty, freshness, origin, store
+from . import deadline, duty, freshness, origin, store, validate
 
 MARKET_AGREEMENT = {"US": "KORUS", "EU": "EUKOR", "JP": "RCEP"}
 MARKET_NAMES = {
@@ -52,6 +52,7 @@ def code_for_market(shipment: dict, market: str) -> str | None:
 
 
 def compare(conn, shipment: dict, on: date | None = None) -> dict:
+    shipment = validate.shipment(shipment)
     goods = shipment.get("goods") or {}
     declared = float(goods.get("declared_value") or 0.0)
     currency = goods.get("currency") or "USD"
@@ -60,7 +61,8 @@ def compare(conn, shipment: dict, on: date | None = None) -> dict:
 
     snap = store.one(
         conn,
-        "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, s.rule_version AS rule_version",
+        "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, "
+        "s.rule_version AS rule_version, s.max_age_days AS max_age_days",
     )
     fresh = freshness.judge(snap, when)
 
@@ -176,9 +178,11 @@ def _market(conn, shipment, market: str, agreement: str, when: date, declared: f
     elif rate["percent"] is None:
         allowed = False
         blocked = "rate: %s" % rate["reason"]
-    elif approval["status"] in ("EXPIRED", "NOT_YET_VALID", "ABSENT"):
-        allowed = False
-        blocked = "document: approved exporter %s" % approval["status"].lower()
+    else:
+        document_bar, document_reason = deadline.blocks_claim(approval)
+        if document_bar:
+            allowed = False
+            blocked = document_reason
 
     claim_duty = duty.duty_amount(rate["percent"], declared) if allowed else None
     preferential_duty = duty.duty_amount(rate["percent"], declared)

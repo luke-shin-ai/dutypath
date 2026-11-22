@@ -15,11 +15,29 @@ import re
 from datetime import date
 
 from . import codes, store
+from . import rules as rulebook
 
 SNAPSHOT_ID = "dutypath-rules-2026-11-22"
 AS_OF = "2026-11-22"
 RULE_VERSION = "2.0"
 MAX_AGE_DAYS = 120
+
+
+def snapshot_identity(data_dir: str) -> tuple[str, str]:
+    """The snapshot id and date, taken from the data set it is built from.
+
+    ``meta.json`` is written by the extraction, so a rebuild from a new extract
+    carries that extract's date instead of the date this file was first written.
+    The constants above are the fallback for a directory without a meta file.
+    """
+    path = os.path.join(data_dir, "meta.json")
+    if not os.path.exists(path):
+        return SNAPSHOT_ID, AS_OF
+    with open(path, encoding="utf-8") as handle:
+        meta = json.load(handle)
+    as_of = str(meta.get("extracted_on") or AS_OF)[:10]
+    day = as_of.replace("-", "")
+    return "dutypath-rules-%s-%s-%s" % (day[:4], day[4:6], day[6:8]), as_of
 
 CHAPTER_TITLES = {
     "39": "Plastics and articles thereof",
@@ -106,10 +124,14 @@ AGREEMENTS = [
         "code": "RCEP",
         "name": "Regional Comprehensive Economic Partnership",
         "market": "JP",
-        "in_force": "2022-02-01",
+        # The date this snapshot's RCEP rows speak for: the agreement entered
+        # into force for Japan on 2022-01-01 and for Korea on 2022-02-01.  The
+        # schedule in Annex I is Japan's, so Japan's date is the one on the row.
+        "in_force": "2022-01-01",
         "approved_exporter_required": True,
         "coverage": "rules+rates",
-        "note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+        "note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; "
+                "in force for Japan on 2022-01-01",
     },
     {
         "code": "EUKOR",
@@ -179,6 +201,7 @@ def _first_percent(text: str, staging: str) -> float | None:
 
 
 def build(conn, data_dir: str) -> dict:
+    snapshot_id, as_of = snapshot_identity(data_dir)
     korus_rules = _read(os.path.join(data_dir, "korus_psr.json"))
     rcep_rules = _read(os.path.join(data_dir, "rcep_psr.json"))
     rate_rows = _read(os.path.join(data_dir, "korus_rates.json"))
@@ -205,8 +228,8 @@ def build(conn, data_dir: str) -> dict:
                             generator: 'scripts/extract_sources.py'})
         """,
         {
-            "id": SNAPSHOT_ID,
-            "as_of": AS_OF,
+            "id": snapshot_id,
+            "as_of": as_of,
             "version": RULE_VERSION,
             "max_age": MAX_AGE_DAYS,
             "chapters": list(CHAPTER_TITLES),
@@ -260,7 +283,7 @@ def build(conn, data_dir: str) -> dict:
             "MATCH (snap:Snapshot {id: $snapshot}) "
             "CREATE (c:Chapter {code: $code, title: $title}) "
             "CREATE (snap)-[:COVERS]->(c)",
-            {"snapshot": SNAPSHOT_ID, "code": chapter_code, "title": title},
+            {"snapshot": snapshot_id, "code": chapter_code, "title": title},
         )
 
     subheading_titles: dict[str, str] = {}
@@ -331,8 +354,17 @@ def build(conn, data_dir: str) -> dict:
             counter += 1
             rule_id = f"OR-{counter:04d}"
             priority = {"subheading": 1, "range": 2, "heading": 3, "chapter": 4}.get(row["level"], 5)
-            group = row.get("group_exclude") or []
             alternatives = row.get("alternatives")
+            # A rule row also carries the exclusion and the group its first
+            # alternative names, in normalised form, so a reader of the graph can
+            # ask the interval question in Cypher (cypher/02) without re-reading
+            # the sentence.  The verdict still comes from the parsed alternative.
+            parsed = alternatives or rulebook.alternatives(
+                {"text": row["text"], "code_from": row["code_from"], "code_to": row["code_to"]}
+            )
+            first = parsed[0] if parsed else {}
+            excluded = row.get("excluded_from") or first.get("excluded") or []
+            group = row.get("group_exclude") or list(first.get("group") or [])
             conn.execute(
                 """
                 MATCH (a:Agreement {code: $agreement})
@@ -362,9 +394,9 @@ def build(conn, data_dir: str) -> dict:
                     "kinds": row["kinds"],
                     "rvc_down": row.get("rvc_build_down"),
                     "rvc_up": row.get("rvc_build_up"),
-                    "excluded": row.get("excluded_from") or [],
-                    "group_from": group[0] if group else None,
-                    "group_to": group[1] if len(group) > 1 else None,
+                    "excluded": excluded,
+                    "group_from": codes.normalise_low(group[0]) if group else None,
+                    "group_to": codes.normalise(group[1]) if len(group) > 1 else None,
                     "weight_min": row.get("originating_weight_min"),
                     "alternatives_json": json.dumps(alternatives, ensure_ascii=False)
                     if alternatives

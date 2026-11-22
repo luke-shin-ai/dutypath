@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from . import deadline, duty, freshness, origin, store
+from . import deadline, duty, freshness, origin, store, validate
 from .origin import Material
 
 MARKETS = {"US": "United States", "EU": "European Union", "TR": "Turkiye", "JP": "Japan"}
@@ -41,11 +41,12 @@ def assess(conn, shipment: dict, on: date | None = None, order=None) -> dict:
     """
     from . import bom
 
+    payload = validate.shipment(shipment)
     owns_order = order is None
     if order is None:
-        order = bom.build(shipment)
+        order = bom.build(payload)
     try:
-        return _assess(conn, shipment, on, order)
+        return _assess(conn, payload, on, order)
     finally:
         if owns_order:
             order.close()
@@ -54,16 +55,17 @@ def assess(conn, shipment: dict, on: date | None = None, order=None) -> dict:
 def _materials_from(order, shipment: dict) -> list[Material]:
     rows = []
     for row in order.execute(
-        "MATCH (s:Shipment)-[:CONTAINS]->(m:Material)-[:CLASSIFIED_AS]->(c:Code) "
+        "MATCH (s:Shipment)-[:CONTAINS]->(m:Material) "
+        "OPTIONAL MATCH (m)-[:CLASSIFIED_AS]->(c:Code) "
         "RETURN m.id AS id, m.origin AS origin, m.value AS value, m.description AS description, "
         "c.code AS code ORDER BY m.id"
     ):
         rows.append(
             Material(
                 id=str(row["id"]),
-                code=str(row["code"]),
+                code=str(row["code"] or ""),
                 origin=str(row["origin"] or ""),
-                value=float(row["value"] or 0.0),
+                value=None if row["value"] is None else float(row["value"]),
                 description=str(row["description"] or ""),
             )
         )
@@ -71,6 +73,7 @@ def _materials_from(order, shipment: dict) -> list[Material]:
 
 
 def _assess(conn, shipment: dict, on: date | None, order) -> dict:
+    shipment = validate.shipment(shipment)
     goods = shipment.get("goods") or {}
     hts8 = str(goods.get("hts8") or "")
     hs6 = str(goods.get("hs6") or hts8[:6])
@@ -82,7 +85,8 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
 
     snap = store.one(
         conn,
-        "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, s.rule_version AS rule_version",
+        "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, "
+        "s.rule_version AS rule_version, s.max_age_days AS max_age_days",
     )
     fresh = freshness.judge(snap, when)
 
@@ -94,10 +98,35 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
     for agreement_row in _agreements(conn, market):
         from . import markets as market_rules
 
-        own_code = market_rules.code_for_market(shipment, market)
-        verdict = origin.evaluate(conn, shipment, agreement_row["code"], materials, good_code=own_code)
+        # A classification is a decision per nomenclature.  The verdict for an
+        # agreement is computed on the good's code in that agreement's own
+        # market, so a United States shipment does not get a RCEP verdict priced
+        # off an HTS line.
+        agreement_code = market_rules.code_for_market(shipment, agreement_row["market"])
+        if agreement_code is None:
+            verdict = {
+                "agreement": agreement_row["code"],
+                "good": None,
+                "rule": None,
+                "verdict": origin.UNDECIDABLE,
+                "reason": "the shipment states no %s code, so this agreement's origin rule "
+                          "cannot be tested" % market_rules.MARKET_NOMENCLATURE.get(
+                              agreement_row["market"], "tariff"),
+                "path": [],
+                "checks": [],
+                "missing": ["the good's %s code for %s" % (
+                    market_rules.MARKET_NOMENCLATURE.get(agreement_row["market"], "tariff"),
+                    market_rules.MARKET_NAMES.get(agreement_row["market"], agreement_row["market"]))],
+                "rvc_build_down": None,
+                "rvc_build_up": None,
+                "non_party_value": None,
+            }
+        else:
+            verdict = origin.evaluate(
+                conn, shipment, agreement_row["code"], materials, good_code=agreement_code
+            )
         if agreement_row["market_matches"]:
-            if own_code is None:
+            if agreement_code is None:
                 rate = {
                     "percent": None,
                     "basis": "no_classification",
@@ -105,7 +134,7 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
                     "nomenclature is not a classification in this one" % market_rules.MARKET_NAMES.get(market, market),
                 }
             else:
-                rate = duty.line_rate(conn, market, agreement_row["code"], own_code, when)
+                rate = duty.line_rate(conn, market, agreement_row["code"], agreement_code, when)
         else:
             rate = {
                 "percent": None,
@@ -126,9 +155,11 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
         elif rate["percent"] is None:
             preference_allowed = False
             block = "rate: %s" % rate["reason"]
-        elif approval["status"] in ("EXPIRED", "NOT_YET_VALID", "ABSENT"):
-            preference_allowed = False
-            block = "document: approved exporter %s" % approval["status"].lower()
+        else:
+            document_bar, document_reason = deadline.blocks_claim(approval)
+            if document_bar:
+                preference_allowed = False
+                block = document_reason
 
         claim_duty = duty.duty_amount(rate["percent"], declared) if preference_allowed else None
         results.append(

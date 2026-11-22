@@ -9,7 +9,7 @@
  "store": {
   "path": "store/dutypath-rules.rl",
   "bytes": 5410816,
-  "sha256": "0843d1a5c77c5b7bdc2f32e2908bd472ce099920c34ec66406e7658d13ab0849"
+  "sha256": "82378e268466cd7ae5baf76b7b9165c149f9b4efb78446a2ae7db9ca0f2d760d"
  },
  "cases": [
   {
@@ -86,7 +86,7 @@
         "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
        },
        "verdict": "UNDECIDABLE",
-       "reason": "a value the rule needs is not in the shipment",
+       "reason": "cannot decide under this rule: originating polymer content as a share of total polymer weight (percent), the rule asks for at least 50",
        "path": [],
        "checks": [
         {
@@ -185,7 +185,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (29012100, SA) -[CTH]-> heading changes"
        ],
@@ -193,7 +193,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (29012100, SA) -[CTH]-> heading changes"
          ],
@@ -218,8 +218,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -269,7 +269,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -306,7 +306,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (29012100, SA) -[CTH]-> heading changes"
        ],
@@ -314,7 +314,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (29012100, SA) -[CTH]-> heading changes"
          ],
@@ -344,7 +344,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -377,7 +377,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 1.9,
        "duty": null,
        "saving": null
@@ -518,7 +518,7 @@
         "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (39011050, SA) -[CTH]-> heading changes",
         "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -527,7 +527,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (39011050, SA) -[CTH]-> heading changes",
           "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -572,9 +572,10 @@
        "amount": 6360.0
       },
       "documents": {
-       "status": "NOT_REQUIRED",
+       "status": "OTHER_AGREEMENT",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "the approval on file is for RCEP",
+       "valid_to": "2027-04-30"
       },
       "claim": {
        "allowed": true,
@@ -615,7 +616,7 @@
         "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 62.50 percent on the build down method meets the 50 percent the rule asks for",
        "path": [
         "build down (declared value 120000.0 - non party materials 45000.0) / 120000.0 = 62.50 percent, at or above 50 percent"
        ],
@@ -623,7 +624,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 62.50 percent on the build down method meets the 50 percent the rule asks for",
          "path": [
           "build down (declared value 120000.0 - non party materials 45000.0) / 120000.0 = 62.50 percent, at or above 50 percent"
          ],
@@ -648,8 +649,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -738,7 +739,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (39011050, SA) -[CTH]-> heading changes",
         "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -747,7 +748,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (39011050, SA) -[CTH]-> heading changes",
           "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -778,7 +779,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -954,7 +955,7 @@
         "text": "A change to subheading 8501.20 through 8501.64 from any other heading."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (85051100, CN) -[CTH]-> heading changes",
         "M2 (84821050, JP) -[CTH]-> heading changes"
@@ -963,7 +964,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (85051100, CN) -[CTH]-> heading changes",
           "M2 (84821050, JP) -[CTH]-> heading changes"
@@ -1051,7 +1052,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (3 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (85051100, CN) -[CTH]-> heading changes",
         "M2 (84821050, JP) -[CTH]-> heading changes",
@@ -1061,7 +1062,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (3 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (85051100, CN) -[CTH]-> heading changes",
           "M2 (84821050, JP) -[CTH]-> heading changes",
@@ -1088,8 +1089,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -1139,7 +1140,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -1176,7 +1177,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M4 (85030095, US) -[CTH]-> heading changes"
        ],
@@ -1184,7 +1185,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M4 (85030095, US) -[CTH]-> heading changes"
          ],
@@ -1214,7 +1215,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -1247,7 +1248,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -1508,7 +1509,7 @@
         "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 63.75 percent on the build down method meets the 55 percent the rule asks for",
        "path": [
         "build down (declared value 480000.0 - non party materials 174000.0) / 480000.0 = 63.75 percent, at or above 55 percent"
        ],
@@ -1516,7 +1517,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 63.75 percent on the build down method meets the 55 percent the rule asks for",
          "path": [
           "build down (declared value 480000.0 - non party materials 174000.0) / 480000.0 = 63.75 percent, at or above 55 percent"
          ],
@@ -1541,8 +1542,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -1631,7 +1632,7 @@
         "text": "RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 100.00 percent on the build down method meets the 40 percent the rule asks for",
        "path": [
         "build down (declared value 480000.0 - non party materials 0) / 480000.0 = 100.00 percent, at or above 40 percent"
        ],
@@ -1639,7 +1640,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 100.00 percent on the build down method meets the 40 percent the rule asks for",
          "path": [
           "build down (declared value 480000.0 - non party materials 0) / 480000.0 = 100.00 percent, at or above 40 percent"
          ],
@@ -1669,7 +1670,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -1705,7 +1706,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter expired",
+       "blocked_by": "document: the approved exporter approval expired before the claim date",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -1934,7 +1935,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 74.00 percent on the build down method meets the 55 percent the rule asks for",
        "path": [
         "build down (declared value 1000000.0 - non party materials 260000.0) / 1000000.0 = 74.00 percent, at or above 55 percent"
        ],
@@ -1953,7 +1954,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 74.00 percent on the build down method meets the 55 percent the rule asks for",
          "path": [
           "build down (declared value 1000000.0 - non party materials 260000.0) / 1000000.0 = 74.00 percent, at or above 55 percent"
          ],
@@ -1978,8 +1979,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -2029,7 +2030,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -2086,7 +2087,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -2361,7 +2362,7 @@
         "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 63.75 percent on the build down method meets the 55 percent the rule asks for",
        "path": [
         "build down (declared value 480000.0 - non party materials 174000.0) / 480000.0 = 63.75 percent, at or above 55 percent"
        ],
@@ -2369,7 +2370,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 63.75 percent on the build down method meets the 55 percent the rule asks for",
          "path": [
           "build down (declared value 480000.0 - non party materials 174000.0) / 480000.0 = 63.75 percent, at or above 55 percent"
          ],
@@ -2394,8 +2395,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -2445,7 +2446,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -2482,7 +2483,7 @@
         "text": "RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 100.00 percent on the build down method meets the 40 percent the rule asks for",
        "path": [
         "build down (declared value 480000.0 - non party materials 0) / 480000.0 = 100.00 percent, at or above 40 percent"
        ],
@@ -2490,7 +2491,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 100.00 percent on the build down method meets the 40 percent the rule asks for",
          "path": [
           "build down (declared value 480000.0 - non party materials 0) / 480000.0 = 100.00 percent, at or above 40 percent"
          ],
@@ -2520,7 +2521,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -2553,7 +2554,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -2694,7 +2695,7 @@
         "text": "A change to subheading 8501.20 through 8501.64 from any other heading."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (85051100, CN) -[CTH]-> heading changes",
         "M2 (84821050, JP) -[CTH]-> heading changes"
@@ -2703,7 +2704,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (85051100, CN) -[CTH]-> heading changes",
           "M2 (84821050, JP) -[CTH]-> heading changes"
@@ -2791,7 +2792,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (3 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (85051100, CN) -[CTH]-> heading changes",
         "M2 (84821050, JP) -[CTH]-> heading changes",
@@ -2801,7 +2802,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (3 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (85051100, CN) -[CTH]-> heading changes",
           "M2 (84821050, JP) -[CTH]-> heading changes",
@@ -2828,8 +2829,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -2879,7 +2880,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -2916,7 +2917,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M4 (85030095, US) -[CTH]-> heading changes"
        ],
@@ -2924,7 +2925,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M4 (85030095, US) -[CTH]-> heading changes"
          ],
@@ -2954,7 +2955,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -2987,7 +2988,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -3107,7 +3108,7 @@
         "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
        },
        "verdict": "UNDECIDABLE",
-       "reason": "a value the rule needs is not in the shipment",
+       "reason": "cannot decide under this rule: originating polymer content as a share of total polymer weight (percent), the rule asks for at least 50",
        "path": [],
        "checks": [
         {
@@ -3206,7 +3207,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (29012100, SA) -[CTH]-> heading changes"
        ],
@@ -3214,7 +3215,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (29012100, SA) -[CTH]-> heading changes"
          ],
@@ -3239,8 +3240,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -3290,7 +3291,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -3327,7 +3328,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (29012100, SA) -[CTH]-> heading changes"
        ],
@@ -3335,7 +3336,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (29012100, SA) -[CTH]-> heading changes"
          ],
@@ -3365,7 +3366,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -3398,7 +3399,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 1.9,
        "duty": null,
        "saving": null
@@ -3525,7 +3526,7 @@
         "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (39011050, SA) -[CTH]-> heading changes",
         "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -3534,7 +3535,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (39011050, SA) -[CTH]-> heading changes",
           "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -3655,8 +3656,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -3743,7 +3744,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (39011050, SA) -[CTH]-> heading changes",
         "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -3752,7 +3753,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (39011050, SA) -[CTH]-> heading changes",
           "M2 (32064990, DE) -[CTH]-> heading changes"
@@ -3783,7 +3784,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -3816,7 +3817,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 2.1,
        "duty": null,
        "saving": null
@@ -4045,7 +4046,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 74.00 percent on the build down method meets the 55 percent the rule asks for",
        "path": [
         "build down (declared value 1000000.0 - non party materials 260000.0) / 1000000.0 = 74.00 percent, at or above 55 percent"
        ],
@@ -4064,7 +4065,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 74.00 percent on the build down method meets the 55 percent the rule asks for",
          "path": [
           "build down (declared value 1000000.0 - non party materials 260000.0) / 1000000.0 = 74.00 percent, at or above 55 percent"
          ],
@@ -4089,8 +4090,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -4140,7 +4141,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -4197,7 +4198,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -4366,7 +4367,7 @@
         "text": "A change to subheading 8544.11 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTSH requirement asks; regional value content 65.00 percent on the build down method meets the 45 percent the rule asks for",
        "path": [
         "M1 (85441900, CN) -[CTSH]-> subheading changes",
         "M3 (85369010, JP) -[CTSH]-> subheading changes",
@@ -4376,7 +4377,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTSH requirement asks; regional value content 65.00 percent on the build down method meets the 45 percent the rule asks for",
          "path": [
           "M1 (85441900, CN) -[CTSH]-> subheading changes",
           "M3 (85369010, JP) -[CTSH]-> subheading changes",
@@ -4465,7 +4466,7 @@
         "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 65.00 percent on the build down method meets the 50 percent the rule asks for",
        "path": [
         "build down (declared value 300000.0 - non party materials 105000.0) / 300000.0 = 65.00 percent, at or above 50 percent"
        ],
@@ -4473,7 +4474,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 65.00 percent on the build down method meets the 50 percent the rule asks for",
          "path": [
           "build down (declared value 300000.0 - non party materials 105000.0) / 300000.0 = 65.00 percent, at or above 50 percent"
          ],
@@ -4498,8 +4499,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -4549,7 +4550,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -4586,7 +4587,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
        "path": [
         "rule CTH met"
        ],
@@ -4594,7 +4595,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
          "path": [
           "rule CTH met"
          ],
@@ -4624,7 +4625,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -4657,7 +4658,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 2.6,
        "duty": null,
        "saving": null
@@ -4791,7 +4792,7 @@
         "text": "A change to subheading 8481.10 through 8481.80 from any other heading; or A change to subheading 8481.10 through 8481.80 from subheading 8481.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (73269085, CN) -[CTH]-> heading changes",
         "M3 (40169300, JP) -[CTH]-> heading changes"
@@ -4800,7 +4801,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (73269085, CN) -[CTH]-> heading changes",
           "M3 (40169300, JP) -[CTH]-> heading changes"
@@ -4888,7 +4889,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (73269085, CN) -[CTH]-> heading changes",
         "M3 (40169300, JP) -[CTH]-> heading changes"
@@ -4897,7 +4898,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (73269085, CN) -[CTH]-> heading changes",
           "M3 (40169300, JP) -[CTH]-> heading changes"
@@ -4923,8 +4924,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -4974,7 +4975,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -5031,7 +5032,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -5193,7 +5194,7 @@
         "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
        },
        "verdict": "UNDECIDABLE",
-       "reason": "a value the rule needs is not in the shipment",
+       "reason": "cannot decide under this rule: originating polymer content as a share of total polymer weight (percent), the rule asks for at least 50",
        "path": [],
        "checks": [
         {
@@ -5292,7 +5293,7 @@
         "text": "Manufacture from materials of any heading"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
        "path": [
         "M1 (29173600, CN) -[CTH]-> heading changes"
        ],
@@ -5300,7 +5301,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks",
          "path": [
           "M1 (29173600, CN) -[CTH]-> heading changes"
          ],
@@ -5325,8 +5326,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -5376,7 +5377,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -5413,7 +5414,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
        "path": [
         "rule CTH met"
        ],
@@ -5421,7 +5422,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
          "path": [
           "rule CTH met"
          ],
@@ -5451,7 +5452,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -5484,7 +5485,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 1.7,
        "duty": null,
        "saving": null
@@ -5713,7 +5714,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 80.00 percent on the build down method meets the 50 percent the rule asks for",
        "path": [
         "build down (declared value 200000.0 - non party materials 40000.0) / 200000.0 = 80.00 percent, at or above 50 percent"
        ],
@@ -5732,7 +5733,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 80.00 percent on the build down method meets the 50 percent the rule asks for",
          "path": [
           "build down (declared value 200000.0 - non party materials 40000.0) / 200000.0 = 80.00 percent, at or above 50 percent"
          ],
@@ -5757,8 +5758,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -5808,7 +5809,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -5845,7 +5846,7 @@
         "text": "CTSH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "no non party material is in the bill of materials, so the CTSH requirement is met without a material test",
        "path": [
         "rule CTSH met"
        ],
@@ -5853,7 +5854,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "no non party material is in the bill of materials, so the CTSH requirement is met without a material test",
          "path": [
           "rule CTSH met"
          ],
@@ -5883,7 +5884,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -5916,7 +5917,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -6182,8 +6183,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -6270,7 +6271,7 @@
         "text": "CTH or RVC40"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
        "path": [
         "rule CTH met"
        ],
@@ -6278,7 +6279,7 @@
         {
          "alternative": 1,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "no non party material is in the bill of materials, so the CTH requirement is met without a material test",
          "path": [
           "rule CTH met"
          ],
@@ -6308,7 +6309,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -6341,7 +6342,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -6468,7 +6469,7 @@
         "text": "A change to subheading 8513.10 from any other heading; or A change to subheading 8513.10 from subheading 8513.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (1 tested) changes classification as the CTH requirement asks; regional value content 70.00 percent on the build down method meets the 45 percent the rule asks for",
        "path": [
         "M1 (85139000, CN) -[CTH]-> permitted material from subheading 851390",
         "build down (declared value 100000.0 - non party materials 30000.0) / 100000.0 = 70.00 percent, at or above 45 percent"
@@ -6488,7 +6489,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (1 tested) changes classification as the CTH requirement asks; regional value content 70.00 percent on the build down method meets the 45 percent the rule asks for",
          "path": [
           "M1 (85139000, CN) -[CTH]-> permitted material from subheading 851390",
           "build down (declared value 100000.0 - non party materials 30000.0) / 100000.0 = 70.00 percent, at or above 45 percent"
@@ -6576,7 +6577,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 70.00 percent on the build down method meets the 55 percent the rule asks for",
        "path": [
         "build down (declared value 100000.0 - non party materials 30000.0) / 100000.0 = 70.00 percent, at or above 55 percent"
        ],
@@ -6595,7 +6596,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 70.00 percent on the build down method meets the 55 percent the rule asks for",
          "path": [
           "build down (declared value 100000.0 - non party materials 30000.0) / 100000.0 = 70.00 percent, at or above 55 percent"
          ],
@@ -6620,8 +6621,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -6671,7 +6672,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -6728,7 +6729,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },
@@ -6897,7 +6898,7 @@
         "text": "A change to subheading 8509.40 through 8509.80 from any other heading; or A change to subheading 8509.40 through 8509.80 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "every non party material (2 tested) changes classification as the CTSH requirement asks; regional value content 74.17 percent on the build down method meets the 45 percent the rule asks for",
        "path": [
         "M1 (85099000, CN) -[CTSH]-> subheading changes",
         "M3 (85444290, JP) -[CTSH]-> subheading changes",
@@ -6919,7 +6920,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "every non party material (2 tested) changes classification as the CTSH requirement asks; regional value content 74.17 percent on the build down method meets the 45 percent the rule asks for",
          "path": [
           "M1 (85099000, CN) -[CTSH]-> subheading changes",
           "M3 (85444290, JP) -[CTSH]-> subheading changes",
@@ -7008,7 +7009,7 @@
         "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
        },
        "verdict": "ORIGINATING",
-       "reason": "every non party material changes tariff classification as the rule asks",
+       "reason": "regional value content 74.17 percent on the build down method meets the 50 percent the rule asks for",
        "path": [
         "build down (declared value 120000.0 - non party materials 31000.0) / 120000.0 = 74.17 percent, at or above 50 percent"
        ],
@@ -7028,7 +7029,7 @@
         {
          "alternative": 2,
          "holds": true,
-         "reason": "every non party material changes tariff classification as the rule asks",
+         "reason": "regional value content 74.17 percent on the build down method meets the 50 percent the rule asks for",
          "path": [
           "build down (declared value 120000.0 - non party materials 31000.0) / 120000.0 = 74.17 percent, at or above 50 percent"
          ],
@@ -7053,8 +7054,8 @@
         "ES",
         "FI",
         "FR",
+        "GB",
         "GR",
-        "HR",
         "HU",
         "IE",
         "IT",
@@ -7104,7 +7105,7 @@
       },
       "claim": {
        "allowed": false,
-       "blocked_by": "document: approved exporter absent",
+       "blocked_by": "document: no approved exporter approval is on file for this agreement",
        "rate": 0.0,
        "duty": null,
        "saving": null
@@ -7161,7 +7162,7 @@
         "TH",
         "VN"
        ],
-       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I",
+       "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
        "coverage": "rules+rates",
        "approved_exporter_required": true
       },

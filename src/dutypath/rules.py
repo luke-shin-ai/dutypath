@@ -50,8 +50,24 @@ def _level_change(kind: str) -> int:
     return {"CC": 2, "CTH": 4, "CTSH": 6}[kind]
 
 
-def read_alternative(text: str) -> dict:
-    """What one alternative requires, read from its own words."""
+def _rule_interval(rule: dict) -> tuple[str, str] | None:
+    """The codes a rule row covers, as the group its own sentence names."""
+    low = str(rule.get("code_from") or "").replace(".", "")
+    high = str(rule.get("code_to") or "").replace(".", "")
+    if not low and not high:
+        return None
+    low = low or high
+    high = high or low
+    return (low, high)
+
+
+def read_alternative(text: str, rule: dict | None = None) -> dict:
+    """What one alternative requires, read from its own words.
+
+    ``rule`` is the row the sentence sits in.  A rule that says "outside that
+    group" names the interval of its own codes, so the sentence cannot be read
+    without the range it belongs to.
+    """
     lowered = text.lower()
     kinds = []
     if "from any other chapter" in lowered or "change to chapter" in lowered:
@@ -66,6 +82,11 @@ def read_alternative(text: str) -> dict:
         kinds.append("CTH")
     if "from any other subheading" in lowered or "outside subheading" in lowered:
         kinds.append("CTSH")
+    # "A change to subheading 8483.40 through 8483.50 from any subheading, except
+    # from subheading 8482.10" is the same level change, written without the
+    # word other.  The except clauses are read separately below.
+    if not kinds and re.search(r"change to (?:subheadings? [\d. throughand]+|the good) ?from any subheading\b", lowered):
+        kinds.append("CTSH")
     if not kinds and re.search(r"\bcth\b", lowered):
         kinds.append("CTH")
     if not kinds and re.search(r"\bctsh\b", lowered):
@@ -74,19 +95,43 @@ def read_alternative(text: str) -> dict:
         kinds.append("CC")
 
     excluded = []
-    for match in re.finditer(r"except from (?:headings?|subheadings?) ([\d., andor-]+)", lowered):
-        for token in re.findall(r"\d{4}(?:\.\d{2})?", match.group(1)):
-            excluded.append(token.replace(".", ""))
+    excluded_ranges = []
+    for match in re.finditer(r"except from (?:headings?|subheadings?) ([^;]*)", lowered):
+        # "except from subheading 8443.91 through 8443.99" bars the whole range,
+        # not its two ends, so each clause is read as intervals first.
+        for part in re.split(r"[,;]|\bor\b|\band\b", match.group(1)):
+            pair = re.search(
+                r"(\d{4}(?:\.\d{2})?)\s*(?:through|-|to)\s*(\d{4}(?:\.\d{2})?)", part
+            )
+            if pair:
+                low, high = pair.group(1).replace(".", ""), pair.group(2).replace(".", "")
+                excluded_ranges.append((low, high))
+                excluded.extend([low, high])
+                continue
+            excluded.extend(
+                token.replace(".", "") for token in re.findall(r"\d{4}(?:\.\d{2})?", part)
+            )
+
     group = None
-    match = re.search(r"outside (?:subheadings? )?(\d{4}\.\d{2})(?: through |-)(\d{4}\.\d{2})", lowered)
+    match = re.search(
+        r"outside (?:of )?(?:subheadings? )?(\d{4}\.\d{2})(?: through |-)(\d{4}\.\d{2})", lowered
+    )
     if match:
         group = (match.group(1), match.group(2))
+    elif rule is not None and re.search(r"outside (?:of )?that group\b", lowered):
+        # "from any other subheading outside that group" means the subheadings
+        # the rule itself covers.  Reading it as a plain subheading change lets
+        # a material from inside the group through, which is the opposite of
+        # what the sentence says.
+        group = _rule_interval(rule)
 
     # "a change from subheading 8513.90, whether or not there is also a change
     # from any other heading" names a source the rule lets through.  The
-    # phrase starts with "from subheading", not "from any other subheading".
+    # phrase starts with "from subheading", not "from any other subheading",
+    # and an except clause is a bar, not a permission, so it is read out first.
+    barred = re.sub(r"except from [^;]*", " ", lowered)
     allowed_from = []
-    for match in re.finditer(r"(?<!any other )\bfrom subheadings? (\d{4}\.\d{2})", lowered):
+    for match in re.finditer(r"(?<!any other )\bfrom subheadings? (\d{4}\.\d{2})", barred):
         allowed_from.append(match.group(1).replace(".", ""))
 
     rvc_down = None
@@ -127,6 +172,7 @@ def read_alternative(text: str) -> dict:
         "text": text.strip(),
         "kinds": kinds,
         "excluded": excluded,
+        "excluded_ranges": excluded_ranges,
         "group": group,
         "allowed_from": allowed_from,
         "rvc_down": rvc_down,
@@ -157,6 +203,7 @@ def alternatives(rule: dict) -> list[dict]:
                         "text": item.get("text", ""),
                         "kinds": item.get("kinds") or [],
                         "excluded": item.get("excluded") or [],
+                        "excluded_ranges": [tuple(pair) for pair in item.get("excluded_ranges") or []],
                         "group": tuple(item["group"]) if item.get("group") else None,
                         "allowed_from": item.get("allowed_from") or [],
                         "rvc_down": item.get("rvc_down"),
@@ -168,4 +215,21 @@ def alternatives(rule: dict) -> list[dict]:
     parts = split_alternatives(rule["text"])
     if not parts:
         parts = [rule["text"]]
-    return [read_alternative(part) for part in parts]
+    return [read_alternative(part, rule) for part in parts]
+
+
+def condition_count(alternative: dict) -> int:
+    """How many tests an alternative actually asks for.
+
+    A sentence the parser read nothing out of has zero, and that is the point of
+    counting: an alternative with no test cannot hold, because nothing was
+    tested.  An exclusion or a permitted source on its own is not a test either,
+    since it only says what to do with a material once a level change is asked
+    for.
+    """
+    count = len(alternative.get("kinds") or [])
+    if alternative.get("rvc_down") is not None or alternative.get("rvc_up") is not None:
+        count += 1
+    if alternative.get("weight_min") is not None:
+        count += 1
+    return count

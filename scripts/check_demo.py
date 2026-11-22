@@ -1,6 +1,6 @@
 """Open the judgement screen in Chromium and check it the way a reader would.
 
-Three things are checked, at a desktop width and at a mobile width:
+Four things are checked, at a desktop width and at a mobile width:
 
 * the page renders the three markets and the money with no horizontal scroll
   (``scrollWidth`` equals the viewport width, so nothing is cut off or pushed
@@ -8,7 +8,11 @@ Three things are checked, at a desktop width and at a mobile width:
 * the visible text carries none of the characters that give machine written
   text away (em and en dashes, middle dots, arrows, curly quotes, ellipsis),
 * selecting the committed rule file makes the page hash it in the browser and
-  report that it matches the hash the bundle was built from.
+  report that it matches the hash the bundle was built from,
+* the rate arithmetic the page repeats in JavaScript agrees with
+  ``duty.line_rate`` for every rate row in the bundle, on seven dates across the
+  three schedules.  That comparison needs a browser, which a plain pytest run
+  does not have, so it lives here and ``pytest`` stays green on a bare install.
 
 Screenshots land in ``docs/demo/screenshots``.  Usage:
 
@@ -20,13 +24,21 @@ from __future__ import annotations
 import json
 import os
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from dutypath import duty, store  # noqa: E402
+
 DEMO = ROOT / "docs" / "demo" / "index.html"
+BUNDLE = ROOT / "docs" / "demo" / "dutypath-demo.json"
 STORE = ROOT / "store" / "dutypath-rules.rl"
 SHOTS = ROOT / "docs" / "demo" / "screenshots"
 FORBIDDEN = ["\u2014", "\u2013", "\u00b7", "\u2192", "\u2026", "\u201c", "\u201d", "\u2018", "\u2019"]
+DATES = ["2011-06-30", "2011-07-01", "2012-03-15", "2016-01-01", "2022-01-01",
+         "2026-12-01", "2031-01-01"]
 
 VIEWPORTS = [
     {"name": "desktop-1440", "width": 1440, "height": 940},
@@ -121,15 +133,58 @@ def main() -> int:
         page.close()
         browser.close()
 
+    parity = _arithmetic_parity()
+    results.append(parity)
+
     print(json.dumps({"demo": str(DEMO), "results": results}, indent=2))
     failed = [
         entry for entry in results
         if entry.get("horizontal_scroll_px", 0) != 0
         or entry.get("forbidden_characters")
         or entry.get("markets_rendered", 3) != 3
+        or entry.get("mismatches")
         or entry.get("badge") not in (None, "rule file matches")
     ]
     return 1 if failed else 0
+
+
+def _arithmetic_parity() -> dict:
+    """The page's rate function, row by row, against the engine."""
+    from playwright.sync_api import sync_playwright
+
+    bundle = json.loads(BUNDLE.read_text(encoding="utf-8"))
+    mismatches = []
+    checked = 0
+    connection = store.connect(str(STORE), read_only=True)
+    connection.autocommit = False
+    try:
+        with sync_playwright() as playwright:
+            browser = playwright.chromium.launch()
+            page = browser.new_page()
+            page.goto(DEMO.as_uri())
+            page.wait_for_selector(".market")
+            for key, row in bundle["rates"].items():
+                for on in DATES:
+                    engine = duty.line_rate(
+                        connection, row["market"], row["agreement"], row["code"], date.fromisoformat(on)
+                    )["percent"]
+                    page_value = page.evaluate("([row, on]) => window.dutypathRate(row, on)", [row, on])
+                    checked += 1
+                    if engine is None and page_value is None:
+                        continue
+                    if engine is None or page_value is None or abs(engine - page_value) > 1e-9:
+                        mismatches.append({"code": key, "on": on, "engine": engine, "page": page_value})
+            page.close()
+            browser.close()
+    finally:
+        connection.close()
+    return {
+        "viewport": "arithmetic parity",
+        "rows": len(bundle["rates"]),
+        "dates": len(DATES),
+        "comparisons": checked,
+        "mismatches": mismatches,
+    }
 
 
 if __name__ == "__main__":

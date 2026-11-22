@@ -2,9 +2,10 @@
 
 The session is the one a broker's assistant on a closed network would run:
 what do I have, what is the rule, price the shipment in three markets, prove
-nothing was written.  The script fails if a call comes back as an error or if
-the zero leak proof does not pass, so it can be used as a smoke test against a
-snapshot as well as a way to regenerate the transcript.
+nothing was written, try to write, and find the write refused.  The script
+fails if a call that should answer comes back as an error, if the write is not
+refused, or if the zero leak proof does not pass, so it works as a smoke test
+against a snapshot as well as a way to regenerate the transcript.
 
     python scripts/check_mcp.py --store store/dutypath-rules.rl
 """
@@ -43,6 +44,12 @@ def main() -> int:
                     "arguments": {"shipment": shipment, "on": "2026-12-01"}}},
         {"jsonrpc": "2.0", "id": 5, "method": "tools/call",
          "params": {"name": "verify_zero_leak", "arguments": {"shipment": shipment}}},
+        {"jsonrpc": "2.0", "id": 6, "method": "tools/call",
+         "params": {"name": "read_cypher",
+                    "arguments": {"statement": "CREATE (:Material {id: 'LEAK-1', value: 999})"}}},
+        {"jsonrpc": "2.0", "id": 7, "method": "tools/call",
+         "params": {"name": "read_cypher",
+                    "arguments": {"statement": "MATCH (m:Material) RETURN count(m) AS n"}}},
     ]
     env = dict(os.environ)
     env["PYTHONPATH"] = str(ROOT / "src")
@@ -61,14 +68,20 @@ def main() -> int:
             summary.append({"id": reply["id"], "error": reply["error"]})
             continue
         if "content" in result:
-            if result.get("isError"):
-                ok = False
+            refused = bool(result.get("isError"))
             text = result["content"][0]["text"]
-            summary.append({"id": reply["id"], "content": json.loads(text)})
+            # The write is the one call that has to come back refused; every
+            # other call has to come back with an answer.
+            if refused != (reply["id"] == 6):
+                ok = False
+            summary.append({"id": reply["id"], "refused": refused, "content": json.loads(text)})
         else:
             summary.append({"id": reply["id"], "result": result})
     leak = [entry for entry in summary if entry.get("id") == 5]
     if leak and not leak[0]["content"].get("pass"):
+        ok = False
+    after = [entry for entry in summary if entry.get("id") == 7]
+    if after and after[0]["content"]["rows"][0].get("n"):
         ok = False
     print(json.dumps({"replies": len(replies), "ok": ok, "log": summary}, indent=2, ensure_ascii=False))
     return 0 if ok else 1

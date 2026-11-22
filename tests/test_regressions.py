@@ -1,0 +1,369 @@
+"""Regression tests for the defects a review reproduced by hand.
+
+Each test here is a case where the engine used to give a confident answer it
+could not support: a material with no code that passed a classification test, an
+empty bill of materials that met every rule, a value that was missing and
+counted as zero, a heading written where the rule asks for a subheading, another
+agreement's approval read as this one's, an alternative the parser could not
+read and passed anyway, a group exclusion read as a plain change, and a reader
+that executed a write.
+
+None of them is hypothetical: the input in each test is the input from
+``reviews-dutypath/probe_engine.py``, and the assertion is the answer the engine
+now gives instead of the false positive.
+"""
+
+from __future__ import annotations
+
+import json
+import sys
+from datetime import date
+from pathlib import Path
+
+import pytest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from dutypath import (  # noqa: E402
+    assess, build, deadline, duty, freshness, markets, origin, store, validate,
+)
+from dutypath import rules as rulebook  # noqa: E402
+from dutypath import mcp as server  # noqa: E402
+
+DATA = ROOT / "data" / "extract-2026-11-22"
+FIXTURES = ROOT / "fixtures"
+
+
+@pytest.fixture(scope="session")
+def store_path(tmp_path_factory):
+    path = tmp_path_factory.mktemp("store") / "dutypath-rules.rl"
+    conn = store.connect(str(path))
+    conn.autocommit = False
+    build.build(conn, str(DATA))
+    conn.commit()
+    conn.close()
+    return str(path)
+
+
+@pytest.fixture()
+def conn(store_path):
+    connection = store.connect(store_path)
+    connection.autocommit = False
+    yield connection
+    connection.close()
+
+
+def shipment(name: str) -> dict:
+    with open(FIXTURES / name, encoding="utf-8") as handle:
+        return json.load(handle)
+
+
+def case(materials, good="85044095", value=480000.0) -> dict:
+    return {
+        "shipment_id": "REG-1",
+        "market": "US",
+        "export_date": "2026-12-01",
+        "import_date": "2026-12-08",
+        "goods": {"hts8": good, "declared_value": value, "currency": "USD"},
+        "materials": materials,
+    }
+
+
+# ------------------------------------------------------- D1, D2, D3, D4: input
+
+
+def test_a_material_with_no_classification_does_not_pass_the_rule(conn):
+    payload = shipment("shipment-8504-converter.json")
+    del payload["materials"][0]["hts8"]
+    report = origin.evaluate(conn, payload, "EUKOR", good_code="85044090")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert any("classification of material M1" in item for item in report["missing"])
+
+    report = origin.evaluate(conn, payload, "KORUS", good_code="85044095")
+    assert report["verdict"] == origin.UNDECIDABLE
+
+
+def test_an_empty_bill_of_materials_meets_nothing(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["materials"] = []
+    report = origin.evaluate(conn, payload, "EUKOR", good_code="85044090")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert any("bill of materials" in item for item in report["missing"])
+
+
+def test_a_missing_material_value_is_named_and_not_read_as_zero(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["materials"][0].pop("value")
+    report = origin.evaluate(conn, payload, "EUKOR", good_code="85044090")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert report["rvc_build_down"] is None
+    assert any("declared value for material M1" in item for item in report["missing"])
+
+
+def test_a_heading_written_where_the_rule_asks_for_a_subheading_is_undecidable(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["materials"][0]["hts8"] = "8504"
+    report = origin.evaluate(conn, payload, "KORUS", good_code="85044095")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert any("finer classification" in item for item in report["missing"])
+
+
+def test_a_heading_outside_the_group_still_passes_the_group_test(conn):
+    # 8505 is not in 8504.10 through 8504.50, so a heading is enough to say so.
+    payload = case([{"id": "M1", "hts8": "8505", "origin": "CN", "value": 100000}])
+    report = origin.evaluate(conn, payload, "KORUS", good_code="85044095")
+    assert report["verdict"] == origin.ORIGINATING
+
+
+def test_a_value_written_with_separators_is_read_as_the_number(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["goods"]["declared_value"] = "480,000"
+    payload["materials"][0]["value"] = "150,000"
+    report = origin.evaluate(conn, payload, "EUKOR", good_code="85044090")
+    assert report["verdict"] == origin.ORIGINATING
+    assert report["rvc_build_down"] == pytest.approx(63.75)
+
+
+def test_a_weight_written_with_a_percent_sign_is_read_as_the_number(conn):
+    payload = shipment("shipment-3901-polymer.json")
+    payload["attributes"] = {"originating_polymer_weight_percent": "62%"}
+    report = origin.evaluate(conn, payload, "KORUS", good_code="39011050")
+    assert report["verdict"] == origin.ORIGINATING
+
+
+def test_a_negative_declared_value_is_an_input_error_not_a_negative_duty(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["goods"]["declared_value"] = -10000
+    with pytest.raises(validate.InputError) as error:
+        markets.compare(conn, payload)
+    assert "declared_value" in str(error.value)
+
+
+def test_a_zero_declared_value_is_an_input_error(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["goods"]["declared_value"] = 0
+    with pytest.raises(validate.InputError):
+        markets.compare(conn, payload)
+
+
+def test_a_weight_share_above_a_hundred_is_an_input_error(conn):
+    payload = shipment("shipment-3901-polymer.json")
+    payload["attributes"] = {"originating_polymer_weight_percent": "162%"}
+    with pytest.raises(validate.InputError):
+        assess.assess(conn, payload)
+
+
+# ------------------------------------------------------------- D9, D10: money
+
+
+def test_another_agreements_approval_does_not_win_the_eu_claim(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload.pop("approved_exporter", None)
+    payload["approved_exporters"] = [
+        {"agreement": "RCEP", "valid_from": "2022-03-01", "valid_to": "2027-01-01"}
+    ]
+    report = markets.compare(conn, payload)
+    eu = [block for block in report["markets"] if block["market"] == "EU"][0]
+    assert eu["documents"]["status"] == "OTHER_AGREEMENT"
+    assert eu["claim"]["allowed"] is False
+    assert "another agreement" in eu["claim"]["blocked_by"]
+    assert report["best_claim"]["market"] != "EU"
+
+
+def test_an_expired_approval_where_none_is_required_does_not_block_the_claim(conn):
+    payload = shipment("shipment-8501-motor.json")
+    payload["approved_exporters"] = [
+        {"agreement": "KORUS", "valid_from": "2020-01-01", "valid_to": "2024-01-01"}
+    ]
+    report = markets.compare(conn, payload)
+    united_states = [block for block in report["markets"] if block["market"] == "US"][0]
+    assert united_states["documents"]["status"] == "EXPIRED"
+    assert united_states["documents"]["required"] is False
+    assert united_states["claim"]["allowed"] is True
+    assert united_states["duty"]["amount"] == 0.0
+    assert report["best_claim"]["saving"] == pytest.approx(10000.0)
+
+
+def test_the_document_gate_reads_the_requirement_from_the_agreement():
+    required = deadline.approved_exporter({}, "RCEP", True, date(2026, 12, 1))
+    not_required = deadline.approved_exporter({}, "KORUS", False, date(2026, 12, 1))
+    assert deadline.blocks_claim(required)[0] is True
+    assert deadline.blocks_claim(not_required)[0] is False
+    assert deadline.blocks_claim(
+        deadline.approved_exporter({"approved_exporter": {"agreement": "RCEP"}}, "EUKOR", True,
+                                   date(2026, 12, 1))
+    )[0] is True
+
+
+# --------------------------------------------- D17, D19, D20: rule reading
+
+
+def test_an_alternative_the_parser_could_not_read_does_not_hold(conn):
+    # OR-0039 offers a heading change or a sentence about chassis and cabinets
+    # that this parser cannot test.  The second one used to pass by default.
+    payload = case([{"id": "M1", "hts8": "84159000", "origin": "CN", "value": 50000}],
+                   good="84159000")
+    report = origin.evaluate(conn, payload, "KORUS", good_code="84159000")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert any("testable reading" in item for item in report["missing"])
+
+
+def test_recorded_media_from_unrecorded_media_is_undecidable(conn):
+    # OR-0174's second alternative turns on whether the media is recorded, which
+    # a bill of materials does not say.
+    payload = case([{"id": "M1", "hts8": "85235100", "origin": "CN", "value": 50000}],
+                   good="85235100")
+    report = origin.evaluate(conn, payload, "KORUS", good_code="85235100")
+    assert report["verdict"] == origin.UNDECIDABLE
+
+
+def test_a_wholly_obtained_rule_is_undecidable_and_says_so(conn):
+    payload = case([{"id": "M1", "hts8": "85491100", "origin": "CN", "value": 50000}],
+                   good="85491100")
+    report = origin.evaluate(conn, payload, "RCEP", good_code="85491100")
+    assert report["verdict"] == origin.UNDECIDABLE
+    assert "WO" in report["reason"] or any("WO" in item for item in report["missing"])
+
+
+def test_outside_that_group_excludes_a_material_from_inside_the_group(conn):
+    payload = case([{"id": "M1", "hts8": "84186990", "origin": "CN", "value": 50000}],
+                   good="84181010")
+    report = origin.evaluate(conn, payload, "KORUS", good_code="84181010")
+    assert report["verdict"] == origin.NOT_ORIGINATING
+    assert "the group the rule excludes" in report["reason"]
+
+
+def test_outside_that_group_lets_a_material_from_outside_it_through(conn):
+    payload = case([{"id": "M1", "hts8": "84189000", "origin": "CN", "value": 50000}],
+                   good="84181010")
+    report = origin.evaluate(conn, payload, "KORUS", good_code="84181010")
+    assert report["verdict"] == origin.ORIGINATING
+
+
+def test_the_group_named_by_that_group_is_the_rules_own_interval(conn):
+    rule = rulebook.resolve(conn, "KORUS", "84181010")
+    alternative = rulebook.alternatives(rule)[0]
+    assert alternative["group"] == ("841810", "841869")
+
+
+def test_an_except_clause_is_not_read_as_a_permitted_source(conn):
+    # 8482.10 is barred by the first alternative of OR-0119; it must not also
+    # appear in that alternative's list of permitted sources.
+    rule = rulebook.resolve(conn, "KORUS", "84834000")
+    first = rulebook.alternatives(rule)[0]
+    assert "848210" in first["excluded"]
+    assert "848210" not in first["allowed_from"]
+
+
+def test_an_except_range_bars_every_subheading_inside_it(conn):
+    rule = rulebook.resolve(conn, "KORUS", "84181010")
+    first = rulebook.alternatives(rule)[0]
+    assert ("841891", "841891") in first["excluded_ranges"] or "841891" in first["excluded"]
+    # 8443.91 through 8443.99 is a range, so 8443.95 is barred too.
+    printing = rulebook.resolve(conn, "KORUS", "84433110")
+    ranges = [pair for pair in rulebook.alternatives(printing) if pair["excluded_ranges"]]
+    assert ranges, "the exception range was not read as an interval"
+
+
+def test_the_verdict_reason_names_the_test_that_ran(conn):
+    # The EU rule for 8504 is a value ceiling with no heading test; the reason
+    # used to claim a classification test that never happened.
+    report = origin.evaluate(conn, shipment("shipment-8504-converter.json"), "EUKOR",
+                             good_code="85044090")
+    assert report["verdict"] == origin.ORIGINATING
+    assert "value content" in report["reason"]
+    assert "changes tariff classification" not in report["reason"]
+
+
+# ------------------------------------------------------ D5, D6: hub and reader
+
+
+def test_the_hub_query_completes_and_returns_one_row_per_thing(conn):
+    statement = (ROOT / "neo4j" / "pull_rules.cypher").read_text(encoding="utf-8")
+    body = "\n".join(line for line in statement.splitlines() if not line.strip().startswith("//"))
+    rows = store.rows(conn, body, {"market": "US"})
+    parts = {}
+    for row in rows:
+        parts[row["part"]] = parts.get(row["part"], 0) + 1
+    assert parts["rule"] == 222
+    assert parts["rate"] == 847
+    assert rows[0]["node"] is not None
+    # 222 rules plus 847 rates is 1,069 rows, not their product.
+    assert len(rows) < 1200
+
+
+def test_read_cypher_refuses_a_write_before_it_reaches_the_store(store_path):
+    tool = server.Server(store_path)
+    try:
+        with pytest.raises(ValueError) as error:
+            tool.read_cypher({"statement": "CREATE (:Material {id: 'LEAK-1', value: 999})"})
+        assert "CREATE" in str(error.value)
+        assert store.one(tool.conn, "MATCH (m:Material) RETURN count(m) AS n")["n"] == 0
+        with pytest.raises(ValueError):
+            tool.read_cypher({"statement": "MATCH (n) DETACH DELETE n"})
+        with pytest.raises(ValueError):
+            tool.read_cypher({"statement": "MATCH (r:OriginRule) SET r.text = ''"})
+        with pytest.raises(ValueError):
+            tool.read_cypher({"statement": "MATCH (n) RETURN n; CREATE (:M)"})
+    finally:
+        tool.close()
+
+
+def test_read_cypher_still_reads_and_a_literal_is_not_a_clause(store_path):
+    tool = server.Server(store_path)
+    try:
+        rows = tool.read_cypher(
+            {"statement": "MATCH (r:OriginRule) WHERE r.text CONTAINS 'created' RETURN count(r) AS n"}
+        )
+        assert rows["count"] == 1
+    finally:
+        tool.close()
+
+
+# ------------------------------------------------------------- D13, D15: dates
+
+
+def test_a_verdict_is_computed_on_the_code_of_the_agreements_own_market(conn):
+    payload = shipment("shipment-8504-converter.json")
+    payload["goods"].pop("market_codes", None)
+    payload["market"] = "US"
+    report = assess.assess(conn, payload)
+    rcep = [item for item in report["agreements"] if item["agreement"] == "RCEP"][0]
+    assert rcep["origin"]["verdict"] == origin.UNDECIDABLE
+    assert any("code for Japan" in item for item in rcep["origin"]["missing"])
+
+
+def test_the_snapshot_age_limit_comes_from_the_store():
+    fresh = freshness.judge({"id": "x", "as_of": "2026-11-22", "max_age_days": 30}, date(2027, 1, 5))
+    assert fresh["fresh"] is False
+    assert fresh["max_age_days"] == 30
+
+
+def test_a_date_before_the_snapshot_is_not_called_fresh():
+    result = freshness.judge({"id": "x", "as_of": "2026-11-22", "max_age_days": 120}, date(2026, 11, 1))
+    assert result["fresh"] is False
+    assert result["status"] == "BEFORE_SNAPSHOT"
+    assert result["age_days"] == 0
+
+
+# ------------------------------------------------------------- D8, D12: the gap
+
+
+def test_the_snapshot_names_the_alternatives_it_could_not_read(conn):
+    from dutypath import cli
+
+    unreadable = cli._unreadable_alternatives(conn)
+    assert unreadable["alternatives"] >= 1
+    ids = {item["rule"] for item in unreadable["named"]}
+    assert {"OR-0039", "OR-0174", "OR-0329"} <= ids
+
+
+def test_korus_leaves_thirty_six_subheadings_without_a_rule(conn):
+    rows = store.rows(conn, "MATCH (s:Subheading) RETURN s.code AS code ORDER BY code")
+    missing = []
+    for row in rows:
+        if rulebook.resolve(conn, "KORUS", row["code"]) is None:
+            missing.append(row["code"])
+    assert len(missing) == 36
+    assert "844210" in missing
