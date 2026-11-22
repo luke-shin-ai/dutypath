@@ -1,0 +1,20 @@
+DutyPath
+Copyright 2026 Luke Shin
+
+This product includes rule text and tariff data extracted from documents
+published by others:
+
+  KORUS Free Trade Agreement, Annex 6-A (Specific Rules of Origin) and
+  Annex 2-B (Tariff Schedule of the United States), Office of the United
+  States Trade Representative.
+
+  Regional Comprehensive Economic Partnership, Annex 3A (Product-Specific
+  Rules), HS 2022 transposition adopted by the RCEP Joint Committee.
+
+  FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12.
+
+  World Integrated Trade Solution / TRAINS applied tariff data, World Bank.
+
+Those extracts are reproduced as cited quotations for a compliance check; the
+documents remain the property of their publishers and are not relicensed here.
+The code in this repository is licensed under the Apache License, Version 2.0.

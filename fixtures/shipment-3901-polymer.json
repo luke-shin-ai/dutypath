@@ -1,0 +1,16 @@
+{
+  "shipment_id": "SHP-2026-1201-004",
+  "market": "US",
+  "export_date": "2026-12-01",
+  "import_date": "2026-12-10",
+  "goods": {
+    "hts8": "39011050",
+    "hs6": "390110",
+    "description": "Polyethylene, specific gravity below 0.94, primary forms",
+    "declared_value": 900000,
+    "currency": "USD"
+  },
+  "materials": [
+    {"id": "M1", "hts8": "29012100", "origin": "SA", "value": 700000, "description": "ethylene monomer"}
+  ]
+}

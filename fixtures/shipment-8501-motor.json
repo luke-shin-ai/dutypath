@@ -1,0 +1,19 @@
+{
+  "shipment_id": "SHP-2026-1201-002",
+  "market": "US",
+  "export_date": "2026-12-01",
+  "import_date": "2026-12-08",
+  "goods": {
+    "hts8": "85013140",
+    "hs6": "850131",
+    "description": "DC motor, output above 74.6 W up to 735 W",
+    "declared_value": 250000,
+    "currency": "USD"
+  },
+  "materials": [
+    {"id": "M1", "hts8": "85051100", "origin": "CN", "value": 40000, "description": "permanent magnet"},
+    {"id": "M2", "hts8": "84821050", "origin": "JP", "value": 15000, "description": "ball bearing"},
+    {"id": "M3", "hts8": "73269085", "origin": "KR", "value": 30000, "description": "steel shaft"},
+    {"id": "M4", "hts8": "85030095", "origin": "US", "value": 20000, "description": "end plate, cast"}
+  ]
+}

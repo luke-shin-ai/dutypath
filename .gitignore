@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.tmp/
+# internal strategy and review notes are not part of the published snapshot
+STRATEGY*.md
+REVIEW*.md
+reviews/

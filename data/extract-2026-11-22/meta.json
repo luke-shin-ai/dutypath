@@ -1,0 +1,35 @@
+{
+ "extracted_on": "2026-11-22",
+ "chapters": [
+  "39",
+  "84",
+  "85"
+ ],
+ "files": {
+  "korus_annex_6a": {
+   "file": "korus_annex6a.pdf",
+   "sha256": "369019d640518ea4a4dab58f802808e93c18f8bd32f8bf54e4334df95a8b9974",
+   "bytes": 855640
+  },
+  "korus_annex_2b": {
+   "file": "korus_annex2b_us.pdf",
+   "sha256": "2312380eaf681ec407f6bc71085b30a5ce3663a5847512d1003314a43f6b4be1",
+   "bytes": 660521
+  },
+  "korus_chapter2": {
+   "file": "korus_ch2.pdf",
+   "sha256": "c170fb626eaa9a1e254ec598b15b5dd0b4c41d7e57bc31a626c1a4e72b844ffb",
+   "bytes": 74185
+  },
+  "rcep_annex_3a": {
+   "file": "rcep_annex3a.pdf",
+   "sha256": "0a244b142f36a19e08f6fdf6ec840490d672c3fa40edeeb0505186fa02f67d3f",
+   "bytes": 5958610
+  }
+ },
+ "counts": {
+  "korus_psr": 222,
+  "korus_rates": 847,
+  "rcep_psr": 108
+ }
+}

@@ -1,0 +1,4366 @@
+[
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "39.01",
+  "code_to": "39.15",
+  "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": 50.0,
+  "unstructured": false,
+  "from_norm": "39010000",
+  "to_norm": "39159999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "39.16",
+  "code_to": "39.26",
+  "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "39160000",
+  "to_norm": "39269999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8401.10",
+  "code_to": "8401.30",
+  "text": "A change to subheading 8401.10 through 8401.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84011000",
+  "to_norm": "84013099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8401.40",
+  "code_to": "8401.40",
+  "text": "A change to subheading 8401.40 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84014000",
+  "to_norm": "84014099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8402.11",
+  "code_to": "8402.11",
+  "text": "A change to subheading 8402.11 from any other heading; or A change to subheading 8402.11 from subheading 8402.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84021100",
+  "to_norm": "84021199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8402.12",
+  "code_to": "8402.12",
+  "text": "A change to subheading 8402.12 from any other heading; or A change to subheading 8402.12 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84021200",
+  "to_norm": "84021299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8402.19",
+  "code_to": "8402.19",
+  "text": "A change to subheading 8402.19 from any other heading; or A change to subheading 8402.19 from subheading 8402.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84021900",
+  "to_norm": "84021999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8402.20",
+  "code_to": "8402.20",
+  "text": "A change to subheading 8402.20 from any other heading; or A change to subheading 8402.20 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84022000",
+  "to_norm": "84022099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8402.90",
+  "code_to": "8402.90",
+  "text": "A change to subheading 8402.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84029000",
+  "to_norm": "84029099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8403.10",
+  "code_to": "8403.10",
+  "text": "A change to subheading 8403.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84031000",
+  "to_norm": "84031099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8403.90",
+  "code_to": "8403.90",
+  "text": "A change to subheading 8403.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84039000",
+  "to_norm": "84039099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8404.10",
+  "code_to": "8404.10",
+  "text": "A change to subheading 8404.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84041000",
+  "to_norm": "84041099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8404.20",
+  "code_to": "8404.20",
+  "text": "A change to subheading 8404.20 from any other heading; or A change to subheading 8404.20 from subheading 8404.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84042000",
+  "to_norm": "84042099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8404.90",
+  "code_to": "8404.90",
+  "text": "A change to subheading 8404.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84049000",
+  "to_norm": "84049099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8405.10",
+  "code_to": "8405.10",
+  "text": "A change to subheading 8405.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84051000",
+  "to_norm": "84051099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8405.90",
+  "code_to": "8405.90",
+  "text": "A change to subheading 8405.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84059000",
+  "to_norm": "84059099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8406.10",
+  "code_to": "8406.10",
+  "text": "A change to subheading 8406.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84061000",
+  "to_norm": "84061099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8406.81",
+  "code_to": "8406.82",
+  "text": "A change to subheading 8406.81 through 8406.82 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8406.81",
+   "8406.82"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84068100",
+  "to_norm": "84068299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8406.90",
+  "code_to": "8406.90",
+  "text": "A change to subheading 8406.90 from any other heading; or, No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method; or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84069000",
+  "to_norm": "84069099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8407.10",
+  "code_to": "8407.29",
+  "text": "A change to subheading 8407.10 through 8407.29 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84071000",
+  "to_norm": "84072999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8407.31",
+  "code_to": "8407.34",
+  "text": "A change to subheading 8407.31 through 8407.34 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method; or (b) 55 percent under the build-down method; or (c) 35 percent under the net cost method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84073100",
+  "to_norm": "84073499"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8407.90",
+  "code_to": "8407.90",
+  "text": "A change to subheading 8407.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84079000",
+  "to_norm": "84079099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8408.10",
+  "code_to": "8408.10",
+  "text": "A change to subheading 8408.10 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84081000",
+  "to_norm": "84081099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8408.20",
+  "code_to": "8408.20",
+  "text": "A change to subheading 8408.20 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method; or (b) 55 percent under the build-down method; or (c) 35 percent under the net cost method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84082000",
+  "to_norm": "84082099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8408.90",
+  "code_to": "8408.90",
+  "text": "A change to subheading 8408.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84089000",
+  "to_norm": "84089099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.09",
+  "code_to": "84.09",
+  "text": "No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method; or (b) 55 percent under the build-down method; or (c) 35 percent under the net cost method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84090000",
+  "to_norm": "84099999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8410.11",
+  "code_to": "8410.13",
+  "text": "A change to subheading 8410.11 through 8410.13 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8410.11",
+   "8410.13"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84101100",
+  "to_norm": "84101399"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8410.90",
+  "code_to": "8410.90",
+  "text": "A change to subheading 8410.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84109000",
+  "to_norm": "84109099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8411.11",
+  "code_to": "8411.82",
+  "text": "A change to subheading 8411.11 through 8411.82 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8411.11",
+   "8411.82"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84111100",
+  "to_norm": "84118299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8411.91",
+  "code_to": "8411.91",
+  "text": "A change to subheading 8411.91 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84119100",
+  "to_norm": "84119199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8411.99",
+  "code_to": "8411.99",
+  "text": "A change to subheading 8411.99 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method; or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84119900",
+  "to_norm": "84119999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8412.10",
+  "code_to": "8412.80",
+  "text": "A change to subheading 8412.10 through 8412.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84121000",
+  "to_norm": "84128099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8412.90",
+  "code_to": "8412.90",
+  "text": "A change to subheading 8412.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84129000",
+  "to_norm": "84129099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8413.11",
+  "code_to": "8413.82",
+  "text": "A change to subheading 8413.11 through 8413.82 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84131100",
+  "to_norm": "84138299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8413.91",
+  "code_to": "8413.92",
+  "text": "A change to subheading 8413.91 through 8413.92 from any other heading; or For subheading 8413.92, no change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84139100",
+  "to_norm": "84139299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8414.10",
+  "code_to": "8414.80",
+  "text": "A change to subheading 8414.10 through 8414.80 from any other heading; or A change to subheading 8414.10 through 8414.80 from subheading 8414.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84141000",
+  "to_norm": "84148099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8414.90",
+  "code_to": "8414.90",
+  "text": "A change to subheading 8414.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84149000",
+  "to_norm": "84149099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8415.10",
+  "code_to": "8415.83",
+  "text": "A change to subheading 8415.10 through 8415.83 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84151000",
+  "to_norm": "84158399"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8415.90",
+  "code_to": "8415.90",
+  "text": "A change to subheading 8415.90 from any other heading; or A change to chassis, chassis blades, and outer cabinets of subheading 8415.90 from any other good, including a good in that subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84159000",
+  "to_norm": "84159099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8416.10",
+  "code_to": "8416.90",
+  "text": "A change to subheading 8416.10 through 8416.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84161000",
+  "to_norm": "84169099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8417.10",
+  "code_to": "8417.80",
+  "text": "A change to subheading 8417.10 through 8417.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84171000",
+  "to_norm": "84178099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8417.90",
+  "code_to": "8417.90",
+  "text": "A change to subheading 8417.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84179000",
+  "to_norm": "84179099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8418.10",
+  "code_to": "8418.69",
+  "text": "A change to subheading 8418.10 through 8418.69 from any other subheading outside that group, except from subheading 8418.91.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [
+   "841891"
+  ],
+  "group_exclude": [
+   "8418.10",
+   "8418.69"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84181000",
+  "to_norm": "84186999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8418.91",
+  "code_to": "8418.99",
+  "text": "A change to subheading 8418.91 through 8418.99 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84189100",
+  "to_norm": "84189999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8419.11",
+  "code_to": "8419.89",
+  "text": "A change to subheading 8419.11 through 8419.89 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84191100",
+  "to_norm": "84198999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8419.90",
+  "code_to": "8419.90",
+  "text": "A change to subheading 8419.90 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84199000",
+  "to_norm": "84199099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8420.10",
+  "code_to": "8420.10",
+  "text": "A change to subheading 8420.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84201000",
+  "to_norm": "84201099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8420.91",
+  "code_to": "8420.99",
+  "text": "A change to subheading 8420.91 through 8420.99 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84209100",
+  "to_norm": "84209999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8421.11",
+  "code_to": "8421.39",
+  "text": "A change to subheading 8421.11 through 8421.39 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84211100",
+  "to_norm": "84213999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8421.91",
+  "code_to": "8421.91",
+  "text": "A change to subheading 8421.91 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84219100",
+  "to_norm": "84219199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8421.99",
+  "code_to": "8421.99",
+  "text": "A change to subheading 8421.99 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84219900",
+  "to_norm": "84219999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8422.11",
+  "code_to": "8422.40",
+  "text": "A change to subheading 8422.11 through 8422.40 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84221100",
+  "to_norm": "84224099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8422.90",
+  "code_to": "8422.90",
+  "text": "A change to subheading 8422.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84229000",
+  "to_norm": "84229099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8423.10",
+  "code_to": "8423.89",
+  "text": "A change to subheading 8423.10 through 8423.89 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84231000",
+  "to_norm": "84238999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8423.90",
+  "code_to": "8423.90",
+  "text": "A change to subheading 8423.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84239000",
+  "to_norm": "84239099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8424.10",
+  "code_to": "8430.69",
+  "text": "A change to subheading 8424.10 through 8430.69 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84241000",
+  "to_norm": "84306999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.31",
+  "code_to": "84.31",
+  "text": "A change to heading 84.31 from any other heading; or For subheading 8431.10, 8431.31, 8431.39, 8431.43, or 8431.49, no change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84310000",
+  "to_norm": "84319999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8432.10",
+  "code_to": "8437.90",
+  "text": "A change to subheading 8432.10 through 8437.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84321000",
+  "to_norm": "84379099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8438.10",
+  "code_to": "8438.80",
+  "text": "A change to subheading 8438.10 through 8438.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84381000",
+  "to_norm": "84388099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8438.90",
+  "code_to": "8438.90",
+  "text": "A change to subheading 8438.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84389000",
+  "to_norm": "84389099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8439.10",
+  "code_to": "8440.90",
+  "text": "A change to subheading 8439.10 through 8440.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84391000",
+  "to_norm": "84409099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8441.10",
+  "code_to": "8441.80",
+  "text": "A change to subheading 8441.10 through 8441.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84411000",
+  "to_norm": "84418099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8441.90",
+  "code_to": "8441.90",
+  "text": "A change to subheading 8441.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84419000",
+  "to_norm": "84419099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8442.30",
+  "code_to": "8442.30",
+  "text": "A change to subheading 8442.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84423000",
+  "to_norm": "84423099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8442.40",
+  "code_to": "8442.50",
+  "text": "A change to subheading 8442.40 through 8442.50 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84424000",
+  "to_norm": "84425099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8443.11",
+  "code_to": "8443.39",
+  "text": "A change to subheading 8443.11 through 8443.39 from any other subheading outside that group, except from subheading 8443.91 through 8443.99; or A change to subheading 8443.11 through 8443.39 from subheading 8443.91 through 8443.99, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "844391"
+  ],
+  "group_exclude": [
+   "8443.11",
+   "8443.39"
+  ],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84431100",
+  "to_norm": "84433999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8443.91",
+  "code_to": "8443.91",
+  "text": "A change to machines for uses ancillary to printing of subheading 8443.91 from any other good of subheading 8443.91or from any other subheading except from subheading 8443.11 through 8443.39; or A change to any other good of subheading 8443.91 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH"
+  ],
+  "excluded_from": [
+   "844311"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84439100",
+  "to_norm": "84439199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8443.99",
+  "code_to": "8443.99",
+  "text": "A change to subheading 8443.99 from any other subheading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84439900",
+  "to_norm": "84439999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.44",
+  "code_to": "84.44",
+  "text": "A change to heading 84.44 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84440000",
+  "to_norm": "84449999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "84.45",
+  "code_to": "84.47",
+  "text": "A change to heading 84.45 through 84.47 from any other heading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "84.45",
+   "84.47"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84450000",
+  "to_norm": "84479999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8448.11",
+  "code_to": "8448.19",
+  "text": "A change to subheading 8448.11 through 8448.19 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84481100",
+  "to_norm": "84481999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8448.20",
+  "code_to": "8448.59",
+  "text": "A change to subheading 8448.20 through 8448.59 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84482000",
+  "to_norm": "84485999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.49",
+  "code_to": "84.49",
+  "text": "A change to heading 84.49 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84490000",
+  "to_norm": "84499999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8450.11",
+  "code_to": "8450.20",
+  "text": "A change to subheading 8450.11 through 8450.20 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84501100",
+  "to_norm": "84502099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8450.90",
+  "code_to": "8450.90",
+  "text": "A change to subheading 8450.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84509000",
+  "to_norm": "84509099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8451.10",
+  "code_to": "8451.80",
+  "text": "A change to subheading 8451.10 through 8451.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84511000",
+  "to_norm": "84518099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8451.90",
+  "code_to": "8451.90",
+  "text": "A change to subheading 8451.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84519000",
+  "to_norm": "84519099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8452.10",
+  "code_to": "8452.29",
+  "text": "A change to subheading 8452.10 through 8452.29 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8452.10",
+   "8452.29"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84521000",
+  "to_norm": "84522999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8452.30",
+  "code_to": "8452.30",
+  "text": "A change to subheading 8452.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84523000",
+  "to_norm": "84523099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8452.90",
+  "code_to": "8452.90",
+  "text": "A change to subheading 8452.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84529000",
+  "to_norm": "84529099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8453.10",
+  "code_to": "8453.80",
+  "text": "A change to subheading 8453.10 through 8453.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84531000",
+  "to_norm": "84538099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8453.90",
+  "code_to": "8453.90",
+  "text": "A change to subheading 8453.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84539000",
+  "to_norm": "84539099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8454.10",
+  "code_to": "8454.30",
+  "text": "A change to subheading 8454.10 through 8454.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84541000",
+  "to_norm": "84543099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8454.90",
+  "code_to": "8454.90",
+  "text": "A change to subheading 8454.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84549000",
+  "to_norm": "84549099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8455.10",
+  "code_to": "8455.90",
+  "text": "A change to subheading 8455.10 through 8455.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84551000",
+  "to_norm": "84559099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.56",
+  "code_to": "84.56",
+  "text": "A change to heading 84.56 from any other heading, provided that there is a regional value content of not less than 60 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 60.0,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84560000",
+  "to_norm": "84569999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "84.57",
+  "code_to": "84.61",
+  "text": "A change to heading 84.57 through 84.61 from any other heading, provided that there is a regional value content of not less than 55 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84570000",
+  "to_norm": "84619999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.62",
+  "code_to": "84.62",
+  "text": "A change to heading 84.62 from any other heading, provided that there is a regional value content of not less than 60 percent under the build down-method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 60.0,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84620000",
+  "to_norm": "84629999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.63",
+  "code_to": "84.63",
+  "text": "A change to heading 84.63 from any other heading, provided that there is a regional value content of not less than 55 percent under the build down-method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 55.0,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84630000",
+  "to_norm": "84639999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "84.64",
+  "code_to": "84.65",
+  "text": "A change to heading 84.64 through 84.65 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84640000",
+  "to_norm": "84659999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.66",
+  "code_to": "84.66",
+  "text": "A change to heading 84.66 from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84660000",
+  "to_norm": "84669999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8467.11",
+  "code_to": "8467.89",
+  "text": "A change to subheading 8467.11 through 8467.89 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84671100",
+  "to_norm": "84678999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8467.91",
+  "code_to": "8467.91",
+  "text": "A change to subheading 8467.91 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84679100",
+  "to_norm": "84679199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8467.92",
+  "code_to": "8467.99",
+  "text": "A change to subheading 8467.92 through 8467.99 from any other heading, except from heading 84.07.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84679200",
+  "to_norm": "84679999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8468.10",
+  "code_to": "8468.80",
+  "text": "A change to subheading 8468.10 through 8468.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84681000",
+  "to_norm": "84688099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8468.90",
+  "code_to": "8468.90",
+  "text": "A change to subheading 8468.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84689000",
+  "to_norm": "84689099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.69",
+  "code_to": "84.69",
+  "text": "A change to heading 84.69 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84690000",
+  "to_norm": "84699999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8470.10",
+  "code_to": "8472.90",
+  "text": "A change to subheading 8470.10 through 8472.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84701000",
+  "to_norm": "84729099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8473.10",
+  "code_to": "8473.50",
+  "text": "A change to subheading 8473.10 through 8473.50 from any other subheading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 30 percent under the build-up method, or (b) 35 percent when the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": 30.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84731000",
+  "to_norm": "84735099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8474.10",
+  "code_to": "8474.80",
+  "text": "A change to subheading 8474.10 through 8474.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84741000",
+  "to_norm": "84748099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8474.90",
+  "code_to": "8474.90",
+  "text": "A change to subheading 8474.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84749000",
+  "to_norm": "84749099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8475.10",
+  "code_to": "8475.10",
+  "text": "A change to subheading 8475.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84751000",
+  "to_norm": "84751099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8475.21",
+  "code_to": "8475.29",
+  "text": "A change to subheading 8475.21 through 8475.29 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8475.21",
+   "8475.29"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84752100",
+  "to_norm": "84752999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8475.90",
+  "code_to": "8475.90",
+  "text": "A change to subheading 8475.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84759000",
+  "to_norm": "84759099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8476.21",
+  "code_to": "8476.89",
+  "text": "A change to subheading 8476.21 through 8476.89 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8476.21",
+   "8476.89"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84762100",
+  "to_norm": "84768999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8476.90",
+  "code_to": "8476.90",
+  "text": "A change to subheading 8476.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84769000",
+  "to_norm": "84769099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.77",
+  "code_to": "84.77",
+  "text": "A change to heading 84.77 from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method; or A change to subheadings 8477.10 through 8477.80 from subheading 8477.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84770000",
+  "to_norm": "84779999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8478.10",
+  "code_to": "8478.10",
+  "text": "A change to subheading 8478.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84781000",
+  "to_norm": "84781099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8478.90",
+  "code_to": "8478.90",
+  "text": "A change to subheading 8478.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84789000",
+  "to_norm": "84789099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8479.10",
+  "code_to": "8479.90",
+  "text": "A change to subheading 8479.10 through 8479.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84791000",
+  "to_norm": "84799099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.80",
+  "code_to": "84.80",
+  "text": "A change to heading 84.80 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84800000",
+  "to_norm": "84809999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8481.10",
+  "code_to": "8481.80",
+  "text": "A change to subheading 8481.10 through 8481.80 from any other heading; or A change to subheading 8481.10 through 8481.80 from subheading 8481.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84811000",
+  "to_norm": "84818099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8481.90",
+  "code_to": "8481.90",
+  "text": "A change to subheading 8481.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84819000",
+  "to_norm": "84819099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8482.10",
+  "code_to": "8482.80",
+  "text": "A change to subheading 8482.10 through 8482.80 from any other subheading outside of that group, except from subheading 8482.99; or A change to subheading 8482.10 through 8482.80 from subheading 8482.99, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method, or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "848299"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84821000",
+  "to_norm": "84828099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8482.91",
+  "code_to": "8482.99",
+  "text": "A change to subheading 8482.91 through 8482.99 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84829100",
+  "to_norm": "84829999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8483.10",
+  "code_to": "8483.10",
+  "text": "A change to subheading 8483.10 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84831000",
+  "to_norm": "84831099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8483.20",
+  "code_to": "8483.20",
+  "text": "A change to subheading 8483.20 from any other subheading, except from subheading 8482.10 through 8482.80.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [
+   "848210"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84832000",
+  "to_norm": "84832099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8483.30",
+  "code_to": "8483.30",
+  "text": "A change to subheading 8483.30 from any other heading; or A change to subheading 8483.30 from any other subheading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method; or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84833000",
+  "to_norm": "84833099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8483.40",
+  "code_to": "8483.50",
+  "text": "A change to subheading 8483.40 through 8483.50 from any subheading, except from subheading 8482.10 through 8482.80, 8482.99, 8483.10 through 8483.40, 8483.60, or 8483.90; or A change to subheading 8483.40 through 8483.50 from subheading 8482.10 through 8482.80, 8482.99, 8483.10 through 8483.40, 8483.60, or 8483.90, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method; or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "RVC"
+  ],
+  "excluded_from": [
+   "848210"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84834000",
+  "to_norm": "84835099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8483.60",
+  "code_to": "8483.60",
+  "text": "A change to subheading 8483.60 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84836000",
+  "to_norm": "84836099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8483.90",
+  "code_to": "8483.90",
+  "text": "A change to subheading 8483.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84839000",
+  "to_norm": "84839099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8484.10",
+  "code_to": "8484.90",
+  "text": "A change to subheading 8484.10 through 8484.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84841000",
+  "to_norm": "84849099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8486.10",
+  "code_to": "8486.40",
+  "text": "A change to subheading 8486.10 through 8486.40 from any other subheading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84861000",
+  "to_norm": "84864099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8486.90",
+  "code_to": "8486.90",
+  "text": "A change to subheading 8486.90 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84869000",
+  "to_norm": "84869099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "84.87",
+  "code_to": "84.87",
+  "text": "A change to heading 84.87 from any other heading. Chapter 85 Electrical Machinery and Equipment and Parts Thereof; Sound Recorders and Reproducers, Television Image and Sound Recorders and Reproducers, and Parts and Accessories of Such Articles",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "84870000",
+  "to_norm": "84879999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8501.10",
+  "code_to": "8501.10",
+  "text": "A change to subheading 8501.10 from any other heading, except from heading 85.03; or A change to subheading 8501.10 from heading 85.03, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85011000",
+  "to_norm": "85011099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8501.20",
+  "code_to": "8501.64",
+  "text": "A change to subheading 8501.20 through 8501.64 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85012000",
+  "to_norm": "85016499"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "85.02",
+  "code_to": "85.03",
+  "text": "A change to heading 85.02 through 85.03 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85020000",
+  "to_norm": "85039999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8504.10",
+  "code_to": "8504.23",
+  "text": "A change to subheading 8504.10 through 8504.23 from any subheading outside subheading 8504.10 through 8504.50.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8504.10",
+   "8504.50"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85041000",
+  "to_norm": "85042399"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8504.31",
+  "code_to": "8504.31",
+  "text": "A change to subheading 8504.31 from any other heading; or A change to subheading 8504.31 from subheading 8504.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85043100",
+  "to_norm": "85043199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8504.32",
+  "code_to": "8504.50",
+  "text": "A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8504.10",
+   "8504.50"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85043200",
+  "to_norm": "85045099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8504.90",
+  "code_to": "8504.90",
+  "text": "A change to subheading 8504.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85049000",
+  "to_norm": "85049099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8505.11",
+  "code_to": "8505.20",
+  "text": "A change to subheading 8505.11 through 8505.20 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85051100",
+  "to_norm": "85052099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8505.90",
+  "code_to": "8505.90",
+  "text": "A change to electro-magnetic lifting heads of subheading 8505.90 from any other good of subheading 8505.90 or from any other subheading; or A change to any other good of subheading 8505.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85059000",
+  "to_norm": "85059099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8506.10",
+  "code_to": "8506.40",
+  "text": "A change to subheading 8506.10 through 8506.40 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85061000",
+  "to_norm": "85064099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8506.50",
+  "code_to": "8506.80",
+  "text": "A change to subheading 8506.50 through 8506.80 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8506.50",
+   "8506.80"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85065000",
+  "to_norm": "85068099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8506.90",
+  "code_to": "8506.90",
+  "text": "A change to subheading 8506.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85069000",
+  "to_norm": "85069099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8507.10",
+  "code_to": "8507.10",
+  "text": "A change to subheading 8507.10 from any other heading; or A change to subheading 8507.10 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85071000",
+  "to_norm": "85071099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8507.20",
+  "code_to": "8507.80",
+  "text": "A change to subheading 8507.20 through 8507.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85072000",
+  "to_norm": "85078099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8507.90",
+  "code_to": "8507.90",
+  "text": "A change to subheading 8507.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85079000",
+  "to_norm": "85079099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8508.11",
+  "code_to": "8508.60",
+  "text": "A change to subheading 8508.11 through 8508.60 from any other heading; or A change to subheading 8508.11 through 8508.60 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85081100",
+  "to_norm": "85086099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8508.70",
+  "code_to": "8508.70",
+  "text": "A change to subheading 8508.70 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85087000",
+  "to_norm": "85087099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8509.40",
+  "code_to": "8509.80",
+  "text": "A change to subheading 8509.40 through 8509.80 from any other heading; or A change to subheading 8509.40 through 8509.80 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85094000",
+  "to_norm": "85098099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8509.90",
+  "code_to": "8509.90",
+  "text": "A change to subheading 8509.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85099000",
+  "to_norm": "85099099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8510.10",
+  "code_to": "8510.30",
+  "text": "A change to subheading 8510.10 through 8510.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85101000",
+  "to_norm": "85103099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8510.90",
+  "code_to": "8510.90",
+  "text": "A change to subheading 8510.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85109000",
+  "to_norm": "85109099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8511.10",
+  "code_to": "8511.80",
+  "text": "A change to subheading 8511.10 through 8511.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85111000",
+  "to_norm": "85118099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8511.90",
+  "code_to": "8511.90",
+  "text": "A change to subheading 8511.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85119000",
+  "to_norm": "85119099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8512.10",
+  "code_to": "8512.20",
+  "text": "A change to subheading 8512.10 through 8512.20 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8512.10",
+   "8512.20"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85121000",
+  "to_norm": "85122099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8512.30",
+  "code_to": "8512.30",
+  "text": "A change to subheading 8512.30 from any other heading; or A change to subheading 8512.30 from subheading 8512.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85123000",
+  "to_norm": "85123099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8512.40",
+  "code_to": "8512.40",
+  "text": "A change to subheading 8512.40 from any other heading; or A change to subheading 8512.40 from subheading 8512.90, whether or not there is also a change from any other heading, provided that there is also a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85124000",
+  "to_norm": "85124099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8512.90",
+  "code_to": "8512.90",
+  "text": "A change to subheading 8512.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85129000",
+  "to_norm": "85129099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8513.10",
+  "code_to": "8513.10",
+  "text": "A change to subheading 8513.10 from any other heading; or A change to subheading 8513.10 from subheading 8513.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85131000",
+  "to_norm": "85131099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8513.90",
+  "code_to": "8513.90",
+  "text": "A change to subheading 8513.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85139000",
+  "to_norm": "85139099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8514.10",
+  "code_to": "8514.40",
+  "text": "A change to subheading 8514.10 through 8514.40 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85141000",
+  "to_norm": "85144099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8514.90",
+  "code_to": "8514.90",
+  "text": "A change to subheading 8514.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85149000",
+  "to_norm": "85149099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8515.11",
+  "code_to": "8515.80",
+  "text": "A change to subheading 8515.11 through 8515.80 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8515.11",
+   "8515.80"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85151100",
+  "to_norm": "85158099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8515.90",
+  "code_to": "8515.90",
+  "text": "A change to subheading 8515.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85159000",
+  "to_norm": "85159099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8516.10",
+  "code_to": "8516.50",
+  "text": "A change to subheading 8516.10 through 8516.50 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85161000",
+  "to_norm": "85165099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.60",
+  "code_to": "8516.60",
+  "text": "A change to subheading 8516.60 from any other heading; or A change to subheading 8516.60 from subheading 8516.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85166000",
+  "to_norm": "85166099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.71",
+  "code_to": "8516.71",
+  "text": "A change to subheading 8516.71 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85167100",
+  "to_norm": "85167199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.72",
+  "code_to": "8516.72",
+  "text": "A change to subheading 8516.72 from any other subheading, except from housings for toasters of subheading 8516.90 or from subheading 9032.10; or A change to subheading 8516.72 from housings for toasters of subheading 8516.90 or from 9032.10, whether or not there is also a change from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85167200",
+  "to_norm": "85167299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.79",
+  "code_to": "8516.79",
+  "text": "A change to subheading 8516.79 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85167900",
+  "to_norm": "85167999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.80",
+  "code_to": "8516.80",
+  "text": "A change to subheading 8516.80 from any other heading; or A change to subheading 8516.80 from subheading 8516.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85168000",
+  "to_norm": "85168099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8516.90",
+  "code_to": "8516.90",
+  "text": "A change to subheading 8516.90 from any other heading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85169000",
+  "to_norm": "85169099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8517.11",
+  "code_to": "8517.69",
+  "text": "A change to subheading 8517.11 through 8517.69 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85171100",
+  "to_norm": "85176999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8517.70",
+  "code_to": "8517.70",
+  "text": "A change to subheading 8517.70 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85177000",
+  "to_norm": "85177099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8518.10",
+  "code_to": "8518.21",
+  "text": "A change to subheading 8518.10 through 8518.21 from any other heading; or A change to subheading 8518.10 through 8518.21 from subheading 8518.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85181000",
+  "to_norm": "85182199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8518.22",
+  "code_to": "8518.22",
+  "text": "A change to subheading 8518.22 from any other heading; or A change to subheading 8518.22 from subheading 8518.29 or 8518.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85182200",
+  "to_norm": "85182299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8518.29",
+  "code_to": "8518.50",
+  "text": "A change to subheading 8518.29 through 8518.50 from any other heading; or A change to subheading 8518.29 through 8518.50 from subheading 8518.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85182900",
+  "to_norm": "85185099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8518.90",
+  "code_to": "8518.90",
+  "text": "A change to subheading 8518.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85189000",
+  "to_norm": "85189099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8519.20",
+  "code_to": "8519.89",
+  "text": "A change to subheading 8519.20 through 8519.89 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85192000",
+  "to_norm": "85198999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8521.10",
+  "code_to": "8522.90",
+  "text": "A change to subheading 8521.10 through 8522.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85211000",
+  "to_norm": "85229099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8523.21",
+  "code_to": "8523.80",
+  "text": "A change to subheading 8523.21 through 8523.80 from any other subheading; or A change to recorded media of subheading 8523.21 through 8523.80 from unrecorded media of subheading 8523.21 through 8523.80.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85232100",
+  "to_norm": "85238099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8525.50",
+  "code_to": "8525.50",
+  "text": "A change to subheading 8525.50 from any other subheading, except from subheading 8525.60.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [
+   "852560"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85255000",
+  "to_norm": "85255099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8525.60",
+  "code_to": "8525.80",
+  "text": "A change to subheading 8525.60 through 8525.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85256000",
+  "to_norm": "85258099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8526.10",
+  "code_to": "8527.99",
+  "text": "A change to subheading 8526.10 through 8527.99 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85261000",
+  "to_norm": "85279999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.41",
+  "code_to": "8528.41",
+  "text": "A change to subheading 8528.41 from any other heading, except from heading 84.71.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85284100",
+  "to_norm": "85284199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.49",
+  "code_to": "8528.49",
+  "text": "A change to subheading 8528.49 from any other heading, except from heading 85.29; or A change to subheading 8528.49 from subheading 8529.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method, or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85284900",
+  "to_norm": "85284999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.51",
+  "code_to": "8528.51",
+  "text": "A change to subheading 8528.51 from any other heading, except from heading 84.71.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85285100",
+  "to_norm": "85285199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.59",
+  "code_to": "8528.59",
+  "text": "A change to subheading 8528.59 from flat panel screen assemblies of subheading 8529.90 containing a digital micromirror device, or from any other heading, except from subheading 9013.80 or any other good of heading 85.29; or A change to subheading 8528.59 from subheading 8529.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method, or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "901380"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85285900",
+  "to_norm": "85285999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.61",
+  "code_to": "8528.61",
+  "text": "A change to subheading 8528.61 from any other heading, except from heading 84.71.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85286100",
+  "to_norm": "85286199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.69",
+  "code_to": "8528.69",
+  "text": "A change to subheading 8528.69 from flat panel screen assemblies of subheading 8529.90 containing a digital micromirror device, or from any other heading, except from subheading 9013.80 or any other good of heading 85.29; or A change to subheading 8528.69 from subheading 8529.90 or 9013.80, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method, or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "901380"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85286900",
+  "to_norm": "85286999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.71",
+  "code_to": "8528.71",
+  "text": "A change to subheading 8528.71 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85287100",
+  "to_norm": "85287199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.72",
+  "code_to": "8528.72",
+  "text": "A change to subheading 8528.72 from flat panel screen assemblies of subheading 8529.90 containing a digital micromirror device, or from any other heading, except from subheading 9013.80 or any other good of heading 85.29; or A change to subheading 8528.72 from subheading 8529.90 or 9013.80, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 40 percent under the build-up method, or (b) 50 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "901380"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 50.0,
+  "rvc_build_up": 40.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85287200",
+  "to_norm": "85287299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8528.73",
+  "code_to": "8528.73",
+  "text": "A change to subheading 8528.73 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85287300",
+  "to_norm": "85287399"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "85.29",
+  "code_to": "85.29",
+  "text": "A change to heading 85.29 from any other heading; or For subheading 8529.90, no change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85290000",
+  "to_norm": "85299999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8530.10",
+  "code_to": "8530.80",
+  "text": "A change to subheading 8530.10 through 8530.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85301000",
+  "to_norm": "85308099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8530.90",
+  "code_to": "8530.90",
+  "text": "A change to subheading 8530.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85309000",
+  "to_norm": "85309099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8531.10",
+  "code_to": "8531.80",
+  "text": "A change to subheading 8531.10 through 8531.80 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85311000",
+  "to_norm": "85318099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8531.90",
+  "code_to": "8531.90",
+  "text": "A change to subheading 8531.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85319000",
+  "to_norm": "85319099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8532.10",
+  "code_to": "8532.30",
+  "text": "A change to subheading 8532.10 through 8532.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85321000",
+  "to_norm": "85323099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8532.90",
+  "code_to": "8532.90",
+  "text": "A change to subheading 8532.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85329000",
+  "to_norm": "85329099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8533.10",
+  "code_to": "8533.40",
+  "text": "A change to subheading 8533.10 through 8533.40 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85331000",
+  "to_norm": "85334099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8533.90",
+  "code_to": "8533.90",
+  "text": "A change to subheading 8533.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85339000",
+  "to_norm": "85339099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "85.34",
+  "code_to": "85.34",
+  "text": "A change to heading 85.34 from any other heading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 30 percent under the build-up method, or (b) 35 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 35.0,
+  "rvc_build_up": 30.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85340000",
+  "to_norm": "85349999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8535.10",
+  "code_to": "8536.90",
+  "text": "A change to subheading 8535.10 through 8536.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85351000",
+  "to_norm": "85369099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "85.37",
+  "code_to": "85.38",
+  "text": "A change to heading 85.37 through 85.38 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85370000",
+  "to_norm": "85389999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8539.10",
+  "code_to": "8539.49",
+  "text": "A change to subheading 8539.10 through 8539.49 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85391000",
+  "to_norm": "85394999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8539.90",
+  "code_to": "8539.90",
+  "text": "A change to subheading 8539.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85399000",
+  "to_norm": "85399099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8540.11",
+  "code_to": "8540.11",
+  "text": "A change to subheading 8540.11 from any other subheading, except from subheading 7011.20 or 8540.91",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [
+   "701120",
+   "854091"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85401100",
+  "to_norm": "85401199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8540.12",
+  "code_to": "8540.12",
+  "text": "A change to subheading 8540.12 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85401200",
+  "to_norm": "85401299"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8540.20",
+  "code_to": "8540.20",
+  "text": "A change to subheading 8540.20 from any other heading; or A change to subheading 8540.20 from subheading 8540.91 through 8540.99, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85402000",
+  "to_norm": "85402099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8540.40",
+  "code_to": "8540.60",
+  "text": "A change to subheading 8540.40 through 8540.60 from any other subheading outside that group.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [
+   "8540.40",
+   "8540.60"
+  ],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85404000",
+  "to_norm": "85406099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8540.71",
+  "code_to": "8540.89",
+  "text": "A change to subheading 8540.71 through 8540.89 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85407100",
+  "to_norm": "85408999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8540.91",
+  "code_to": "8540.91",
+  "text": "A change to subheading 8540.91 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85409100",
+  "to_norm": "85409199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8540.99",
+  "code_to": "8540.99",
+  "text": "A change to subheading 8540.99 from any other subheading, or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85409900",
+  "to_norm": "85409999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8541.10",
+  "code_to": "8542.90",
+  "text": "A change to assembled semiconductor devices, integrated circuits or microassemblies of subheading 8541.10 through 8542.90 from unmounted chips, wafers or dice of subheading 8541.10 through 8542.90 or from any other subheading; or A change to any other good of subheading 8541.10 through 8542.90 from any other subheading; or No change in tariff classification is required, provided that there is a regional value content of not less than: (a) 30 percent under the build-up method, or (b) 35 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 35.0,
+  "rvc_build_up": 30.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85411000",
+  "to_norm": "85429099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8543.10",
+  "code_to": "8543.10",
+  "text": "A change to subheading 8543.10 from any other subheading except from ion implanters for doping semiconductor materials of subheading 8486.20.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85431000",
+  "to_norm": "85431099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8543.20",
+  "code_to": "8543.30",
+  "text": "A change to subheading 8543.20 through 8543.30 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85432000",
+  "to_norm": "85433099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8543.70",
+  "code_to": "8543.70",
+  "text": "A change to subheading 8543.70 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85437000",
+  "to_norm": "85437099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8543.90",
+  "code_to": "8543.90",
+  "text": "A change to subheading 8543.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85439000",
+  "to_norm": "85439099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8544.11",
+  "code_to": "8544.11",
+  "text": "A change to subheading 8544.11 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85441100",
+  "to_norm": "85441199"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8544.19",
+  "code_to": "8544.19",
+  "text": "A change to subheading 8544.19 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85441900",
+  "to_norm": "85441999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8544.20",
+  "code_to": "8544.20",
+  "text": "A change to subheading 8544.20 from any other subheading, except from subheading 8544.11 through 8544.60 and heading 74.08, 74.13, 76.05 or 76.14; or A change to subheading 8544.20 from subheading 8544.11 through 8544.60 or from heading 74.08, 74.13, 76.05 or 76.14, whether or not there is also a change from any other subheading, provided that there is also a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [
+   "854411"
+  ],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85442000",
+  "to_norm": "85442099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8544.30",
+  "code_to": "8544.49",
+  "text": "A change to subheading 8544.30 through 8544.49 from any other heading; or A change to subheading 8544.30 through 8544.49 from any other subheading, provided that there is also a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH",
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85443000",
+  "to_norm": "85444999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8544.60",
+  "code_to": "8544.60",
+  "text": "A change to subheading 8544.60 from any other subheading, provided that there is also a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH",
+   "RVC"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": 45.0,
+  "rvc_build_up": 35.0,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85446000",
+  "to_norm": "85446099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "subheading",
+  "code_from": "8544.70",
+  "code_to": "8544.70",
+  "text": "A change to subheading 8544.70 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85447000",
+  "to_norm": "85447099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8545.11",
+  "code_to": "8545.90",
+  "text": "A change to subheading 8545.11 through 8545.90 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85451100",
+  "to_norm": "85459099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "85.46",
+  "code_to": "85.46",
+  "text": "A change to heading 85.46 from any other heading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85460000",
+  "to_norm": "85469999"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "range",
+  "code_from": "8547.10",
+  "code_to": "8547.90",
+  "text": "A change to subheading 8547.10 through 8547.90 from any other subheading.",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTSH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85471000",
+  "to_norm": "85479099"
+ },
+ {
+  "agreement": "KORUS",
+  "level": "heading",
+  "code_from": "85.48",
+  "code_to": "85.48",
+  "text": "A change to heading 85.48 from any other heading. Section XVII Vehicles, Aircraft, Vessels and Associated Transport Equipment (Chapter 86-89) Chapter 86 Railway or Tramway Locomotives, Rolling-Stock and Parts Thereof; Railway or Tramway Track Fixtures and Fittings and Parts Thereof; Mechanical (Including Electro-Mechanical) Traffic Signalling Equipment of all Kinds",
+  "source": "KORUS Annex 6-A",
+  "kinds": [
+   "CTH"
+  ],
+  "excluded_from": [],
+  "group_exclude": [],
+  "rvc_build_down": null,
+  "rvc_build_up": null,
+  "originating_weight_min": null,
+  "unstructured": false,
+  "from_norm": "85480000",
+  "to_norm": "85489999"
+ }
+]

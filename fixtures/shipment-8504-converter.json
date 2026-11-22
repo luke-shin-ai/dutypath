@@ -1,0 +1,25 @@
+{
+  "shipment_id": "SHP-2026-1201-001",
+  "market": "US",
+  "export_date": "2026-12-01",
+  "import_date": "2026-12-08",
+  "goods": {
+    "hts8": "85044095",
+    "hs6": "850440",
+    "description": "Static converter, industrial power supply unit",
+    "declared_value": 480000,
+    "currency": "USD"
+  },
+  "materials": [
+    {"id": "M1", "hts8": "85043140", "origin": "CN", "value": 150000, "description": "transformer, dry type"},
+    {"id": "M2", "hts8": "85322200", "origin": "JP", "value": 24000, "description": "aluminium electrolytic capacitor"},
+    {"id": "M3", "hts8": "85340000", "origin": "KR", "value": 60000, "description": "printed circuit board"},
+    {"id": "M4", "hts8": "39269098", "origin": "KR", "value": 18000, "description": "moulded housing"}
+  ],
+  "approved_exporter": {
+    "agreement": "RCEP",
+    "valid_from": "2022-03-01",
+    "valid_to": "2026-08-31",
+    "ref": "RCEP-AE-2211-0093"
+  }
+}

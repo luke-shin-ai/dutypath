@@ -1,0 +1,17 @@
+{
+  "shipment_id": "SHP-2026-1201-003",
+  "market": "US",
+  "export_date": "2026-12-01",
+  "import_date": "2026-12-09",
+  "goods": {
+    "hts8": "39269098",
+    "hs6": "392690",
+    "description": "Mounting bracket, moulded plastic",
+    "declared_value": 120000,
+    "currency": "USD"
+  },
+  "materials": [
+    {"id": "M1", "hts8": "39011050", "origin": "SA", "value": 45000, "description": "polyethylene resin, low density"},
+    {"id": "M2", "hts8": "32064990", "origin": "DE", "value": 6000, "description": "colour masterbatch"}
+  ]
+}
