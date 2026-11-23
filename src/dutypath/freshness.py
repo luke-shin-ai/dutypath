@@ -116,16 +116,15 @@ def _result(snapshot: dict, as_of: date, max_age: int, age: int, fresh: bool, st
 def _component(block: str, market: str) -> str:
     if block == "applied MFN rate":
         return "%s applied MFN rate" % MARKET_NAMES.get(market, market)
-    return "the post import claim window" if block == "post import claim window" else block
+    return "The post import claim window" if block == "post import claim window" else block
 
 
 def _caveat(item: dict, snap_date: date) -> str:
     gap = item.get("days_before_snapshot_date") or 0
     if item.get("block") == "post import claim window":
         return (
-            "the post import claim window: the period comes from a Ministry of Economy and Finance "
-            "paper dated %s, %d days before the snapshot date %s"
-            % (item["as_of"], gap, snap_date.isoformat())
+            "%s: the period comes from a Ministry of Economy and Finance paper dated %s, %d days "
+            "before the snapshot date %s" % (item["component"], item["as_of"], gap, snap_date.isoformat())
         )
     return (
         "%s: the values are the WITS figures for %s, as of %s, %d days before the snapshot date %s"

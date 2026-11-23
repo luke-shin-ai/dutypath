@@ -207,7 +207,7 @@
         <dt>Store sha256</dt><dd id="f-sha" class="mono"></dd>
         <dt>Data vintage</dt><dd id="f-vintage"></dd>
       </dl>
-      <p class="note" id="f-caveat"></p>
+      <div id="f-caveat-lines" class="note"></div>
     </div>
   </section>
 </main>
@@ -450,9 +450,18 @@
       ? vintage.as_of + " (" + vintage.days_before_snapshot_date + " days before the snapshot date)"
       : "no separately dated block";
     var caveats = ((DATA.cases[0].report.snapshot || {}).caveats) || [];
-    document.getElementById("f-caveat").textContent = caveats.length
-      ? caveats.join(" ") + ". The snapshot date is the day the file was built, not the day of every figure in it."
-      : "";
+    var caveatBox = document.getElementById("f-caveat-lines");
+    caveatBox.textContent = "";
+    caveats.forEach(function (line) {
+      var item = document.createElement("div");
+      item.textContent = line + ".";
+      caveatBox.appendChild(item);
+    });
+    if (caveats.length) {
+      var closing = document.createElement("div");
+      closing.textContent = "The snapshot date is the day the file was built, not the day of every figure in it.";
+      caveatBox.appendChild(closing);
+    }
   }
 
   function fillCases() {

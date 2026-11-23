@@ -70,7 +70,7 @@ best route   EU (EUKOR), duty 0.0 USD, saving 15840.0 USD
 spread       7200.0 USD between EU and US
 claim window 2027-12-08 (OPEN, 협정관세 사후적용 신청기간 1년)
 note         United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22
-note         the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22
+note         The post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22
 ```
 
 The Chinese transformer inside the converter is in the group the KORUS rule
