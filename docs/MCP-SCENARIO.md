@@ -22,7 +22,15 @@ Seven tools are listed by `tools/list`:
 | `rate_on_date` | the preferential rate for one line on one date, or the reason there is none |
 | `snapshot_info` | the snapshot's identity, coverage and counts |
 | `verify_zero_leak` | the sha256 before and after an assessment, and the label counts |
-| `read_cypher` | one read only Cypher statement against the snapshot; a statement that would write is refused before it reaches the store |
+| `read_cypher` | one read only Cypher statement against the snapshot; a statement that would write is refused before it reaches the store, and a call stops at 500 rows |
+
+Two limits sit on the tools that take a path or a statement. `shipment_path`
+has to resolve inside the directory the server was started in, so a path that
+climbs out of it (`../../etc/passwd`, or a symlink pointing there) is refused
+before anything is opened; a shipment passed as an object is unaffected.
+`read_cypher` returns at most 500 rows per call and says whether it stopped
+short, so a statement over the whole graph answers with a page instead of the
+graph. A caller may ask for fewer rows with `limit`; asking for more gets 500.
 
 ## The exchange, as it ran
 

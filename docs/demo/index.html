@@ -205,7 +205,9 @@
         <dt>Rule version</dt><dd id="f-version"></dd>
         <dt>Store bytes</dt><dd id="f-bytes"></dd>
         <dt>Store sha256</dt><dd id="f-sha" class="mono"></dd>
+        <dt>Data vintage</dt><dd id="f-vintage"></dd>
       </dl>
+      <p class="note" id="f-caveat"></p>
     </div>
   </section>
 </main>
@@ -359,7 +361,9 @@
       html += '<dt>Rule</dt><dd class="code">' + ((block.origin || {}).rule ? block.origin.rule.code_from : "-") + '</dd>';
       html += '<dt>Rate now</dt><dd>' + pct(pref) + ' <span class="why">preferential</span></dd>';
       html += '<dt>MFN</dt><dd>' + pct(mfnPercent) +
-              (mfnFromSchedule ? ' <span class="why">schedule base rate</span>' : '') + '</dd>';
+              (mfnFromSchedule ? ' <span class="why">schedule base rate</span>' : '') +
+              (!mfnFromSchedule && block.mfn.as_of ? ' <span class="why">as of ' + block.mfn.as_of + '</span>' : '') +
+              '</dd>';
       html += '<dt>Duty</dt><dd><span class="money">' + money(duty, currency) + '</span></dd>';
       html += '<dt>Route</dt><dd>' + badge(claimText, claimKind) + '</dd>';
       html += '</dl>';
@@ -441,6 +445,14 @@
     document.getElementById("f-version").textContent = snap.rule_version;
     document.getElementById("f-bytes").textContent = DATA.store.bytes.toLocaleString("en-US") + " bytes";
     document.getElementById("f-sha").textContent = DATA.store.sha256;
+    var vintage = ((DATA.cases[0].report.snapshot || {}).data_vintage || [])[0];
+    document.getElementById("f-vintage").textContent = vintage
+      ? vintage.as_of + " (" + vintage.days_before_snapshot_date + " days before the snapshot date)"
+      : "no separately dated block";
+    var caveats = ((DATA.cases[0].report.snapshot || {}).caveats) || [];
+    document.getElementById("f-caveat").textContent = caveats.length
+      ? caveats.join(" ") + ". The snapshot date is the day the file was built, not the day of every figure in it."
+      : "";
   }
 
   function fillCases() {

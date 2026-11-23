@@ -15,6 +15,12 @@ not, so a stale KORUS approval on file is a note about the file, not a reason to
 refuse a preference the agreement grants without it.  Where the agreement does
 ask, every status other than a valid approval is a bar: absent, expired, not
 yet valid, or an approval written for a different agreement.
+
+The EU agreement carves one consignment out of that requirement: at or under a
+value ceiling, any exporter may sign the origin declaration, and the approval
+is what a larger consignment needs.  The ceiling is printed in euro, so a value
+stated in another currency cannot be measured against it here; this snapshot
+carries no exchange rate and does not invent one.
 """
 
 from __future__ import annotations
@@ -69,6 +75,75 @@ BLOCKING = {
     "OTHER_AGREEMENT": "the approval on file is written for another agreement",
 }
 
+# The ceiling under which the protocol's Article 16(1) lets any exporter make
+# out the declaration: "any consignment consisting of one or more packages
+# containing originating products whose total value does not exceed 6,000
+# euros".  It is a figure from the protocol, not a setting, and it is in euro.
+LOW_VALUE_CEILING_EUR = 6000.0
+
+
+def self_declaration(agreement: str, currency: str | None, declared_value: float | None) -> dict:
+    """Whether the value of this consignment lets any exporter sign for it.
+
+    ``applies`` is false where the agreement has no such exception, and the
+    reason says which case this is: under the ceiling and signed by the
+    exporter, over it and needing an approval, or in a currency the ceiling
+    cannot be measured in.
+    """
+    if agreement != "EUKOR":
+        return {
+            "applies": False,
+            "allowed": False,
+            "ceiling_eur": None,
+            "reason": "this agreement has no value ceiling for a declaration by any exporter",
+        }
+    stated = str(currency or "").upper()
+    if declared_value is None:
+        return {
+            "applies": True,
+            "allowed": False,
+            "ceiling_eur": LOW_VALUE_CEILING_EUR,
+            "currency": stated or None,
+            "reason": "the consignment states no value, so the ceiling cannot be tested",
+        }
+    if stated != "EUR":
+        return {
+            "applies": True,
+            "allowed": False,
+            "ceiling_eur": LOW_VALUE_CEILING_EUR,
+            "currency": stated or None,
+            "declared_value": declared_value,
+            "reason": "the ceiling is EUR %.0f and the value is stated in %s, and this snapshot carries "
+                      "no exchange rate" % (LOW_VALUE_CEILING_EUR, stated or "no currency"),
+        }
+    if float(declared_value) <= LOW_VALUE_CEILING_EUR + 1e-9:
+        return {
+            "applies": True,
+            "allowed": True,
+            "ceiling_eur": LOW_VALUE_CEILING_EUR,
+            "currency": "EUR",
+            "declared_value": declared_value,
+            "reason": "the consignment is EUR %.2f, at or under the EUR %.0f ceiling, so any exporter "
+                      "may sign the origin declaration and no approval is needed"
+                      % (float(declared_value), LOW_VALUE_CEILING_EUR),
+        }
+    return {
+        "applies": True,
+        "allowed": False,
+        "ceiling_eur": LOW_VALUE_CEILING_EUR,
+        "currency": "EUR",
+        "declared_value": declared_value,
+        "reason": "the consignment is EUR %.2f and the ceiling is EUR %.0f"
+                  % (float(declared_value), LOW_VALUE_CEILING_EUR),
+    }
+
+
+def requirement(agreement: str, required_by_agreement: bool, currency: str | None,
+                declared_value: float | None) -> tuple[bool, dict]:
+    """Whether this shipment needs an approval, and the value test behind it."""
+    exception = self_declaration(agreement, currency, declared_value)
+    return (bool(required_by_agreement) and not exception["allowed"]), exception
+
 
 def blocks_claim(approval: dict | None) -> tuple[bool, str | None]:
     """Whether the approval on file bars the preference, and why.
@@ -106,16 +181,30 @@ def _approval_for(shipment: dict, agreement: str) -> dict:
     return shipment.get("approved_exporter") or {}
 
 
-def approved_exporter(shipment: dict, agreement: str, required: bool, claimed_on: date) -> dict:
+def approved_exporter(shipment: dict, agreement: str, required: bool, claimed_on: date,
+                      exemption: dict | None = None) -> dict:
+    """The approval on file, and whether this shipment needs one at all.
+
+    ``exemption`` is the value test ``requirement`` returned.  When it lets the
+    exporter sign the declaration itself, the status says so instead of saying
+    that the agreement never asks.
+    """
     approval = _approval_for(shipment, agreement)
     covers = approval.get("agreement") in (agreement, "ALL", None)
     if not approval:
+        reason = ("this agreement needs an approved exporter approval"
+                  if required
+                  else "this agreement does not need an approved exporter approval")
+        if exemption and exemption.get("applies"):
+            if exemption.get("allowed"):
+                reason = exemption["reason"]
+            elif required:
+                reason = "%s; %s" % (reason, exemption["reason"])
         return {
             "status": "ABSENT" if required else "NOT_REQUIRED",
             "required": required,
-            "reason": "this agreement needs an approved exporter approval"
-            if required
-            else "this agreement does not need an approved exporter approval",
+            "reason": reason,
+            "value_ceiling": exemption if exemption and exemption.get("applies") else None,
         }
     if not covers:
         return {

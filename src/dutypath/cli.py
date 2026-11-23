@@ -187,9 +187,10 @@ def cmd_freshness(args) -> int:
             "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, "
             "s.rule_version AS rule_version, s.max_age_days AS max_age_days",
         )
+        components = freshness.vintages(conn, snapshot)
     finally:
         conn.close()
-    print(json.dumps(freshness.judge(snapshot, on), indent=2))
+    print(json.dumps(freshness.judge(snapshot, on, components), indent=2))
     return 0
 
 
@@ -307,6 +308,8 @@ def _render_compare(report: dict) -> str:
     window = report["claim_window"]
     if window.get("deadline"):
         lines.append("claim window %s (%s, %s)" % (window["deadline"], window["status"], window["legal_ref"]))
+    for caveat in report["snapshot"].get("caveats") or []:
+        lines.append("note         %s" % caveat)
     return "\n".join(lines)
 
 
@@ -366,6 +369,8 @@ def _render(report: dict) -> str:
         "MFN     %s%% (%s, as of %s)"
         % (mfn["percent"], mfn["basis"], mfn.get("as_of", "-"))
     )
+    for caveat in report["snapshot"].get("caveats") or []:
+        lines.append("note    %s" % caveat)
     claim = report["claim"]
     lines.append("")
     lines.append("decision  %s" % claim["decision"])

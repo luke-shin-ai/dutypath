@@ -10,6 +10,7 @@ from __future__ import annotations
 from datetime import date
 
 from . import deadline, duty, freshness, origin, store, validate
+from . import markets as market_rules
 from .origin import Material
 
 MARKETS = {"US": "United States", "EU": "European Union", "TR": "Turkiye", "JP": "Japan"}
@@ -80,7 +81,7 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
     market = shipment.get("market") or "US"
     declared = float(goods.get("declared_value") or 0.0)
     currency = goods.get("currency") or "USD"
-    when = on or date.fromisoformat(str(shipment.get("export_date") or shipment.get("import_date"))[:10])
+    when, date_basis = market_rules.assessment_date(shipment, on)
     import_date = date.fromisoformat(str(shipment.get("import_date") or when.isoformat())[:10])
 
     snap = store.one(
@@ -88,7 +89,7 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
         "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, "
         "s.rule_version AS rule_version, s.max_age_days AS max_age_days",
     )
-    fresh = freshness.judge(snap, when)
+    fresh = freshness.judge(snap, when, freshness.vintages(conn, snap))
 
     mfn = duty.mfn_rate(conn, market, (shipment.get("goods") or {}).get("market_codes", {}).get(market) or hts8, hs6)
     mfn_duty = duty.duty_amount(mfn["percent"], declared)
@@ -96,8 +97,6 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
 
     results = []
     for agreement_row in _agreements(conn, market):
-        from . import markets as market_rules
-
         # A classification is a decision per nomenclature.  The verdict for an
         # agreement is computed on the good's code in that agreement's own
         # market, so a United States shipment does not get a RCEP verdict priced
@@ -123,7 +122,7 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
             }
         else:
             verdict = origin.evaluate(
-                conn, shipment, agreement_row["code"], materials, good_code=agreement_code
+                conn, shipment, agreement_row["code"], materials, good_code=agreement_code, on=when
             )
         if agreement_row["market_matches"]:
             if agreement_code is None:
@@ -141,8 +140,11 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
                 "basis": "market_not_covered",
                 "reason": "this agreement covers %s, not %s" % (agreement_row["market"], market),
             }
+        required, exemption = deadline.requirement(
+            agreement_row["code"], bool(agreement_row["approved_exporter_required"]), currency, declared
+        )
         approval = deadline.approved_exporter(
-            shipment, agreement_row["code"], bool(agreement_row["approved_exporter_required"]), when
+            shipment, agreement_row["code"], required, when, exemption
         )
         preference_allowed = True
         block = None
@@ -192,6 +194,7 @@ def _assess(conn, shipment: dict, on: date | None, order) -> dict:
             "market": market,
             "market_name": MARKETS.get(market, market),
             "assessed_on": when.isoformat(),
+            "date_basis": date_basis,
             "import_date": import_date.isoformat(),
             "goods": {
                 "hts8": hts8,

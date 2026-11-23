@@ -48,7 +48,8 @@
      "description": "Polyethylene, specific gravity below 0.94, primary forms",
      "declared_value": 900000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-10",
+     "date_basis": "import_date",
      "import_date": "2026-12-10",
      "materials": 1,
      "codes": {
@@ -62,10 +63,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 18,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 18 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -142,7 +169,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -218,8 +246,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -265,7 +293,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 900000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -373,7 +409,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -413,7 +450,7 @@
      "status": "OPEN",
      "import_date": "2026-12-10",
      "deadline": "2027-12-10",
-     "days_left": 374,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -480,7 +517,8 @@
      "description": "Mounting bracket, moulded plastic",
      "declared_value": 120000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-09",
+     "date_basis": "import_date",
      "import_date": "2026-12-09",
      "materials": 2,
      "codes": {
@@ -494,10 +532,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 17,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 17 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -649,8 +713,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -850,7 +914,7 @@
      "status": "OPEN",
      "import_date": "2026-12-09",
      "deadline": "2027-12-09",
-     "days_left": 373,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -917,7 +981,8 @@
      "description": "DC motor, output above 74.6 W up to 735 W",
      "declared_value": 250000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 4,
      "codes": {
@@ -931,10 +996,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -1011,7 +1102,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -1089,8 +1181,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -1136,7 +1228,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 250000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -1244,7 +1344,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -1284,7 +1385,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -1371,7 +1472,8 @@
      "description": "Static converter, industrial power supply unit",
      "declared_value": 480000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 4,
      "codes": {
@@ -1385,10 +1487,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -1542,8 +1670,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -1701,7 +1829,7 @@
        "required": true,
        "valid_from": "2022-03-01",
        "valid_to": "2026-08-31",
-       "reason": "approval expired on 2026-08-31, before the claim date 2026-12-01",
+       "reason": "approval expired on 2026-08-31, before the claim date 2026-12-08",
        "ref": "RCEP-AE-2211-0093"
       },
       "claim": {
@@ -1742,7 +1870,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -1802,7 +1930,8 @@
      "description": "Parts of lead-acid storage batteries, separators",
      "declared_value": 1000000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -1816,10 +1945,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -1894,7 +2049,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -1979,8 +2135,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -2026,7 +2182,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 1000000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -2116,7 +2280,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -2158,7 +2323,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -2225,7 +2390,8 @@
      "description": "Static converter, industrial power supply",
      "declared_value": 480000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 4,
      "codes": {
@@ -2239,10 +2405,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -2319,7 +2511,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -2395,8 +2588,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -2442,7 +2635,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 480000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -2550,7 +2751,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -2590,7 +2792,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -2657,7 +2859,8 @@
      "description": "DC motor, output above 74.6 W up to 735 W",
      "declared_value": 250000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 4,
      "codes": {
@@ -2671,10 +2874,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -2751,7 +2980,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -2829,8 +3059,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -2876,7 +3106,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 250000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -2984,7 +3222,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -3024,7 +3263,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -3070,7 +3309,8 @@
      "description": "Polyethylene, specific gravity below 0.94, primary forms",
      "declared_value": 900000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 1,
      "codes": {
@@ -3084,10 +3324,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -3164,7 +3430,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -3240,8 +3507,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -3287,7 +3554,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 900000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -3395,7 +3670,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -3435,7 +3711,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -3488,7 +3764,8 @@
      "description": "Mounting bracket, moulded plastic",
      "declared_value": 120000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 2,
      "codes": {
@@ -3502,10 +3779,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -3582,7 +3885,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -3656,8 +3960,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -3703,7 +4007,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 120000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -3813,7 +4125,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -3853,7 +4166,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -3913,7 +4226,8 @@
      "description": "Parts of lead-acid batteries, separators",
      "declared_value": 1000000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -3927,10 +4241,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -4005,7 +4345,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -4090,8 +4431,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -4137,7 +4478,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 1000000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -4227,7 +4576,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -4269,7 +4619,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -4329,7 +4679,8 @@
      "description": "Insulated winding wire, enamelled",
      "declared_value": 300000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -4343,10 +4694,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -4425,7 +4802,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -4499,8 +4877,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -4546,7 +4924,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 300000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -4654,7 +5040,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -4694,7 +5081,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -4754,7 +5141,8 @@
      "description": "Safety or relief valve for pipes and boilers",
      "declared_value": 150000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -4768,10 +5156,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -4848,7 +5262,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -4924,8 +5339,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -4971,7 +5386,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 150000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -5061,7 +5484,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -5103,7 +5527,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -5156,7 +5580,8 @@
      "description": "Polyethylene terephthalate, viscosity number 78 or more",
      "declared_value": 500000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 2,
      "codes": {
@@ -5170,10 +5595,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -5250,7 +5701,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -5326,8 +5778,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -5373,7 +5825,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 500000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -5481,7 +5941,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -5521,7 +5982,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -5581,7 +6042,8 @@
      "description": "Centrifugal pump for liquids, not fitted with a measuring device",
      "declared_value": 200000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -5595,10 +6057,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -5673,7 +6161,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -5758,8 +6247,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -5805,7 +6294,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 200000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -5913,7 +6410,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -5953,7 +6451,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -6006,7 +6504,8 @@
      "description": "Electrical motor starter, for a voltage not exceeding 1000 V",
      "declared_value": 90000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 2,
      "codes": {
@@ -6020,10 +6519,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -6098,7 +6623,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -6183,8 +6709,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -6230,7 +6756,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 90000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -6338,7 +6872,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -6378,7 +6913,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -6431,7 +6966,8 @@
      "description": "Flashlight, battery powered",
      "declared_value": 100000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 2,
      "codes": {
@@ -6445,10 +6981,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -6536,7 +7098,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -6621,8 +7184,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -6668,7 +7231,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 100000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -6758,7 +7329,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -6800,7 +7372,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
@@ -6860,7 +7432,8 @@
      "description": "Electromechanical domestic appliance, with self contained motor",
      "declared_value": 120000.0,
      "currency": "USD",
-     "assessed_on": "2026-12-01",
+     "assessed_on": "2026-12-08",
+     "date_basis": "import_date",
      "import_date": "2026-12-08",
      "materials": 3,
      "codes": {
@@ -6874,10 +7447,36 @@
      "as_of": "2026-11-22",
      "rule_version": "2.0",
      "max_age_days": 120,
-     "age_days": 9,
+     "age_days": 16,
      "fresh": true,
      "status": "FRESH",
-     "reason": "the snapshot is 9 days old and the limit is 120"
+     "reason": "the snapshot is 16 days old and the limit is 120",
+     "data_vintage": [
+      {
+       "block": "applied MFN rate",
+       "component": "United States applied MFN rate",
+       "market": "US",
+       "source": "SRC-WITS-2023",
+       "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+       "as_of": "2023-12-31",
+       "rows": 12,
+       "days_before_snapshot_date": 1057
+      },
+      {
+       "block": "post import claim window",
+       "component": "the post import claim window",
+       "market": "ALL",
+       "source": "SRC-MOEF-2025-02",
+       "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+       "as_of": "2025-02-12",
+       "rows": 1,
+       "days_before_snapshot_date": 648
+      }
+     ],
+     "caveats": [
+      "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+      "the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+     ]
     },
     "markets": [
      {
@@ -6968,7 +7567,8 @@
       "documents": {
        "status": "NOT_REQUIRED",
        "required": false,
-       "reason": "this agreement does not need an approved exporter approval"
+       "reason": "this agreement does not need an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": true,
@@ -7054,8 +7654,8 @@
         "ES",
         "FI",
         "FR",
-        "GB",
         "GR",
+        "HR",
         "HU",
         "IE",
         "IT",
@@ -7101,7 +7701,15 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval; the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate",
+       "value_ceiling": {
+        "applies": true,
+        "allowed": false,
+        "ceiling_eur": 6000.0,
+        "currency": "USD",
+        "declared_value": 120000.0,
+        "reason": "the ceiling is EUR 6000 and the value is stated in USD, and this snapshot carries no exchange rate"
+       }
       },
       "claim": {
        "allowed": false,
@@ -7191,7 +7799,8 @@
       "documents": {
        "status": "ABSENT",
        "required": true,
-       "reason": "this agreement needs an approved exporter approval"
+       "reason": "this agreement needs an approved exporter approval",
+       "value_ceiling": null
       },
       "claim": {
        "allowed": false,
@@ -7233,7 +7842,7 @@
      "status": "OPEN",
      "import_date": "2026-12-08",
      "deadline": "2027-12-08",
-     "days_left": 372,
+     "days_left": 365,
      "months": 12,
      "legal_ref": "협정관세 사후적용 신청기간 1년",
      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",

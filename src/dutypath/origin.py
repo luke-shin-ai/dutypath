@@ -27,6 +27,7 @@ whole supply chain.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+from datetime import date
 
 from . import codes, rules, store, validate
 
@@ -62,26 +63,50 @@ class Check:
     missing: list[str] = field(default_factory=list)
 
 
-def _parties(agreement: str) -> set[str]:
+def _parties(agreement: str, on: date | None = None) -> set[str]:
     if agreement == "KORUS":
         return {"KR", "US"}
     if agreement == "RCEP":
         return {"KR", "CN", "JP", "AU", "NZ", "SG", "MY", "TH", "VN", "ID", "PH", "BN", "KH", "LA", "MM"}
     if agreement == "EUKOR":
-        return {"KR"} | EU_MEMBER_STATES
+        return {"KR"} | eu_member_states(on)
     return {"KR"}
 
 
 # The EU Party is one party in the agreement and many member states in a bill of
-# materials.  These are the ISO 3166-1 alpha-2 codes of the states that were
-# members on 2011-07-01, the day the agreement entered into force.  Croatia
-# joined the Union in 2013 and the United Kingdom left in 2020; neither date is
-# this snapshot's, and moving the set would change a verdict without a source.
-EU_MEMBER_STATES = {
-    "AT", "BE", "BG", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GB", "GR",
+# materials, and the two sets move.  These are the ISO 3166-1 alpha-2 codes of
+# the 27 states that are members now: Croatia, which joined on 2013-07-01, is
+# one, and the United Kingdom, whose membership ended on 2020-01-31, is not.
+# A verdict reached for an earlier day is read against the members of that day,
+# because a material from Zagreb in 2012 or from Leeds in 2018 was a material
+# from the EU Party on the day the entry was made.
+EU_MEMBER_STATES = frozenset({
+    "AT", "BE", "BG", "HR", "CY", "CZ", "DE", "DK", "EE", "ES", "FI", "FR", "GR",
     "HU", "IE", "IT", "LT", "LU", "LV", "MT", "NL", "PL", "PT", "RO", "SE", "SI",
     "SK",
-}
+})
+
+# The day each change took effect, written the way the two treaties print it:
+# Croatia acceded on 1 July 2013, and the United Kingdom left at the end of 31
+# January 2020.  The transition period that followed the withdrawal is not
+# modelled here; a shipment dated inside it is read at the membership end date,
+# and that is the one place these dates can differ from an origin decision.
+EU_JOINED = {"HR": date(2013, 7, 1)}
+EU_LEFT = {"GB": date(2020, 2, 1)}
+
+
+def eu_member_states(on: date | None = None) -> set[str]:
+    """The member states of the EU Party on a day, or the current 27 for none."""
+    states = set(EU_MEMBER_STATES)
+    if on is None:
+        return states
+    for code, joined in EU_JOINED.items():
+        if on < joined:
+            states.discard(code)
+    for code, left in EU_LEFT.items():
+        if on < left:
+            states.add(code)
+    return states
 
 
 def _is_party(origin: str, parties: set[str]) -> bool:
@@ -143,7 +168,8 @@ def _rvc(materials: list[Material], parties: set[str], fob: float | None) -> dic
 
 
 def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | None = None,
-             good_code: str | None = None, rule: dict | None = None) -> dict:
+             good_code: str | None = None, rule: dict | None = None,
+             on: date | None = None) -> dict:
     payload = validate.shipment(shipment, require_declared=False)
     goods = payload["goods"]
     good_code = good_code or goods.get("hts8") or goods.get("hs6") or goods.get("hs")
@@ -159,7 +185,7 @@ def evaluate(conn, shipment: dict, agreement: str, materials: list[Material] | N
             )
             for index, item in enumerate(payload.get("materials") or [], start=1)
         ]
-    parties = _parties(agreement)
+    parties = _parties(agreement, on)
     agreement_row = store.one(conn, PARTY_QUERY, {"code": agreement})
 
     report = {

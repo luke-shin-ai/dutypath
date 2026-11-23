@@ -47,6 +47,25 @@ This is why `Agreement.approved_exporter_required` is a property of the
 agreement row and not a constant in the code: it differs by agreement, and a
 verdict that ignores it answers the wrong question.
 
+## The consignment the protocol exempts from that requirement
+
+The same requirement has a floor, and it is written in the protocol rather than
+in the strategy paper. SRC-EUKOR-ROO, page 14, Article 16(1):
+
+> An origin declaration as referred to in Article 15.1 of this Protocol may be made out:
+> (a) by an approved exporter within the meaning of Article 17; or
+> (b) by any exporter for any consignment consisting of one or more packages containing originating products whose total value does not exceed 6,000 euros.
+
+So at or under 6,000 euros the approval is not demanded, and above it the
+declaration is the approved exporter's to sign. `deadline.self_declaration`
+reads that sentence and states which of the two a consignment is in. The
+ceiling is in euros: a value stated in another currency is not measured against
+it, because this snapshot carries no exchange rate and does not borrow one.
+
+The strategy paper's line above is a summary of the utilisation requirement and
+not a quotation of the protocol's text; the two are read together here, and the
+protocol governs the value floor.
+
 ## Utilisation, by product group (2024)
 
 > 기계류 90.1, 화학공업제품 88.5, 전자전기제품 83.8, 생활용품 69.2, 섬유류 58.0

@@ -78,6 +78,23 @@ count of tariff lines behind each value. When that count is one, the average is
 the line's own rate and it is used; when it is more, it is an average of
 several lines, which is not a rate for a shipment, so it is not used.
 
+## How old the numbers are
+
+A row is dated by the document it came from, and those dates are not the
+snapshot's date. The difference is printed, not rounded away:
+
+| Block of numbers | Source | Date it speaks for | Age against the snapshot date 2026-11-22 |
+| --- | --- | --- | --- |
+| the rules, the schedules and their staging | SRC-KORUS-6A, SRC-KORUS-2B, SRC-KORUS-CH2, SRC-EUKOR-2A, SRC-EUKOR-ROO, SRC-RCEP-3A, SRC-RCEP-1-JP | 2011-07-01 to 2023-01-01, the date each document prints | the schedule row is what its document printed; a staging category carries the cut forward, and the year it lands on is computed from the document's own rules |
+| the United States applied MFN rate, twelve lines at six digits | SRC-WITS-2023 | 2023-12-31 | 1,057 days |
+| the one year post import claim window | SRC-MOEF-2025-02 | 2025-02-12 | 648 days |
+
+The last two rows are why `dutypath freshness` and every comparison carry a
+`data_vintage` block and a `caveats` line beside the snapshot's own age. The
+snapshot's `as_of` says when the file was built; it does not say that the
+applied MFN rate under it is the 2023 figure, and a reader pricing an entry on
+that rate needs the second date, not the first.
+
 ## What was deliberately left out
 
 * The Korean tariff schedule and the Turkiye schedule. Adding them without

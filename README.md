@@ -59,7 +59,7 @@ in Japan. One bill of materials, three markets, three different questions.
 ```
 $ dutypath compare --shipment fixtures/shipment-8504-converter.json
 SHP-2026-1201-001  Static converter, industrial power supply unit
-declared 480000.0 USD   assessed 2026-12-01   snapshot dutypath-rules-2026-11-22 (FRESH)
+declared 480000.0 USD   assessed 2026-12-08   snapshot dutypath-rules-2026-11-22 (FRESH)
 
 market  code        origin            pref    mfn    duty      route
 US      85044095    NOT_ORIGINATING    0.0%   1.5%    7200.0  MFN: origin: NOT_ORIGINATING
@@ -69,6 +69,8 @@ JP      850440090   ORIGINATING        0.0%   0.0%       0.0  MFN: document: the
 best route   EU (EUKOR), duty 0.0 USD, saving 15840.0 USD
 spread       7200.0 USD between EU and US
 claim window 2027-12-08 (OPEN, 협정관세 사후적용 신청기간 1년)
+note         United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22
+note         the post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22
 ```
 
 The Chinese transformer inside the converter is in the group the KORUS rule
@@ -107,7 +109,7 @@ and it does not decide for the exporter. It prices the decision.
 | Market | Agreement | Origin rule source | Rate source | Approved exporter |
 | --- | --- | --- | --- | --- |
 | United States | KORUS | Annex 6-A (222 rules) | Annex 2-B, base rate and category A to K (847 lines) | not required |
-| European Union | Korea-EU | Protocol Annex II (71 rules) | Annex 2-A, base rate and numbered category (1,726 lines) | required |
+| European Union | Korea-EU | Protocol Annex II (71 rules) | Annex 2-A, base rate and numbered category (1,726 lines) | required above EUR 6,000 |
 | Japan | RCEP | Annex 3A (108 rules) | Annex I, the printed rate for each year (1,278 lines) | required |
 
 The three schedules do not speak the same language. KORUS prints a letter and
@@ -339,6 +341,13 @@ the bill of materials is the place to look for it. The server also refuses any
 statement that would write before it reaches the store, so a session cannot
 leave a node behind either.
 
+Two limits keep that surface small. `shipment_path` has to resolve inside the
+directory the server was started in, so a path that climbs out of it, or a
+symlink pointing there, is refused before a file is opened; a shipment passed
+as an object is unaffected. `read_cypher` returns at most 500 rows per call and
+reports whether it stopped short, so a statement over the whole graph answers
+with a page and not with the graph.
+
 ## Limits and honest statements
 
 * This is a pre-declaration check, not a legal opinion and not a customs
@@ -346,6 +355,24 @@ leave a node behind either.
 * Rates are only as fresh as the snapshot row they came from. Every rate row
   carries its source and date, and `dutypath freshness` says when the snapshot
   has aged past its own limit.
+* The rate and the documents are read on the import date, or on a date you
+  pass to `compare`, and not on the export date. A shipment that leaves in
+  December and is entered in January is priced in January's year of the
+  schedule.
+* The EU party list is the list of the day being assessed: Croatia from
+  2013-07-01, the United Kingdom until 2020-01-31. The transition period after
+the withdrawal is not modelled, and a shipment dated inside it is read at the
+end of membership; that is the one place these dates can differ from an origin
+decision.
+* At or under EUR 6,000 the EU agreement lets any exporter sign the origin
+declaration, so no approved exporter is demanded there. A value stated in
+another currency is not measured against the ceiling: the snapshot carries no
+exchange rate, says so, and treats the consignment as needing the approval.
+* The applied MFN rate for the United States is the 2023 WITS figure, 1,057
+  days older than the snapshot date, and the claim window is a paper of
+  2025-02-12. `freshness`, `compare` and `assess` print each of those ages
+  beside the snapshot's own, because the snapshot date is the day the file was
+  built and not the day of every figure in it.
 * The three chapter limit is deliberate. A snapshot that claims 97 chapters and
   gets one wrong is worse than a snapshot that covers three and says so.
 * Origin rules are read from agreement text by a parser, or transcribed from a
@@ -397,8 +424,9 @@ documents, as the hackathon's rules require disclosing. No AI model runs inside
 DutyPath: every verdict is deterministic Cypher and Python over the committed
 snapshot, so the same input gives the same output offline. Every rate and rule
 in the snapshot cites the document it came from. The review of this code that
-produced the fixes in `tests/test_regressions.py` also used language models as
-critics, and each finding was reproduced by hand before it was fixed.
+produced the fixes in `tests/test_regressions.py` and `tests/test_redteam_round2.py`
+also used language models as critics, and each finding was reproduced by hand
+before it was fixed.
 
 **Synthetic data.** Every shipment in `fixtures/`, in `benchmark/gold.json` and
 in the demo is written by hand for this project. None of them is a client file,

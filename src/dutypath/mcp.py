@@ -22,6 +22,12 @@ Every tool returns one JSON object in the tool result's text content.  A tool
 that cannot answer returns the same shape with the missing piece named, rather
 than a default answer: an agent reading `UNDECIDABLE` is told what to ask the
 exporter for.
+
+The surface is kept small on purpose.  A `shipment_path` has to resolve inside
+the directory the server was started in, so the tool cannot be talked into
+opening a file elsewhere on the machine, and `read_cypher` returns at most 500
+rows per call and says whether it stopped short.  Together they keep one call to
+one question and one page.
 """
 
 from __future__ import annotations
@@ -30,12 +36,18 @@ import argparse
 import json
 import sys
 from datetime import date
+from pathlib import Path
 
 from . import assess, duty, leak, markets, origin, store
 from . import rules as rulebook
 
 PROTOCOL_VERSION = "2024-11-05"
 SERVER_INFO = {"name": "dutypath", "version": "0.2.0"}
+
+# A tool result is a response to one question, not a dump of a file.  The reader
+# returns at most this many rows and says when it stopped short, so a statement
+# that matches the whole graph cannot turn one call into a megabyte of text.
+MAX_ROWS = 500
 
 TOOLS = [
     {
@@ -53,8 +65,8 @@ TOOLS = [
             "type": "object",
             "properties": {
                 "shipment": {"type": "object", "description": "The shipment, as the JSON the CLI reads."},
-                "shipment_path": {"type": "string", "description": "A path to the shipment JSON, used when shipment is absent."},
-                "on": {"type": "string", "description": "Assessment date, ISO 8601. Defaults to the shipment's export date."},
+                "shipment_path": {"type": "string", "description": "A path to the shipment JSON, used when shipment is absent. It has to resolve inside the server's working directory."},
+                "on": {"type": "string", "description": "Assessment date, ISO 8601. Defaults to the shipment's import date, then its export date."},
             },
         },
         "annotations": {"readOnlyHint": True, "idempotentHint": True, "openWorldHint": False},
@@ -71,7 +83,7 @@ TOOLS = [
             "type": "object",
             "properties": {
                 "shipment": {"type": "object"},
-                "shipment_path": {"type": "string"},
+                "shipment_path": {"type": "string", "description": "A path inside the server's working directory."},
                 "on": {"type": "string"},
             },
         },
@@ -130,7 +142,8 @@ TOOLS = [
         ),
         "inputSchema": {
             "type": "object",
-            "properties": {"shipment": {"type": "object"}, "shipment_path": {"type": "string"}},
+            "properties": {"shipment": {"type": "object"},
+                           "shipment_path": {"type": "string", "description": "A path inside the server's working directory."}},
         },
         "annotations": {"readOnlyHint": True, "idempotentHint": True, "openWorldHint": False},
     },
@@ -140,13 +153,17 @@ TOOLS = [
         "description": (
             "Run one read only Cypher statement against the rule snapshot and return its rows. A "
             "statement that would write is refused before it reaches the store, and the refusal "
-            "names the clause it found."
+            "names the clause it found. A call returns at most %d rows; it says how many it "
+            "stopped at, so a statement over the whole graph answers with a page and not with "
+            "the graph." % MAX_ROWS
         ),
         "inputSchema": {
             "type": "object",
             "properties": {
                 "statement": {"type": "string"},
                 "parameters": {"type": "object"},
+                "limit": {"type": "integer", "description": "Rows to return, at most %d. Defaults to %d."
+                           % (MAX_ROWS, MAX_ROWS)},
             },
             "required": ["statement"],
         },
@@ -266,8 +283,17 @@ class Server:
                 "read_cypher runs read only statements: this one contains %s, so it was not sent "
                 "to the store. The snapshot is a rule book and an answer never edits it." % clause
             )
-        rows = store.rows(self.conn, statement, args.get("parameters") or {})
-        return {"rows": rows, "count": len(rows)}
+        limit = _row_limit(args.get("limit"))
+        rows = []
+        stopped = False
+        for row in self.conn.execute(statement, args.get("parameters") or {}):
+            if len(rows) >= limit:
+                stopped = True
+                break
+            rows.append(dict(row))
+        return {"rows": rows, "count": len(rows), "limit": limit, "truncated": stopped,
+                "note": ("stopped at the %d row limit; ask a narrower question or raise limit" % limit)
+                if stopped else None}
 
     # ------------------------------------------------------------ protocol
     def handle(self, request: dict) -> dict | None:
@@ -343,8 +369,39 @@ def _shipment(args: dict) -> dict:
     path = args.get("shipment_path")
     if not path:
         raise ValueError("pass a shipment object or a shipment_path")
-    with open(path, encoding="utf-8") as handle:
+    with open(_workspace_file(str(path)), encoding="utf-8") as handle:
         return json.load(handle)
+
+
+def _workspace_file(path: str) -> Path:
+    """A shipment file inside the directory the server was started in.
+
+    The server reads a file whose path arrives as a tool argument, so the path
+    is the one place a caller could reach past the snapshot.  A path that
+    resolves outside the working directory is refused before anything is
+    opened, which keeps ``../../etc/shadow`` and a symlink pointing there in the
+    same place: outside.
+    """
+    root = Path.cwd().resolve()
+    target = (root / path).resolve() if not Path(path).is_absolute() else Path(path).resolve()
+    if target != root and root not in target.parents:
+        raise ValueError(
+            "shipment_path has to stay inside the server's working directory %s: %s resolves "
+            "outside it, so it was not opened" % (root, target)
+        )
+    if not target.is_file():
+        raise ValueError("shipment_path %s is not a file this server can read" % target)
+    return target
+
+
+def _row_limit(value) -> int:
+    if value is None or value == "":
+        return MAX_ROWS
+    try:
+        wanted = int(value)
+    except (TypeError, ValueError):
+        raise ValueError("limit has to be a whole number of rows, at most %d" % MAX_ROWS)
+    return max(1, min(wanted, MAX_ROWS))
 
 
 def _on(args: dict) -> date | None:

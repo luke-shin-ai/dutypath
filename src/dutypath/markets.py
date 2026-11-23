@@ -16,6 +16,11 @@ Three things make the answers differ, and the comparison keeps them apart:
 Each market is priced in the shipment's own currency: the declared value is
 multiplied by that market's percentage, so the amounts compare directly without
 a currency conversion this snapshot could not support.
+
+The day the answer speaks for is the day of entry.  The schedule row and the
+approval are read on the import date, or on a date the caller passes, and an
+export date is only the fallback for a shipment that has not been entered yet;
+a staging category that turns over on 1 January makes that difference a rate.
 """
 
 from __future__ import annotations
@@ -32,6 +37,24 @@ MARKET_NAMES = {
     "JP": "Japan",
 }
 MARKET_NOMENCLATURE = {"US": "HTS eight digit", "EU": "CN eight digit", "JP": "Japan nine digit"}
+
+
+def assessment_date(shipment: dict, on: date | None) -> tuple[date, str]:
+    """The day the rate and the claim are read against, and where it came from.
+
+    The import date comes first: a staging category and an approval both have to
+    hold on the day the goods are entered for home use, and an export date is a
+    different day that can fall in a different schedule year.
+    """
+    if on is not None:
+        return on, "the date given to the assessment"
+    for field, label in (("import_date", "import_date"), ("export_date", "export_date")):
+        value = shipment.get(field)
+        if value:
+            return date.fromisoformat(str(value)[:10]), label
+    raise validate.InputError(
+        "the shipment states neither an import_date nor an export_date, and a rate needs a day"
+    )
 
 
 def code_for_market(shipment: dict, market: str) -> str | None:
@@ -57,7 +80,7 @@ def compare(conn, shipment: dict, on: date | None = None) -> dict:
     goods = shipment.get("goods") or {}
     declared = float(goods.get("declared_value") or 0.0)
     currency = goods.get("currency") or "USD"
-    when = on or date.fromisoformat(str(shipment.get("export_date") or shipment.get("import_date"))[:10])
+    when, basis = assessment_date(shipment, on)
     import_date = date.fromisoformat(str(shipment.get("import_date") or when.isoformat())[:10])
 
     snap = store.one(
@@ -65,7 +88,7 @@ def compare(conn, shipment: dict, on: date | None = None) -> dict:
         "MATCH (s:Snapshot) RETURN s.id AS id, toString(s.as_of) AS as_of, "
         "s.rule_version AS rule_version, s.max_age_days AS max_age_days",
     )
-    fresh = freshness.judge(snap, when)
+    fresh = freshness.judge(snap, when, freshness.vintages(conn, snap))
 
     blocks = []
     for market, agreement in MARKET_AGREEMENT.items():
@@ -90,7 +113,11 @@ def compare(conn, shipment: dict, on: date | None = None) -> dict:
             "description": goods.get("description", ""),
             "declared_value": declared,
             "currency": currency,
+            # The rate and the claim are read on the day the goods are entered,
+            # not the day they leave the exporter, because that is the day the
+            # schedule and the approval have to speak for.
             "assessed_on": when.isoformat(),
+            "date_basis": basis,
             "import_date": import_date.isoformat(),
             "materials": len(shipment.get("materials") or []),
             "codes": {market: code_for_market(shipment, market) for market in MARKET_AGREEMENT},
@@ -164,11 +191,12 @@ def _market(conn, shipment, market: str, agreement: str, when: date, declared: f
     # it, joined through the Agreement node and each with its cited source, so
     # the market's two questions are answered from one walk of the graph.
     context = rulebook.market_context(conn, agreement, market, code)
-    verdict = origin.evaluate(conn, shipment, agreement, good_code=code, rule=context["rule"])
+    verdict = origin.evaluate(conn, shipment, agreement, good_code=code, rule=context["rule"], on=when)
     rate = duty.line_rate(conn, market, agreement, code, when, row=context["line"])
-    approval = deadline.approved_exporter(
-        shipment, agreement, bool(row.get("approved_exporter_required")), when
+    required, exemption = deadline.requirement(
+        agreement, bool(row.get("approved_exporter_required")), currency, declared
     )
+    approval = deadline.approved_exporter(shipment, agreement, required, when, exemption)
 
     block["origin"] = verdict
     block["rate"] = rate
