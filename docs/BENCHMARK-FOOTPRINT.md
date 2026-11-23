@@ -153,7 +153,7 @@ refusal for each, and finds no `Material` node afterwards.
 
 ```
 $ pytest -q
-136 passed
+162 passed
 ```
 
 No test is skipped, on a bare `pip install -e ".[dev]"` as well as here. The
@@ -177,3 +177,8 @@ unreadable alternative, a group exclusion, an except clause read as a
 permission, an except range, the hub query, and the read only reader, plus a
 Japan row written for another party, a duplicate partner treatment, and the
 interval join that now does the exclusion test in the graph.
+
+`tests/test_redteam_round2.py` adds the second round: the EU party list on the
+day it is asked about, the consignment at and either side of the EUR 6,000
+ceiling, the rate read on the entry date rather than the export date, the dated
+blocks that freshness prints, and the MCP path and row limits.
