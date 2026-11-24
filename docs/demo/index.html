@@ -41,7 +41,7 @@
   .legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px 20px;
+    gap: 6px 26px;
     margin-top: 12px;
     color: #d3dce6;
     font-size: 12.5px;
@@ -147,11 +147,11 @@
     </div>
     <div class="snap" id="snapshot-line">loading snapshot</div>
     <div class="legend">
-      <span><b>CLAIM</b> preferential rate applied, duty 0</span>
-      <span><b>MFN</b> no preference, the general rate applies</span>
-      <span><b>ORIGINATING</b> the origin rule is met</span>
-      <span><b>NOT ORIGINATING</b> the rule is not met</span>
-      <span><b>UNDECIDABLE</b> the snapshot cannot answer, the missing piece is named</span>
+      <span><b>CLAIM</b> = preferential rate applied, duty 0</span>
+      <span><b>MFN</b> = no preference, the general rate applies</span>
+      <span><b>ORIGINATING</b> = the origin rule is met</span>
+      <span><b>NOT ORIGINATING</b> = the rule is not met</span>
+      <span><b>UNDECIDABLE</b> = the snapshot cannot answer, the missing piece is named</span>
       <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page. Nothing is fetched and no graph is queried while you read it, so the origin column does not change when the entry date does; the rate and the duty arithmetic below do run in the browser.</span>
     </div>
   </div>
