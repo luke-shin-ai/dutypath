@@ -26,7 +26,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from dutypath import (  # noqa: E402
-    assess, build, deadline, duty, freshness, markets, origin, store, validate,
+    assess, build, codes, deadline, duty, freshness, markets, origin, store, validate,
 )
 from dutypath import rules as rulebook  # noqa: E402
 from dutypath import mcp as server  # noqa: E402
@@ -310,6 +310,52 @@ def test_read_cypher_refuses_a_write_before_it_reaches_the_store(store_path):
         tool.close()
 
 
+def test_a_url_in_a_literal_does_not_hide_the_write_after_it():
+    # The review of de51478 sent this statement: removing comments before
+    # literals read the "//" in 'http://x' as a comment, dropped the rest of
+    # the line, and returned None, so the reader accepted a write.
+    cases = {
+        "MATCH (n) WHERE n.id = 'http://x' CREATE (m:Probe) RETURN m": "CREATE",
+        "MATCH (n) WHERE n.id = 'https://a' DETACH DELETE n": "DETACH",
+        "MATCH (n) WHERE n.id = 'http://x' SET n.leak = 1 RETURN n": "SET",
+        "MATCH (n) WHERE n.id = 'http://x' MERGE (m:Probe) RETURN m": "MERGE",
+    }
+    for statement, clause in cases.items():
+        assert store.write_keyword(statement) == clause, statement
+
+
+def test_a_read_with_a_url_or_a_comment_is_still_a_read():
+    reads = [
+        "MATCH (n) WHERE n.url = 'http://x' RETURN n",
+        "MATCH (r:OriginRule) RETURN r // the rule text follows",
+        "MATCH (r:OriginRule) RETURN r // it's a note",
+        "MATCH (r:OriginRule) /* a block, with an apostrophe: don't */ RETURN r",
+        "RETURN 'CREATE' AS word",
+    ]
+    for statement in reads:
+        assert store.write_keyword(statement) is None, statement
+
+
+def test_a_comment_does_not_hide_the_write_on_the_next_line():
+    statement = "MATCH (n) // don't\nCREATE (m:Probe) RETURN m"
+    assert store.write_keyword(statement) == "CREATE"
+
+
+def test_read_cypher_refuses_a_write_hidden_behind_a_url_literal(store_path):
+    tool = server.Server(store_path)
+    try:
+        with pytest.raises(ValueError) as error:
+            tool.read_cypher(
+                {"statement": "MATCH (n) WHERE n.id = 'http://x' CREATE (m:Probe) RETURN m"}
+            )
+        assert "CREATE" in str(error.value)
+        assert store.one(tool.conn, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+        with pytest.raises(ValueError):
+            tool.read_cypher({"statement": "MATCH (n) WHERE n.id = 'https://a' DETACH DELETE n"})
+    finally:
+        tool.close()
+
+
 def test_read_cypher_still_reads_and_a_literal_is_not_a_clause(store_path):
     tool = server.Server(store_path)
     try:
@@ -461,6 +507,30 @@ def test_the_interval_join_finds_the_material_the_rule_excludes(conn):
     assert "M2" not in hits
     # Written at heading level, so it sits across the interval.
     assert [hit["relation"] for hit in hits["M3"] if hit["kind"] == "group"] == ["across"]
+
+
+def test_the_interval_join_agrees_with_the_python_comparison(conn):
+    # The graph and the Python comparison read the same interval nodes, and the
+    # README says one cannot drift from the other. This reads every material
+    # against every interval of the rule both ways and compares the answer.
+    rule = rulebook.resolve(conn, "KORUS", "84181010")
+    materials = [("M1", "84186990"), ("M2", "84189000"), ("M3", "8418"), ("M4", "3926")]
+    hits = rulebook.material_intervals(conn, rule["id"], 1, materials)
+    intervals = store.rows(
+        conn,
+        "MATCH (r:OriginRule {id: $id})-[:EXCLUDES]->(i:HsInterval) "
+        "WHERE i.alternative = 1 RETURN i.low AS low, i.high AS high ORDER BY i.ord",
+        {"id": rule["id"]},
+    )
+    for key, code in materials:
+        for interval in intervals:
+            expected = codes.interval_relation(code, interval["low"], interval["high"])
+            answer = [hit["relation"] for hit in hits.get(key, [])
+                      if hit["low_code"] == interval["low"]]
+            if expected == "outside":
+                assert answer == [], (key, code, interval)
+            else:
+                assert answer == [expected], (key, code, interval)
 
 
 def test_the_rule_and_the_line_come_back_from_one_traversal(conn):

@@ -26,6 +26,7 @@ second runs the suite on a bare install.
 
 In a browser, with nothing to install:
 **https://luke-shin-ai.github.io/dutypath/demo/**
+The page root, **https://luke-shin-ai.github.io/dutypath/**, forwards there.
 
 The five shipment files under `fixtures/` are synthetic. They were written to
 exercise a rule and they name no company, no client and no real shipment; the
@@ -129,6 +130,23 @@ difference between a free rate and the compound duty Korea actually pays, so the
 build refuses to put two rows under one treatment and the snapshot carries all
 1,278 rows of the extract.
 
+## How this maps to the judging criteria
+
+The Devpost Overview weights five criteria: Relate and connected context 30,
+Functionality and completeness 25, Usefulness 20, Documentation and
+reproducibility 15, Creativity 10. The rules section of the same page lists the
+same five with equal weight. This entry does not pick one list and ignore the
+other; each row below names the section a judge can check, so the same work
+scores under either reading.
+
+| Criterion | Where it is answered | What to check |
+| --- | --- | --- |
+| Relate and connected context | `## How it uses Relate`, `cypher/`, `docs/MCP-SCENARIO.md` | one file store, 5,454 nodes and 13,559 relationships, the rule to interval to material join, the same file over MCP |
+| Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 167 tests, the three verdicts and the case that answers `UNDECIDABLE` |
+| Usefulness | `## Use case`, `## Limits and honest statements` | duty, saving and claim window per market, priced on the entry date |
+| Documentation and reproducibility | `## Setup and run`, `docs/SOURCES.md`, `docs/BENCHMARK-EVAL.md` | nine documents with URL and sha256, `python scripts/benchmark.py` |
+| Creativity | `## The three markets`, `## What the snapshot covers` | three schedules read in their own format, the provisions a rule names kept as interval nodes |
+
 ## How it uses Relate
 
 **Mode: single file (`.rl`).** `store/dutypath-rules.rl` is opened read only,
@@ -146,7 +164,6 @@ and it is the only persistent thing in the project. Reasons:
   halves are tested: `tests/test_regressions.py` sends `CREATE`, `SET`,
   `DETACH DELETE` and a two statement string, and finds the store unchanged
   after each.
-
 The shipment itself is loaded into a **separate in memory graph** for the run
 and closed with it. The material list never has a file to leak from.
 
@@ -168,14 +185,16 @@ Relationships are the ones a reader can say out loud: `(Subheading)-[:IN_HEADING
 `(Heading)-[:IN_CHAPTER]->(Chapter)`, `(OriginRule)-[:FOR]->(Agreement)`,
 `(OriginRule)-[:EXCLUDES]->(HsInterval)`, `(RateLine)-[:FOR]->(Subheading)`, and every rule
 and rate `-[:CITED_FROM]->(Source)`.
-The file is 5.20 MB, 5,454 nodes and 13,559 relationships.
+The file is 5.45 MB (5.20 MiB), 5,454 nodes and 13,559 relationships.
 
 The graph answers four questions, and the engine answers the rest:
 
 * **Which rule applies, and what prices it.** One traversal per market matches a
 good's code against the rule intervals and joins the rate line for the same
 Agreement node, so the rule, the line and both cited sources arrive together
-(`rules.market_context`). Two separate lookups became one walk.
+(`rules.market_context`). Two separate lookups became one walk. The rule
+interval match inside it takes 0.762 ms median over 401 rules on the committed
+snapshot (`docs/BENCHMARK-FOOTPRINT.md`, Query time).
 * **Which materials a rule excludes.** The provisions a rule bars are `HsInterval`
 nodes hanging off the rule, one per alternative and in the order the sentence
 names them. The material list goes into that join as codes, and the answer for
@@ -192,7 +211,18 @@ each material comes back inside, outside or across an interval
 What the graph does not do is decide the verdict. A change of heading or
 subheading, the value content and the weight share are compared in Python, on
 the material codes, where the three answers (met, not met, cannot tell) are
-easier to give and to test than in a traversal. The traversal that reads a
+easier to give and to test than in a traversal. A relational schema could
+express these two queries as well. What the graph changes is the number of keys
+a reader has to trust: a rule names the provisions it excludes as edges on the
+rule itself, with the alternative number on the edge, so
+`cypher/07-material-against-rule.cypher` starts at one rule, walks to the
+intervals it points at and returns one row per material and interval that are
+not disjoint, and every rule and rate reaches its source document in one hop
+instead of a join on a citation table.
+`tests/test_regressions.py::test_the_interval_join_agrees_with_the_python_comparison`
+reads the same intervals both ways and checks the graph's relation against
+`codes.interval_relation` for every material, so the traversal and the Python
+comparison cannot drift apart. The traversal that reads a
 good's hierarchy is in `cypher/04-hierarchy-above-a-good.cypher`
 and the same walk is done in the shipment's own graph; the interval files are
 `cypher/02-exclusion-interval.cypher` and `cypher/07-material-against-rule.cypher`.
@@ -205,9 +235,13 @@ rows from a hub that holds the whole corpus is an optional path, not the default
 `neo4j/pull_rules.cypher` is the statement, `dutypath pull-query --market US`
 prints it and `dutypath pull-check --market US` runs it against this snapshot and
 counts what came down. The statement is a union of one branch per part, so a
-market returns 222 rules and 847 rate lines as 1,072 rows. A reader can run the
-same statement against a hub; this repository does not require one, and no
-verdict in it calls a hub.
+market returns 222 rules and 847 rate lines as 1,072 rows. This repository holds
+no hub, no Aura instance and no server, and no verdict in it calls one. The pull
+statement was run against the committed file, which shows that it completes and
+returns the rows the label counts predict; it does not show that a remote hub
+was queried. That is the mode the hackathon asks for, a persistent Relate store
+that travels with the code, and a judge who clones this repository can run every
+number here without an account.
 
 ## Setup and run
 
@@ -253,6 +287,12 @@ until which a refund can be claimed. The rate arithmetic runs in the browser
 from the schedule rows; the origin verdict comes from the engine, and the page
 says which is which. Selecting the `store/dutypath-rules.rl` file makes the page
 hash it with WebCrypto and compare it with the hash the bundle was built from.
+
+The first screen states the two things a reader would otherwise have to work
+out: a one line legend for `CLAIM`, `MFN`, `ORIGINATING`, `NOT ORIGINATING` and
+`UNDECIDABLE`, and a notice that every verdict on the page was computed at build
+time and is stored in the bundle, so the page reads a static result and queries
+no graph while it is open.
 
 `python scripts/check_demo.py` opens it in Chromium at 1440 and 390 pixels,
 checks that neither width scrolls sideways, that the visible text carries none
@@ -339,7 +379,10 @@ materials into its own context, and an MCP host may keep that transcript. So the
 tool stores no client data and cannot leak what it never held; the agent holding
 the bill of materials is the place to look for it. The server also refuses any
 statement that would write before it reaches the store, so a session cannot
-leave a node behind either.
+leave a node behind either. That reader scans a statement once and skips a
+string literal or a comment as a whole, so an address inside a literal cannot
+hide the clause written after it, and a clause inside a literal is not mistaken
+for one.
 
 Two limits keep that surface small. `shipment_path` has to resolve inside the
 directory the server was started in, so a path that climbs out of it, or a

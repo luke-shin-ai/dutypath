@@ -38,6 +38,16 @@
   .brand h1 { font-size: 21px; margin: 0; letter-spacing: 0.2px; }
   .brand .sub { color: #b6c2cf; font-size: 14px; }
   .snap { color: #93a4b6; font-size: 12.5px; margin-top: 8px; word-break: break-word; }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    margin-top: 12px;
+    color: #d3dce6;
+    font-size: 12.5px;
+  }
+  .legend b { color: #fff; }
+  .legend .static { flex-basis: 100%; color: #93a4b6; }
   .panel {
     background: var(--card);
     border: 1px solid var(--line);
@@ -136,6 +146,14 @@
       <span class="sub">One bill of materials, three markets, three answers</span>
     </div>
     <div class="snap" id="snapshot-line">loading snapshot</div>
+    <div class="legend">
+      <span><b>CLAIM</b> preferential rate applied, duty 0</span>
+      <span><b>MFN</b> no preference, the general rate applies</span>
+      <span><b>ORIGINATING</b> the origin rule is met</span>
+      <span><b>NOT ORIGINATING</b> the rule is not met</span>
+      <span><b>UNDECIDABLE</b> the snapshot cannot answer, the missing piece is named</span>
+      <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page. Nothing is fetched and no graph is queried while you read it, so the origin column does not change when the entry date does; the rate and the duty arithmetic below do run in the browser.</span>
+    </div>
   </div>
 </header>
 

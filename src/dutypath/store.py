@@ -32,9 +32,6 @@ WRITE_CLAUSE = re.compile(
     r"TRUNCATE|ALTER|INSERT|UPDATE)\b",
     re.IGNORECASE,
 )
-STRING_LITERAL = re.compile(r"'(?:[^'\\]|\\.)*'|\"(?:[^\"\\]|\\.)*\"")
-COMMENT = re.compile(r"//[^\n]*|/\*.*?\*/", re.DOTALL)
-
 
 
 def connect(path: str, read_only: bool = False):
@@ -58,17 +55,60 @@ def open_store(path: str, read_only: bool = False) -> Iterator:
         conn.close()
 
 
+def _code_only(statement: str) -> str:
+    """The statement with string literals and comments cut out in one pass.
+
+    The two have to be removed together, because either one alone hides the
+    other.  Removing comments first reads the ``//`` in ``'http://x'`` as the
+    start of a comment and drops the rest of the line, so a ``CREATE`` written
+    after that literal is never named.  Removing literals first reads the
+    apostrophe in ``// don't`` as an opening quote and swallows the code that
+    follows.  A scanner that knows which of the two it is inside cannot make
+    either mistake: it walks the statement once, skips a literal or a comment
+    as a whole, and keeps everything else.
+    """
+    kept: list[str] = []
+    index = 0
+    length = len(statement)
+    while index < length:
+        char = statement[index]
+        if char in ("'", '"'):
+            index += 1
+            while index < length:
+                if statement[index] == "\\" and index + 1 < length:
+                    index += 2
+                    continue
+                if statement[index] == char:
+                    index += 1
+                    break
+                index += 1
+            kept.append("''")
+            continue
+        if statement.startswith("//", index):
+            while index < length and statement[index] != "\n":
+                index += 1
+            kept.append(" ")
+            continue
+        if statement.startswith("/*", index):
+            end = statement.find("*/", index + 2)
+            index = length if end == -1 else end + 2
+            kept.append(" ")
+            continue
+        kept.append(char)
+        index += 1
+    return "".join(kept)
+
+
 def write_keyword(statement: str) -> str | None:
     """The clause that would write in a statement, or None when it only reads.
 
-    String literals and comments are removed first, so a property value that
-    happens to read "created" is not mistaken for a clause.
+    String literals and comments are skipped as each is met, so a property value
+    that happens to read "created" is not mistaken for a clause and a URL in a
+    literal does not hide the write that follows it.
     """
     if not statement or not statement.strip():
         return "an empty statement"
-    cleaned = COMMENT.sub(" ", statement)
-    cleaned = STRING_LITERAL.sub("''", cleaned)
-    body = cleaned.strip().rstrip(";").strip()
+    body = _code_only(statement).strip().rstrip(";").strip()
     if ";" in body:
         return "more than one statement"
     match = WRITE_CLAUSE.search(body)

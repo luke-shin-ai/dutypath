@@ -18,7 +18,7 @@ repository; none of them is an estimate.
 | Measure | Value |
 | --- | --- |
 | Store file | `store/dutypath-rules.rl` |
-| File size | 5,451,776 bytes (5,324.0 kB, 5.20 MB) |
+| File size | 5,451,776 bytes (5.45 MB, 5,324.0 KiB, 5.20 MiB) |
 | Nodes | 5,454 |
 | Relationships | 13,559 |
 | Chapters | 3 (39, 84, 85) |
@@ -44,10 +44,10 @@ never depends on which row came first.
 | --- | --- |
 | Resident set before the store is opened | 29,824 kB |
 | Resident set with the snapshot open | 58,620 kB |
-| Difference | 28,796 kB (28.1 MB) |
+| Difference | 28,796 kB (28.1 MiB) |
 
 Relate keeps the whole graph resident, so the file is not a disk map and the
-memory is what the engine actually holds. 5.20 MB of file costs 28.1 MB of
+memory is what the engine actually holds. 5.20 MiB of file costs 28.1 MiB of
 resident memory for this shape of graph, about five and a half times the file.
 
 ## Query time
@@ -60,6 +60,16 @@ Thirty runs of each query on the open snapshot, wall clock, median.
 | Rate for a line (3,851 lines) | 0.106 ms | 0.102 ms | 0.468 ms |
 | Code tree above a good (catalogue walk) | 2.704 ms | 2.642 ms | 3.472 ms |
 | Rules that mention a heading (text search) | 0.274 ms | 0.266 ms | 0.713 ms |
+| Rule and line for one market (one traversal) | 1.698 ms | 1.521 ms | 6.855 ms |
+| Interval join, one rule against four materials | 0.293 ms | 0.252 ms | 2.855 ms |
+
+The last two rows were measured on 2026-11-25 by `dutypath footprint` against
+the same committed file. The first is `rules.market_context` for KORUS 85044095,
+the walk that brings the rule and its rate line back together. The second is
+`rules.material_intervals` for OR-0131 and the four materials of
+`fixtures/shipment-8504-converter.json`, the statement in
+`cypher/07-material-against-rule.cypher` that the film and the Devpost page
+quote. Both numbers are printed by the command, not typed from memory.
 
 An assessment runs one traversal per market that brings back the rule and the
 rate line together, one interval join per rule alternative against the material
@@ -153,7 +163,7 @@ refusal for each, and finds no `Material` node afterwards.
 
 ```
 $ pytest -q
-162 passed
+167 passed
 ```
 
 No test is skipped, on a bare `pip install -e ".[dev]"` as well as here. The
@@ -174,7 +184,8 @@ materials, a missing material value, a heading written where a subheading is
 asked for, separators and percent signs in typed numbers, a negative amount,
 another agreement's approval, an expired approval where none is required, an
 unreadable alternative, a group exclusion, an except clause read as a
-permission, an except range, the hub query, and the read only reader, plus a
+permission, an except range, the hub query, and the read only reader, including
+a write hidden behind a URL inside a string literal, plus a
 Japan row written for another party, a duplicate partner treatment, and the
 interval join that now does the exclusion test in the graph.
 

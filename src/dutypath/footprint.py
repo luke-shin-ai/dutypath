@@ -13,7 +13,8 @@ import os
 import statistics
 import time
 
-from . import store
+from . import codes, store
+from . import rules as rulebook
 
 QUERIES = {
     "rule for a good": (
@@ -36,6 +37,32 @@ QUERIES = {
         {"needle": "8507"},
     ),
 }
+
+
+def _time(conn, statement: str, params: dict, repeats: int) -> dict:
+    samples = []
+    for _ in range(repeats):
+        started = time.perf_counter()
+        list(conn.execute(statement, params))
+        samples.append((time.perf_counter() - started) * 1000.0)
+    return {
+        "median_ms": round(statistics.median(samples), 3),
+        "min_ms": round(min(samples), 3),
+        "max_ms": round(max(samples), 3),
+    }
+
+
+# The bill of materials of fixtures/shipment-8504-converter.json, as the
+# eight digit spans the join compares.
+MATERIALS = [("M1", "85043140"), ("M2", "85322200"), ("M3", "85340000"), ("M4", "39269098")]
+
+
+def _interval_join_params() -> dict:
+    payload = []
+    for key, code in MATERIALS:
+        bounds = codes.span(code)
+        payload.append({"key": key, "start_norm": bounds[0], "end_norm": bounds[1]})
+    return {"rule": "OR-0131", "alternative": 1, "materials": payload}
 
 
 def rss_kb() -> int:
@@ -61,16 +88,17 @@ def measure(store_path: str, repeats: int = 30) -> dict:
 
     timings = {}
     for label, (statement, params) in QUERIES.items():
-        samples = []
-        for _ in range(repeats):
-            started = time.perf_counter()
-            list(conn.execute(statement, params))
-            samples.append((time.perf_counter() - started) * 1000.0)
-        timings[label] = {
-            "median_ms": round(statistics.median(samples), 3),
-            "min_ms": round(min(samples), 3),
-            "max_ms": round(max(samples), 3),
-        }
+        timings[label] = _time(conn, statement, params, repeats)
+    # Two queries whose parameters come from the fixtures, so the join and the
+    # market traversal are measured the way a verdict runs them.
+    timings["rule and line for one market"] = _time(
+        conn, rulebook.MARKET_CONTEXT_QUERY,
+        {"agreement": "KORUS", "market": "US", "code": "85044095", "norm": "85044095"},
+        repeats,
+    )
+    timings["interval join, one rule against four materials"] = _time(
+        conn, rulebook.MATERIAL_INTERVAL_QUERY, _interval_join_params(), repeats,
+    )
     conn.close()
 
     return {
