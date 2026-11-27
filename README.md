@@ -18,11 +18,13 @@ claim without reading any further:
 
 ```
 dutypath verify-zero-leak --shipment fixtures/shipment-8504-converter.json
-pytest -q
+pytest
 ```
 
 The first proves the rule file came back byte for byte after an assessment. The
-second runs the suite on a bare install.
+second runs the suite on a bare install and prints the count. The project sets
+`-q` in `pyproject.toml`, so a second `-q` on the command line keeps the
+dots and hides that line.
 
 In a browser, with nothing to install:
 **https://luke-shin-ai.github.io/dutypath/demo/**
