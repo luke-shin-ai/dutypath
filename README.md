@@ -28,6 +28,9 @@ In a browser, with nothing to install:
 **https://luke-shin-ai.github.io/dutypath/demo/**
 The page root, **https://luke-shin-ai.github.io/dutypath/**, forwards there.
 
+A 1:46 film of that page, including the one checkbox that moves all three
+markets, is at **https://youtu.be/ZEyvClqo9HY**.
+
 The five shipment files under `fixtures/` are synthetic. They were written to
 exercise a rule and they name no company, no client and no real shipment; the
 hackathon's rules on data and confidentiality are met by having nothing
@@ -194,7 +197,9 @@ good's code against the rule intervals and joins the rate line for the same
 Agreement node, so the rule, the line and both cited sources arrive together
 (`rules.market_context`). Two separate lookups became one walk. The rule
 interval match inside it takes 0.762 ms median over 401 rules on the committed
-snapshot (`docs/BENCHMARK-FOOTPRINT.md`, Query time).
+snapshot, measured on an Intel Xeon Platinum 8488C with Python 3.12.16 over
+thirty runs, so another CPU will move the figure (`docs/BENCHMARK-FOOTPRINT.md`,
+Query time).
 * **Which materials a rule excludes.** The provisions a rule bars are `HsInterval`
 nodes hanging off the rule, one per alternative and in the order the sentence
 names them. The material list goes into that join as codes, and the answer for
