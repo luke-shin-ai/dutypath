@@ -157,13 +157,17 @@ promise. Two more readings of the same claim: `tests/test_markets.py::test_the_m
 runs the proof through the MCP server, the path an agent uses, and
 `tests/test_regressions.py::test_read_cypher_refuses_a_write_before_it_reaches_the_store`
 sends `CREATE`, `MATCH ... SET` and `DETACH DELETE` through `read_cypher`, gets a
-refusal for each, and finds no `Material` node afterwards.
+refusal for each, and finds no `Material` node afterwards. The statement reader
+that refuses them was replaced after a review found that a quoted identifier can
+carry an apostrophe: `tests/test_regressions.py` now also holds it to
+`MATCH (n) RETURN 1 AS `a'` CREATE (:X) RETURN 2 AS `'`` and its variants, and
+checks the engine's own refusal on a connection opened read only.
 
 ## Tests
 
 ```
 $ pytest -q
-167 passed
+182 passed
 ```
 
 No test is skipped, on a bare `pip install -e ".[dev]"` as well as here. The

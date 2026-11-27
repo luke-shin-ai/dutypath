@@ -367,6 +367,145 @@ def test_read_cypher_still_reads_and_a_literal_is_not_a_clause(store_path):
         tool.close()
 
 
+# -------------------------------------------- D: a backtick identifier is not
+# a string literal, and the guard has to know the difference
+
+
+def test_a_backtick_identifier_does_not_hide_the_write_after_it():
+    # The review of 400338a sent these statements: the scanner read the
+    # apostrophe inside the backtick identifier as an opening string literal,
+    # swallowed the code up to the next apostrophe, and returned a read.
+    attacks = {
+        "MATCH (n) RETURN 1 AS `a'` CREATE (:X) RETURN 2 AS `'`": "CREATE",
+        "RETURN `a'//` CREATE (:X) RETURN `'`": "CREATE",
+        "MATCH (n) RETURN `a'` CREATE (:X)": "CREATE",
+        "MATCH (n) RETURN `a'` MERGE (x:X) RETURN `'`": "MERGE",
+        "MATCH (n) SET n.x = 1 RETURN 1 AS `a'` DETACH DELETE n": "SET",
+        "MATCH (n) RETURN 1 AS `a` CREATE (:X)": "CREATE",
+        "MATCH (n) RETURN 1 AS `a``b` CREATE (:X)": "CREATE",
+        "MATCH (n) RETURN 1 AS `a'` CREATE (:X) RETURN `b'c` // and a comment": "CREATE",
+        "MATCH (n) RETURN 1 AS `a'`\nCREATE (:X)": "CREATE",
+    }
+    for statement, clause in attacks.items():
+        assert store.write_keyword(statement) == clause, statement
+
+
+def test_a_read_with_a_backtick_identifier_is_still_a_read():
+    reads = [
+        "MATCH (n) RETURN 1 AS `a'b`",
+        "MATCH (n) RETURN 1 AS `CREATE`",
+        "MATCH (n) RETURN 1 AS `a``b`",
+        "MATCH (r:OriginRule) RETURN r.id AS `rule'id`",
+        "RETURN 'it''s' AS x",
+        "MATCH (n) WHERE n.id = 'a' RETURN count(n) AS n",
+    ]
+    for statement in reads:
+        assert store.write_keyword(statement) is None, statement
+
+
+def test_read_cypher_refuses_the_backtick_bypass_and_keeps_answering(store_path):
+    tool = server.Server(store_path)
+    try:
+        for statement in (
+            "MATCH (n) RETURN 1 AS `a'` CREATE (:Probe) RETURN 2 AS `'`",
+            "RETURN `a'//` CREATE (:Probe) RETURN `'`",
+        ):
+            with pytest.raises(ValueError) as error:
+                tool.read_cypher({"statement": statement})
+            assert "CREATE" in str(error.value)
+        # The refusal happens before the store sees the statement, so the
+        # session is still usable: a statement that reached the engine and was
+        # then refused at commit would have left this connection rolled back.
+        assert store.one(tool.conn, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+        assert store.one(tool.conn, "MATCH (n) RETURN count(n) AS n")["n"] == 5454
+    finally:
+        tool.close()
+
+
+def test_an_unclosed_literal_or_identifier_is_left_to_the_engine(store_path):
+    # The scanner cannot tell where an unclosed literal ends, so it keeps the
+    # rest as literal rather than inventing code.  The engine refuses the
+    # statement, which is the answer that matters: no write is executed.
+    unclosed = [
+        "RETURN 'unclosed CREATE (:Probe)",
+        "RETURN `unclosed CREATE (:Probe)",
+        "RETURN 1 /* unterminated CREATE (:Probe)",
+    ]
+    for statement in unclosed:
+        assert store.write_keyword(statement) is None, statement
+        # One session per statement: a refused statement leaves the open
+        # transaction rolled back in this engine, so the next one starts fresh.
+        probe = store.connect(store_path, read_only=True)
+        probe.autocommit = True
+        try:
+            with pytest.raises(Exception):
+                store.rows(probe, statement)
+            assert store.one(probe, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+        finally:
+            probe.close()
+
+
+def test_the_read_only_connection_refuses_the_write_itself(store_path):
+    # The guard is the first line, not the only one.  With autocommit on, the
+    # engine refuses the write at execution and names the reason; with it off it
+    # accepts the statement, lets the session read its own write, and refuses it
+    # at commit.  Either way the file is unchanged.
+    before = store.file_sha256(store_path)
+    write = "CREATE (:Probe {id: 'RO'})"
+    guarded = store.connect(store_path, read_only=True)
+    guarded.autocommit = True
+    try:
+        with pytest.raises(Exception) as error:
+            store.rows(guarded, write)
+        assert "read-only" in str(error.value).lower() or "read only" in str(error.value).lower()
+        assert store.one(guarded, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+    finally:
+        guarded.close()
+
+    session = store.connect(store_path, read_only=True)
+    session.autocommit = False
+    try:
+        store.rows(session, write)
+        assert store.one(session, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 1
+    finally:
+        session.close()
+
+    assert store.file_sha256(store_path) == before
+    check = store.connect(store_path, read_only=True)
+    check.autocommit = False
+    try:
+        assert store.one(check, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+    finally:
+        check.close()
+
+
+def test_a_keyword_that_is_not_a_keyword_is_refused_by_the_engine(store_path):
+    # These are outside what a guard can decide: a Cyrillic letter in neither
+    # case matches the clause list, a fullwidth word is a different word, and a
+    # procedure call carries a string the guard does not read into.  Each one is
+    # checked against the engine, so the README can say what happens rather than
+    # what should happen.
+    outside = [
+        "\u041cATCH (n) RETURN 1 AS x",
+        "\uff23\uff32\uff25\uff21\uff34\uff25 (:Probe)",
+        "CALL apoc.do.when(true, 'CREATE (:Probe)', '', {}) YIELD value RETURN value",
+    ]
+    guarded = store.connect(store_path, read_only=True)
+    guarded.autocommit = True
+    try:
+        for statement in outside:
+            with pytest.raises(Exception):
+                store.rows(guarded, statement)
+        assert store.one(guarded, "MATCH (m:Probe) RETURN count(m) AS n")["n"] == 0
+    finally:
+        guarded.close()
+
+    # The guard still names the procedure call, which is the clause it can see.
+    assert store.write_keyword(
+        "CALL apoc.do.when(true, 'CREATE (:Probe)', '', {}) YIELD value RETURN value"
+    ) == "CALL"
+
+
 # ------------------------------------------------------------- D13, D15: dates
 
 

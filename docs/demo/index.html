@@ -67,6 +67,24 @@
   .engine-parity { margin-top: 10px; font-size: 13px; }
   .engine-parity.ok { color: var(--claim); }
   .engine-parity.fail { color: var(--refused); }
+  .swap { margin-top: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 9px; background: #f8fafc; }
+  .swap label { display: flex; align-items: center; gap: 9px; font-size: 13.5px; font-weight: 600; }
+  .swap input[type="checkbox"] { width: 17px; height: 17px; margin: 0; }
+  .swap .swap-note { margin-top: 7px; font-size: 12.5px; color: var(--muted); }
+  .swap .swap-note.disabled { color: var(--unknown); }
+  .graph-legend { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+  .graph-legend .sw { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; border: 1.2px solid var(--line); }
+  .graph-legend .sw-input { background: #f1f5f9; stroke: var(--line); }
+  .graph-legend .sw-ok { background: #ecfdf5; border-color: var(--claim); }
+  .graph-legend .sw-bad { background: #fef2f2; border-color: var(--refused); }
+  .graph-legend .sw-unknown { background: #eef2ff; border-color: var(--accent); }
+  .graph-readout { margin-top: 12px; font-size: 13px; color: var(--muted); padding: 8px 10px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--line); }
+  .graph-readout.ok { color: var(--claim); border-color: #99f6e4; background: #ecfdf5; }
+  .graph-readout.fail { color: var(--refused); border-color: #fecaca; background: #fef2f2; }
+  .graph-figure { margin: 14px 0 0; }
+  .graph-figure figcaption { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .graph-figure figcaption b { color: var(--ink); font-size: 13.5px; }
+  .graph-canvas { border: 1px solid var(--line); border-radius: 8px; padding: 6px; background: #fff; overflow: hidden; }
   .panel {
     background: var(--card);
     border: 1px solid var(--line);
@@ -172,7 +190,7 @@
       <span><b>ORIGINATING</b> = the origin rule is met</span>
       <span><b>NOT ORIGINATING</b> = the rule is not met</span>
       <span><b>UNDECIDABLE</b> = the snapshot cannot answer, the missing piece is named</span>
-      <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page, so the origin column does not change when the entry date does. The rate and the duty arithmetic below do run in the browser. The panel titled "The graph, running in this tab" builds the same graph in the Relate WebAssembly engine and runs the committed Cypher for the shipment on screen.</span>
+      <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page, so the origin column does not change when the entry date does. The rate and the duty arithmetic below do run in the browser. The panel titled "The graph, running in this tab, and the path each rule takes" builds the same graph in the Relate WebAssembly engine, draws the rule path for each market, and recomputes the three verdicts when the key material is swapped.</span>
     </div>
   </div>
 </header>
@@ -220,17 +238,34 @@
   <section class="markets" id="markets"></section>
 
   <section class="panel engine" id="engine">
-    <h3>The graph, running in this tab</h3>
+    <h3>The graph, running in this tab, and the path each rule takes</h3>
     <p class="lede">The numbers above were computed at build time. This panel is the engine itself:
     it loads the Relate WebAssembly build, rebuilds the snapshot's graph in memory inside a worker,
-    and runs the committed Cypher files (<span class="mono">cypher/01</span>, <span class="mono">03</span>,
-    <span class="mono">04</span>, <span class="mono">05</span>, <span class="mono">06</span>,
-    <span class="mono">07</span>) for the shipment on screen. Each value it returns is compared with
+    and runs the committed Cypher files for the shipment on screen. Each value it returns is compared with
     the bundle, so the two are shown to agree rather than asserted to.</p>
     <div id="engine-build" class="engine-build">the engine has not started yet</div>
     <div id="engine-status" class="engine-status">waiting for the page to settle</div>
     <div id="engine-body" class="engine-body"></div>
     <div id="engine-parity" class="engine-parity"></div>
+
+    <div class="swap">
+      <label for="material-toggle"><input type="checkbox" id="material-toggle"> Swap the key material of this bill of materials</label>
+      <div class="swap-note" id="material-swap"></div>
+    </div>
+
+    <div class="graph-legend" id="graph-legend"></div>
+    <div class="graph-readout" id="graph-readout">the picture appears when the engine has built the graph</div>
+    <div id="graph-host"></div>
+
+    <p class="note">Each picture is the walk one rule takes: the shipment and its bill of materials on the left
+    (dashed, because no material line is ever written to the store), then the classification the code sits in,
+    the origin rule with the intervals it excludes, the market line and the rate, and the answer. The rule,
+    the intervals, the classification, the market and the rate are rows the engine returns from
+    <span class="mono">cypher/07</span>, <span class="mono">08</span> and <span class="mono">09</span>.
+    The verdict and the duty are recomputed here from those rows, and the line under the pictures compares
+    this tab's answer with the engine's own answer for the same state. Swapping the key material sends the
+    new line to the engine and redraws all three paths, so a reader can watch which rule stops holding and
+    what that costs in each market.</p>
     <p class="note">The engine package opens an in-memory database or its own browser store, and it has no
     call that opens an existing <span class="mono">.rl</span> file, so the tab rebuilds the graph from rows
     exported out of the snapshot (<span class="mono">scripts/build_wasm_seed.py</span>). The committed
@@ -244,10 +279,12 @@
       <p>The rate on a date and the duty on a value are computed here, in your browser, from the
       schedule rows in the bundle: a base rate and a staging category for the United States and the
       European Union, and the printed yearly cells for Japan. Change the date and the numbers move.</p>
-      <p>The origin verdict is not computed here. It comes from the engine in this repository, which
-      read the rule sentences and the exclusion intervals; the page shows its verdict, the rule code
-      and the sentence it followed. <span class="mono">tests/test_demo.py</span> fails if the bundle
-      and the engine ever disagree.</p>
+      <p>The origin verdict in the cards above was computed by the engine in this repository when the page was
+      built: it read the rule sentences and the exclusion intervals, and the page shows its verdict, the rule
+      code and the sentence it followed. <span class="mono">tests/test_demo.py</span> fails if the bundle
+      and the engine ever disagree. The engine panel recomputes the same verdicts in your browser for the
+      material list on screen, including the swapped one, and prints what it found next to the engine's own
+      answer for that state.</p>
       <p>The rate arithmetic above is the only thing the page does twice. 
       <span class="mono">scripts/check_demo.py</span> compares it with the engine's on seven dates
       for every schedule row in the bundle, so the two cannot drift apart quietly.</p>
@@ -271,12 +308,15 @@
   </section>
 </main>
 
+<script src="origin-eval.js"></script>
+<script src="subgraph.js"></script>
 <script src="dutypath-demo.js"></script>
 <script src="wasm-panel.js"></script>
 <script>
 (function () {
   var DATA = window.DUTYPATH_DEMO;
   var state = { index: 0, on: "", value: 0 };
+  var live = null;
   var FORBIDDEN = /[\u2014\u2013\u00b7\u2192\u2026\u201c\u201d\u2018\u2019]/;
 
   function money(amount, currency) {
@@ -368,6 +408,10 @@
     return korRate(row.base_rate_percent, row.staging, on);
   }
   window.dutypathRate = rateOn;
+  window.DUTYPATH_SET_LIVE = function (payload) {
+    live = payload;
+    render();
+  };
 
   function badge(text, kind) {
     return '<span class="badge ' + kind + '">' + text + '</span>';
@@ -392,6 +436,8 @@
     var dollars = [];
     var html = "";
     report.markets.forEach(function (block) {
+      var liveMarket = (live && live.markets[block.market]) || null;
+      var verdict = liveMarket ? liveMarket.verdict : (block.origin || {}).verdict;
       var row = DATA.rates[block.market + ":" + block.code];
       var pref = rateOn(row, on);
       // The MFN figure is the engine's, assessment date and all.  The
@@ -403,20 +449,25 @@
         mfnPercent = row.base_rate_percent;
         mfnFromSchedule = true;
       }
-      var allowed = block.claim.allowed && pref !== null;
+      var claimAllowed = liveMarket ? !!liveMarket.allowed : block.claim.allowed;
+      var allowed = claimAllowed && pref !== null;
       var duty = allowed ? value * pref / 100 : (mfnPercent === null ? null : value * mfnPercent / 100);
       var potential = pref === null ? null : value * pref / 100;
 
       if (duty !== null) { dollars.push({ market: block.market, duty: duty, allowed: allowed }); }
       if (allowed && (best === null || duty < best.duty)) { best = { market: block.market, duty: duty, agreement: block.agreement }; }
 
-      var claimKind = allowed ? "b-claim" : (block.verdict === "UNDECIDABLE" ? "b-unknown" : "b-blocked");
-      var claimText = allowed ? "CLAIM" : (block.verdict === "UNDECIDABLE" ? "NO ANSWER" : "MFN");
-      var excluded = (block.excluded_materials || []).filter(function (line) { return true; });
+      var claimKind = allowed ? "b-claim" : (verdict === "UNDECIDABLE" ? "b-unknown" : "b-blocked");
+      var claimText = allowed ? "CLAIM" : (verdict === "UNDECIDABLE" ? "NO ANSWER" : "MFN");
+      var excluded = liveMarket
+        ? (liveMarket.path || []).filter(function (line) {
+            return line.indexOf("excluded provision") >= 0 || line.indexOf("inside group") >= 0;
+          })
+        : (block.excluded_materials || []);
       html += '<article class="panel market">';
       html += '<div class="head"><div><h2>' + block.market_name + '</h2>' +
               '<div class="agreement">' + block.agreement + ' <span class="code">' + (block.code || "no code") + '</span></div></div>' +
-              '<div>' + originBadge((block.origin || {}).verdict) + '</div></div>';
+              '<div>' + originBadge(verdict) + '</div></div>';
       html += '<dl class="rows">';
       html += '<dt>Rule</dt><dd class="code">' + ((block.origin || {}).rule ? block.origin.rule.code_from : "-") + '</dd>';
       html += '<dt>Rate now</dt><dd>' + pct(pref) + ' <span class="why">preferential</span></dd>';
@@ -427,15 +478,16 @@
       html += '<dt>Duty</dt><dd><span class="money">' + money(duty, currency) + '</span></dd>';
       html += '<dt>Route</dt><dd>' + badge(claimText, claimKind) + '</dd>';
       html += '</dl>';
-      if (block.verdict === "UNDECIDABLE") {
+      if (verdict === "UNDECIDABLE") {
         html += '<div class="note">Not priced: the origin question is open, so the preferential rate ' +
                 'is not a rate this shipment can claim yet.</div>';
       } else if (!allowed && potential !== null && duty !== null && potential < duty) {
         html += '<div class="note">Claimable at ' + pct(pref) + ': ' + money(potential, currency) +
                 ', a saving of ' + money(duty - potential, currency) + ' if the block clears.</div>';
       }
-      if (block.claim.blocked_by) {
-        html += '<div class="warn">' + block.claim.blocked_by + '</div>';
+      var blockedBy = liveMarket ? liveMarket.blocked : block.claim.blocked_by;
+      if (blockedBy) {
+        html += '<div class="warn">' + blockedBy + '</div>';
       } else if (allowed) {
         html += '<div class="warn ok">Origin holds, the rate is in the snapshot, the documents are in order.</div>';
       }
@@ -448,8 +500,9 @@
         html += '<div class="why"><span class="code">' + rule.code_from + '</span> ' +
                 rule.text.slice(0, 150) + (rule.text.length > 150 ? "..." : "") + '</div>';
       }
-      if ((block.origin || {}).reason) {
-        html += '<div class="why">' + block.origin.reason + '</div>';
+      var why = liveMarket ? liveMarket.reason : (block.origin || {}).reason;
+      if (why) {
+        html += '<div class="why">' + why + '</div>';
       }
       if (block.missing && block.missing.length) {
         html += '<div class="why">Needed: ' + block.missing.join("; ") + '</div>';
@@ -534,7 +587,7 @@
     });
     var preferred = 0;
     DATA.cases.forEach(function (item, index) {
-      if (item.id === "SHP-2026-1201-001") { preferred = index; }
+      if (item.id === "SHP-2026-1201-003") { preferred = index; }
     });
     select.value = String(preferred);
     state.index = preferred;
@@ -543,6 +596,7 @@
       var item = DATA.cases[state.index];
       state.on = item.report.shipment.assessed_on;
       state.value = item.report.shipment.declared_value;
+      live = null;
       render();
     });
   }
@@ -586,6 +640,8 @@
     fillSnapshot();
     fillCases();
     wireHash();
+    var legend = document.getElementById("graph-legend");
+    if (legend && window.DUTYPATH_SUBGRAPH) { legend.innerHTML = window.DUTYPATH_SUBGRAPH.legend(); }
     var first = DATA.cases[state.index];
     state.on = first.report.shipment.assessed_on;
     state.value = first.report.shipment.declared_value;

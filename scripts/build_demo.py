@@ -35,7 +35,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from dutypath import markets, store  # noqa: E402
+from dutypath import markets, origin, store  # noqa: E402
+from dutypath import rules as rulebook  # noqa: E402
 
 
 def sha256(path: str) -> str:
@@ -90,6 +91,100 @@ def rate_rows(conn, shipment: dict) -> dict:
     return rows
 
 
+# The one shipment whose key material has a second, costed alternative in the
+# demo.  The two states are the same bill of materials with one line chosen two
+# ways, and the three markets answer differently to each: on the first state all
+# three rules hold, on the second none of them does, so one toggle moves the
+# verdict and the duty in all three at once.  scripts/check_wasm_demo.py drives
+# the toggle in a browser and reads the three answers back.
+TOGGLES = {
+    "SHP-2026-1201-003": {
+        "material": "M1",
+        "filed_label": "polyethylene in primary form",
+        "alternative_label": "moulded shell of the good's own heading",
+        "alternative": {
+            "hts8": "39269098",
+            "origin": "SA",
+            "value": 75000,
+            "description": "moulded shell, a part of the good's own heading",
+        },
+    },
+}
+
+
+def reading(conn, shipment: dict) -> dict:
+    """What the engine read out of each rule for this shipment.
+
+    The browser re-evaluates a rule in the tab, and a rule sentence is read into
+    its alternatives by this repository's parser, not by the engine.  So the
+    reading travels with the page: the alternatives the parser produced and the
+    parties each agreement has on the assessment date.  The graph still supplies
+    the rule row, its exclusion interval nodes, the rate line and the join of
+    the material list against those intervals, which is the part a picture can
+    show changing.
+    """
+    when, _ = markets.assessment_date(shipment, None)
+    out = {"asks_on": when.isoformat(), "parties": {}, "alternatives": {}, "rules": {}}
+    for market, agreement in markets.MARKET_AGREEMENT.items():
+        code = markets.code_for_market(shipment, market)
+        if not code:
+            continue
+        out["parties"][market] = sorted(origin._parties(agreement, when))
+        context = rulebook.market_context(conn, agreement, market, code)
+        rule = context["rule"]
+        if not rule:
+            out["alternatives"][market] = []
+            continue
+        out["rules"][market] = {
+            "id": rule["id"],
+            "level": rule["level"],
+            "code_from": rule["code_from"],
+            "code_to": rule["code_to"],
+            "text": rule["text"],
+        }
+        out["alternatives"][market] = [
+            {
+                "text": item["text"],
+                "kinds": item["kinds"],
+                "group": list(item["group"]) if item.get("group") else None,
+                "allowed_from": item["allowed_from"],
+                "rvc_down": item["rvc_down"],
+                "rvc_up": item["rvc_up"],
+                "weight_min": item["weight_min"],
+            }
+            for item in rulebook.alternatives(rule)
+        ]
+    return out
+
+
+def toggle_for(conn, shipment: dict) -> dict | None:
+    """The second state of the key material, with the engine's own answer."""
+    scenario = TOGGLES.get(shipment.get("shipment_id"))
+    if not scenario:
+        return None
+    alternative = json.loads(json.dumps(shipment))
+    changed = None
+    for line in alternative.get("materials") or []:
+        if line.get("id") == scenario["material"]:
+            changed = {
+                "id": line["id"],
+                "from": {"hts8": line.get("hts8"), "origin": line.get("origin"), "value": line.get("value")},
+            }
+            line.update(scenario["alternative"])
+            changed["to"] = {"hts8": line.get("hts8"), "origin": line.get("origin"), "value": line.get("value")}
+    if changed is None:
+        return None
+    return {
+        "material": scenario["material"],
+        "filed_label": scenario["filed_label"],
+        "alternative_label": scenario["alternative_label"],
+        "change": changed,
+        "shipment": alternative,
+        "report": markets.compare(conn, alternative),
+    }
+
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--store", default=os.path.join("store", "dutypath-rules.rl"))
@@ -113,6 +208,8 @@ def main() -> int:
                 "description": (shipment.get("goods") or {}).get("description", ""),
                 "shipment": shipment,
                 "report": report,
+                "reading": reading(conn, shipment),
+                "toggle": toggle_for(conn, shipment),
             }
         )
         rows.update(rate_rows(conn, shipment))

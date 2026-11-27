@@ -141,8 +141,8 @@ scores under either reading.
 
 | Criterion | Where it is answered | What to check |
 | --- | --- | --- |
-| Relate and connected context | `## How it uses Relate`, `cypher/`, `docs/MCP-SCENARIO.md` | one file store, 5,454 nodes and 13,559 relationships, the rule to interval to material join, the same file over MCP |
-| Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 173 tests, the three verdicts and the case that answers `UNDECIDABLE` |
+| Relate and connected context | `## How it uses Relate`, `cypher/`, `docs/MCP-SCENARIO.md` | one file store, 5,454 nodes and 13,559 relationships, the rule to interval to material join, the same graph rebuilt and walked in the browser, the same file over MCP |
+| Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 182 tests, the three verdicts and the case that answers `UNDECIDABLE` |
 | Usefulness | `## Use case`, `## Limits and honest statements` | duty, saving and claim window per market, priced on the entry date |
 | Documentation and reproducibility | `## Setup and run`, `docs/SOURCES.md`, `docs/BENCHMARK-EVAL.md` | nine documents with URL and sha256, `python scripts/benchmark.py` |
 | Creativity | `## The three markets`, `## What the snapshot covers` | three schedules read in their own format, the provisions a rule names kept as interval nodes |
@@ -209,9 +209,12 @@ each material comes back inside, outside or across an interval
   heading and chapter.
 
 What the graph does not do is decide the verdict. A change of heading or
-subheading, the value content and the weight share are compared in Python, on
-the material codes, where the three answers (met, not met, cannot tell) are
-easier to give and to test than in a traversal. A relational schema could
+subheading, the value content and the weight share are compared on the material
+codes, where the three answers (met, not met, cannot tell) are easier to give and
+to test than in a traversal. The engine makes that comparison in Python
+(`src/dutypath/origin.py`); the demo page makes the same one in JavaScript over
+the rows the browser engine returns, and prints how many of its answers match
+the engine's own. A relational schema could
 express these two queries as well. What the graph changes is the number of keys
 a reader has to trust: a rule names the provisions it excludes as edges on the
 rule itself, with the alternative number on the edge, so
@@ -226,6 +229,10 @@ comparison cannot drift apart. The traversal that reads a
 good's hierarchy is in `cypher/04-hierarchy-above-a-good.cypher`
 and the same walk is done in the shipment's own graph; the interval files are
 `cypher/02-exclusion-interval.cypher` and `cypher/07-material-against-rule.cypher`.
+The demo's picture reads `cypher/08-rule-attachment.cypher` for the rule with its
+intervals and source, and `cypher/09-classification-spine.cypher` for the
+subheading, heading and chapter of every code on it, so the picture and the CLI
+answer from the same statements.
 `docs/MCP-SCENARIO.md` shows the rule lookup and the verdict side by side, so a
 reader can see which part answers what.
 
@@ -292,6 +299,27 @@ The first screen states the two things a reader would otherwise have to work
 out: a one line legend for `CLAIM`, `MFN`, `ORIGINATING`, `NOT ORIGINATING` and
 `UNDECIDABLE`, and a notice that the verdict cards are a build time bundle.
 
+### The file a reader can check
+
+The committed rule book is one file, and its hash is the fact a reader can quote
+back:
+
+```
+$ sha256sum store/dutypath-rules.rl
+200d613c08a4c4c65cbff74d17ab46619e76f6032f9ffba9640999a90262aec8  store/dutypath-rules.rl
+$ stat -c %s store/dutypath-rules.rl
+5451776
+```
+
+That is 5,451,776 bytes (5.20 MiB), and the page prints the same two numbers
+under Snapshot. Selecting the committed file in the Rule file check box hashes
+it in the browser with WebCrypto and says `rule file matches`; the same hash is
+written into `docs/demo/dutypath-demo.json` and `docs/demo/wasm/dutypath-graph.json`
+as the identity of the snapshot each was built from. `tests/test_demo.py` fails
+if the number written here stops matching the file, and the shipped build never
+opens the file for writing: every read goes through a connection opened read
+only, and the exporter and the bundle builder read a temporary copy.
+
 ### The graph, running in the tab
 
 Below the verdict cards the page runs the engine itself. A worker loads
@@ -305,6 +333,39 @@ what it built, how long the build took, and which package version did it.
 Each value the engine returns is compared with the bundle the page was built
 from, and the panel states the score (15 of 15 on every fixture). The two cannot
 disagree without the page saying so.
+
+### The path, and the key material that moves it
+
+The same panel draws the walk each rule takes for the bill of materials on
+screen: the shipment and its material lines on the left, then the classification
+the code sits in, the origin rule with the intervals it excludes, the agreement
+line and the rate, and the answer. Everything to the right of the bill of
+materials is a row the engine returned: `cypher/08-rule-attachment.cypher`
+brings back the rule, its exclusion interval nodes and its cited source,
+`cypher/09-classification-spine.cypher` brings back the subheading, heading and
+chapter of each code through the graph's own `IN_HEADING` and `IN_CHAPTER`
+edges, and `cypher/07-material-against-rule.cypher` puts each material inside,
+outside or across every interval the rule names. The bill of materials itself is
+drawn dashed, because no material line is ever written to the store.
+The verdict and the duty are computed on the page from those rows, by the same
+comparison the Python engine makes (`docs/demo/origin-eval.js` against
+`src/dutypath/origin.py`), and the line under the pictures states how many of
+the three verdicts and three duties agree with the engine's own answer for the
+same state.
+
+One checkbox swaps the key material for its other sourcing option. The default
+shipment is a moulded plastic bracket worth 120,000 USD; its M1 line is
+polyethylene of heading 3901 at 45,000, and the swap makes it a moulded shell of
+heading 3926, the good's own heading, at 75,000. One line changes, and all three
+markets answer again because the three rules ask three different questions: the
+KORUS rule wants every non party material to change heading (M1 now does not),
+the EU rule wants the non party value under 50 percent (it is now 62.5), and the
+RCEP rule asks for the heading change or 40 percent value content (neither holds
+now). The verdicts go from `ORIGINATING` in all three to `NOT ORIGINATING` in
+all three, and the duty moves from 0, 0 and 2,520 USD to 6,360, 7,800 and 4,680
+USD. The path pictures light the condition that failed, in each market's own
+terms, so the scene shows the graph deciding and the invoice following it rather
+than a table changing.
 
 Why the tab rebuilds the graph instead of opening the file: the wasm package
 offers `new RelateDb()` for an in-memory database and `RelateDb.open("opfs://")`
@@ -321,11 +382,16 @@ carries none of the characters machine written text gives itself away with, and
 that the page's own rate arithmetic agrees with `duty.line_rate` for every rate
 row in the bundle on seven dates. `python scripts/check_wasm_demo.py` serves the
 repository over http, waits for the panel to finish, and fails if the engine and
-the bundle disagree on any value, at both widths and on a second shipment. Both
-need Playwright, which the dev extras do not install because a plain `pytest`
-run should not depend on a browser: `pip install playwright && playwright
-install chromium`. The screenshots under `docs/demo/screenshots/` are their
-output.
+the bundle disagree on any value, if any of the three path pictures is missing,
+if the three verdicts it draws differ from the bundle's, if the key material
+swap does not move all three markets, or if what the page computes after the
+swap differs from the engine's own answer for that state. It runs both at 1440
+and at 390 pixels, and on a second shipment that has no second state, where the
+swap is refused instead of offered. Both need Playwright, which the dev extras
+do not install because a plain `pytest` run should not depend on a browser:
+`pip install playwright && playwright install chromium`. The screenshots under
+`docs/demo/screenshots/` are their output, including the shipment as declared
+and after the swap at both widths.
 
 ## The benchmark
 
@@ -403,10 +469,16 @@ materials into its own context, and an MCP host may keep that transcript. So the
 tool stores no client data and cannot leak what it never held; the agent holding
 the bill of materials is the place to look for it. The server also refuses any
 statement that would write before it reaches the store, so a session cannot
-leave a node behind either. That reader scans a statement once and skips a
-string literal or a comment as a whole, so an address inside a literal cannot
-hide the clause written after it, and a clause inside a literal is not mistaken
-for one.
+leave a node behind either. That reader walks a statement once and skips three
+kinds of text as a whole: a string literal, a backtick quoted identifier, and a
+comment. All three have to be kept apart, because any one of them can carry a
+word that looks like a clause: an address inside a literal cannot hide the
+clause written after it, an apostrophe inside `` `a'` `` is not the start of a
+literal, and a clause inside a comment is not a clause. `tests/test_regressions.py`
+holds the reader to that with the statements a review used to get past the
+earlier version, and also checks the second line of defence directly: the order
+in which the engine itself accepts and then refuses a write on a connection it
+opened read only.
 
 Two limits keep that surface small. `shipment_path` has to resolve inside the
 directory the server was started in, so a path that climbs out of it, or a
@@ -463,15 +535,18 @@ exchange rate, says so, and treats the consignment as needing the approval.
 
 ## What it uses, and what was used to build it
 
-**Relate features in the product.** `relate-db` 1.2.0, single file mode, no
-server. The engine opens `store/dutypath-rules.rl` read only; every read goes
-through one module (`src/dutypath/store.py`). Cypher does the interval match for
-a rule, the join that brings a market's rule and rate line back together, the
-interval join between a rule's exclusion nodes and the material codes, the
-catalogue walk above a good, the citation hops to the source documents, and the
-hub pull statement. The MCP server (`dutypath mcp`) speaks the Model Context
-Protocol over stdio with seven tools, and the shipment's own graph is a separate
-in memory Relate graph that closes with the run.
+**Relate features in the product.** Two engines, one of them in the tab.
+`relate-db` 1.2.0 is what the CLI, the MCP server and the scripts open: single
+file mode, no server, `store/dutypath-rules.rl` read only, every read through one
+module (`src/dutypath/store.py`). `@relate/relate-wasm` 1.3.0 is the same engine
+compiled for the browser, and the demo page runs it in a worker to rebuild the
+graph from the exported rows and answer the same Cypher. Cypher does the
+interval match for a rule, the join that brings a market's rule and rate line
+back together, the interval join between a rule's exclusion nodes and the
+material codes, the catalogue walk above a good, the citation hops to the source
+documents, and the hub pull statement. The MCP server (`dutypath mcp`) speaks
+the Model Context Protocol over stdio with seven tools, and the shipment's own
+graph is a separate in memory Relate graph that closes with the run.
 
 **Third party code and data.** The only runtime dependency is `relate-db` from
 PyPI. The extraction scripts use `pypdf` (optional, `[extract]`) and `openpyxl`
@@ -488,8 +563,9 @@ plain `pytest` run should not need a browser.
 **AI use.** This project was built with an AI coding assistant (a Claude based
 agent environment) for code, tests and documentation, working from public
 documents, as the hackathon's rules require disclosing. No AI model runs inside
-DutyPath: every verdict is deterministic Cypher and Python over the committed
-snapshot, so the same input gives the same output offline. Every rate and rule
+DutyPath: every verdict is deterministic Cypher, Python and, in the demo page,
+the same comparison written out in JavaScript over the rows the browser engine
+returns, so the same input gives the same output offline. Every rate and rule
 in the snapshot cites the document it came from. The review of this code that
 produced the fixes in `tests/test_regressions.py` and `tests/test_redteam_round2.py`
 also used language models as critics, and each finding was reproduced by hand
@@ -498,7 +574,8 @@ before it was fixed.
 **Synthetic data.** Every shipment in `fixtures/`, in `benchmark/gold.json` and
 in the demo is written by hand for this project. None of them is a client file,
 a real company's material list or a real entry. The demo's three market example
-is the same synthetic converter.
+is one of those synthetic shipments, and so is the second state of its key
+material.
 
 ## Licence
 

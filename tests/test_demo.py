@@ -60,3 +60,58 @@ def test_the_bundle_carries_every_fixture_and_benchmark_good(bundle):
     ids = {case["id"] for case in bundle["cases"]}
     assert {"SHP-2026-1201-001", "SHP-2026-1201-005"} <= ids
     assert len([value for value in ids if value.startswith("GOLD-")]) == 12
+
+
+def test_the_bundle_carries_the_second_state_of_the_key_material(bundle):
+    # The page lets a reader swap one material line and watch the three markets
+    # answer again.  The second state is not invented in the browser: it is the
+    # engine's own answer, built here, and the page compares what it computes
+    # with this report.  So the two have to be the same shipment but for that
+    # one line, and the three markets have to move.
+    case = next(item for item in bundle["cases"] if item.get("toggle"))
+    toggle = case["toggle"]
+    filed = case["shipment"]["materials"]
+    swapped = toggle["shipment"]["materials"]
+    assert len(filed) == len(swapped)
+    changed = []
+    for before, after in zip(filed, swapped):
+        if before != after:
+            changed.append(after["id"])
+            assert before["id"] == toggle["change"]["id"]
+    assert changed == [toggle["material"]]
+    assert toggle["shipment"]["goods"] == case["shipment"]["goods"]
+
+    before = {block["market"]: block for block in case["report"]["markets"]}
+    after = {block["market"]: block for block in toggle["report"]["markets"]}
+    assert set(before) == {"US", "EU", "JP"}
+    for market in before:
+        assert after[market]["origin"]["verdict"] != before[market]["origin"]["verdict"], market
+        assert after[market]["duty"]["amount"] != before[market]["duty"]["amount"], market
+
+
+def test_the_reading_carries_what_the_engine_read_out_of_each_rule(bundle):
+    # The page re-evaluates a rule in the browser.  The alternatives are this
+    # repository's reading of the rule sentence, so they travel with the page
+    # rather than being re-parsed by a second parser in JavaScript.
+    for case in bundle["cases"]:
+        reading = case.get("reading") or {}
+        assert set(reading.get("parties", {})) == {"US", "EU", "JP"}, case["id"]
+        for market in ("US", "EU", "JP"):
+            assert reading["parties"][market], case["id"]
+            assert "KR" in reading["parties"][market], case["id"]
+        for market, alternatives in (reading.get("alternatives") or {}).items():
+            if reading["rules"].get(market):
+                assert alternatives, "%s has a rule but no alternative" % case["id"]
+                for alternative in alternatives:
+                    assert set(alternative) >= {"text", "kinds", "rvc_down", "rvc_up", "weight_min"}
+
+
+def test_the_readme_quotes_the_hash_of_the_committed_store(bundle):
+    # A judge can hash the rule file and compare it with the number the page and
+    # the README print.  Keeping the number in one place and the file in another
+    # is only useful if they are checked against each other.
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    digest = store.file_sha256(str(STORE))
+    assert digest == bundle["store"]["sha256"]
+    assert digest in readme
+    assert "%d bytes" % os.path.getsize(STORE) in readme.replace(",", "")

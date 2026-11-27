@@ -9,6 +9,14 @@
 // The package opens :memory: or its own OPFS store.  It has no call that opens
 // an existing .rl file, which is why the graph is rebuilt here from the
 // exported rows instead of the store bytes.  See docs/demo/wasm/README.md.
+//
+// Two messages come in.  "run" answers the committed queries for the shipment
+// on screen and is what the parity line compares with the bundle.  "analyze"
+// answers the walk behind one picture: the rule that applies under each
+// agreement, the intervals it excludes, the classification of each code, the
+// way each material sits against those intervals (cypher/07) and the rate line
+// that prices the good.  The verdict itself is computed on the page from those
+// answers, so a picture of a path is a picture of what the engine returned.
 
 import init, { RelateDb } from "./relate.js";
 
@@ -120,6 +128,79 @@ function collect(input) {
   return { markets: markets, comparisonMs: six.elapsed_ms };
 }
 
+// The walk behind one picture.  Everything a picture shows to the right of the
+// bill of materials is a row of cypher/07, 08 or 09.
+function analyze(input) {
+  const started = performance.now();
+  const spineRows = exec(queries["09-classification-spine.cypher"], { rows: input.spine }).rows;
+  const markets = {};
+  for (const market of input.markets) {
+    const attachment = exec(queries["08-rule-attachment.cypher"], {
+      agreement: market.agreement,
+      norm: market.norm
+    }).rows;
+    const first = attachment.length ? attachment[0] : null;
+    const rule = first && first.rule_id ? {
+      id: first.rule_id,
+      kinds: first.kinds || [],
+      level: first.level,
+      code_from: first.code_from,
+      code_to: first.code_to,
+      text: first.text,
+      group_from: first.group_from,
+      group_to: first.group_to,
+      rvc_down: first.rvc_down,
+      rvc_up: first.rvc_up,
+      weight_min: first.weight_min,
+      structured: first.structured,
+      source: first.source_id ? { id: first.source_id, title: first.source_title } : null
+    } : null;
+    const intervals = attachment.filter(function (row) { return !!row.interval_id; }).map(function (row) {
+      return {
+        id: row.interval_id,
+        alternative: row.interval_alternative,
+        kind: row.interval_kind,
+        ord: row.interval_ord,
+        label: row.interval_label,
+        low: row.interval_low,
+        high: row.interval_high,
+        from_norm: row.interval_from,
+        to_norm: row.interval_to
+      };
+    });
+    const hits = {};
+    if (rule) {
+      for (const alternative of market.alternatives || [1]) {
+        const join = exec(queries["07-material-against-rule.cypher"], {
+          rule: rule.id,
+          alternative: alternative,
+          materials: input.materials
+        }).rows;
+        const grouped = {};
+        for (const row of join) {
+          const key = String(row.material);
+          grouped[key] = grouped[key] || [];
+          grouped[key].push({
+            kind: row.kind,
+            ord: row.ord,
+            label: row.label,
+            low: row.low_code,
+            high: row.high_code,
+            relation: row.relation
+          });
+        }
+        hits[String(alternative)] = grouped;
+      }
+    }
+    markets[market.market] = { rule: rule, intervals: intervals, hits: hits };
+  }
+  return {
+    markets: markets,
+    spine: spineRows,
+    analyzeMs: performance.now() - started
+  };
+}
+
 self.addEventListener("message", function (event) {
   const message = event.data || {};
   if (message.type === "run") {
@@ -129,6 +210,14 @@ self.addEventListener("message", function (event) {
       self.postMessage(Object.assign({ type: "result", id: message.id, totalMs: performance.now() - started }, result));
     } catch (error) {
       self.postMessage({ type: "error", id: message.id, message: String(error && error.message || error) });
+    }
+  }
+  if (message.type === "analyze") {
+    try {
+      const result = analyze(message);
+      self.postMessage(Object.assign({ type: "analysis", id: message.id }, result));
+    } catch (error) {
+      self.postMessage({ type: "analysis-failed", id: message.id, message: String(error && error.message || error) });
     }
   }
 });

@@ -458,7 +458,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-10",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": 50.0
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 75.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0001",
+      "level": "range",
+      "code_from": "39.01",
+      "code_to": "39.15",
+      "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
+     },
+     "EU": {
+      "id": "OR-0331",
+      "level": "range",
+      "code_from": "3901",
+      "code_to": "3921",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0223",
+      "level": "heading",
+      "code_from": "39.01",
+      "code_to": "39.01",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "SHP-2026-1201-003",
@@ -921,6 +1060,622 @@
      "source": "SRC-MOEF-2025-02",
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
+    }
+   },
+   "reading": {
+    "asks_on": "2026-12-09",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0002",
+      "level": "range",
+      "code_from": "39.16",
+      "code_to": "39.26",
+      "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof"
+     },
+     "EU": {
+      "id": "OR-0334",
+      "level": "range",
+      "code_from": "3922",
+      "code_to": "3926",
+      "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0247",
+      "level": "heading",
+      "code_from": "39.26",
+      "code_to": "39.26",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": {
+    "material": "M1",
+    "filed_label": "polyethylene in primary form",
+    "alternative_label": "moulded shell of the good's own heading",
+    "change": {
+     "id": "M1",
+     "from": {
+      "hts8": "39011050",
+      "origin": "SA",
+      "value": 45000
+     },
+     "to": {
+      "hts8": "39269098",
+      "origin": "SA",
+      "value": 75000
+     }
+    },
+    "shipment": {
+     "shipment_id": "SHP-2026-1201-003",
+     "market": "US",
+     "export_date": "2026-12-01",
+     "import_date": "2026-12-09",
+     "goods": {
+      "hts8": "39269098",
+      "hs6": "392690",
+      "description": "Mounting bracket, moulded plastic",
+      "declared_value": 120000,
+      "currency": "USD",
+      "market_codes": {
+       "US": "39269098",
+       "EU": "39269097",
+       "JP": "392690029"
+      }
+     },
+     "materials": [
+      {
+       "id": "M1",
+       "hts8": "39269098",
+       "origin": "SA",
+       "value": 75000,
+       "description": "moulded shell, a part of the good's own heading"
+      },
+      {
+       "id": "M2",
+       "hts8": "32064990",
+       "origin": "DE",
+       "value": 6000,
+       "description": "colour masterbatch"
+      }
+     ],
+     "approved_exporters": [
+      {
+       "agreement": "RCEP",
+       "valid_from": "2022-05-01",
+       "valid_to": "2027-04-30",
+       "ref": "RCEP-AE-2205-0118"
+      },
+      {
+       "agreement": "EUKOR",
+       "valid_from": "2023-03-01",
+       "valid_to": "2028-02-29",
+       "ref": "EU-AE-2023-0088"
+      }
+     ]
+    },
+    "report": {
+     "shipment": {
+      "id": "SHP-2026-1201-003",
+      "description": "Mounting bracket, moulded plastic",
+      "declared_value": 120000.0,
+      "currency": "USD",
+      "assessed_on": "2026-12-09",
+      "date_basis": "import_date",
+      "import_date": "2026-12-09",
+      "materials": 2,
+      "codes": {
+       "US": "39269098",
+       "EU": "39269097",
+       "JP": "392690029"
+      }
+     },
+     "snapshot": {
+      "id": "dutypath-rules-2026-11-22",
+      "as_of": "2026-11-22",
+      "rule_version": "2.0",
+      "max_age_days": 120,
+      "age_days": 17,
+      "fresh": true,
+      "status": "FRESH",
+      "reason": "the snapshot is 17 days old and the limit is 120",
+      "data_vintage": [
+       {
+        "block": "applied MFN rate",
+        "component": "United States applied MFN rate",
+        "market": "US",
+        "source": "SRC-WITS-2023",
+        "source_title": "WITS / TRAINS applied tariff, reporter 840 (United States), partner 000, year 2023",
+        "as_of": "2023-12-31",
+        "rows": 12,
+        "days_before_snapshot_date": 1057
+       },
+       {
+        "block": "post import claim window",
+        "component": "The post import claim window",
+        "market": "ALL",
+        "source": "SRC-MOEF-2025-02",
+        "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+        "as_of": "2025-02-12",
+        "rows": 1,
+        "days_before_snapshot_date": 648
+       }
+      ],
+      "caveats": [
+       "United States applied MFN rate: the values are the WITS figures for 2023, as of 2023-12-31, 1057 days before the snapshot date 2026-11-22",
+       "The post import claim window: the period comes from a Ministry of Economy and Finance paper dated 2025-02-12, 648 days before the snapshot date 2026-11-22"
+      ]
+     },
+     "markets": [
+      {
+       "market": "US",
+       "market_name": "United States",
+       "agreement": "KORUS",
+       "agreement_name": "Korea-United States Free Trade Agreement",
+       "code": "39269098",
+       "nomenclature": "HTS eight digit",
+       "origin": {
+        "agreement": "KORUS",
+        "good": "39269098",
+        "rule": {
+         "id": "OR-0002",
+         "level": "range",
+         "code_from": "39.16",
+         "code_to": "39.26",
+         "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof"
+        },
+        "verdict": "NOT_ORIGINATING",
+        "reason": "M1 39269098 from SA: same heading 3926, so the CTH requirement fails",
+        "path": [
+         "M1 (39269098, SA) -[CTH]-> same heading 3926",
+         "M2 (32064990, DE) -[CTH]-> heading changes"
+        ],
+        "checks": [
+         {
+          "alternative": 1,
+          "holds": false,
+          "reason": "M1 39269098 from SA: same heading 3926, so the CTH requirement fails",
+          "path": [
+           "M1 (39269098, SA) -[CTH]-> same heading 3926",
+           "M2 (32064990, DE) -[CTH]-> heading changes"
+          ],
+          "rvc_down": 32.5,
+          "rvc_up": 0.0,
+          "missing": []
+         }
+        ],
+        "rvc_build_down": 32.5,
+        "rvc_build_up": 0.0,
+        "non_party_value": 81000.0,
+        "missing": [],
+        "parties": [
+         "KR",
+         "US"
+        ],
+        "agreement_note": "rules from Annex 6-A, rates from Annex 2-B for chapters 39, 84, 85",
+        "coverage": "rules+rates",
+        "approved_exporter_required": false
+       },
+       "rate": {
+        "percent": 0.0,
+        "basis": "staged",
+        "staging": "G",
+        "base_rate_percent": 5.3,
+        "base_rate_text": "5.3%",
+        "reason": "category G is duty free from January 1 of year 10",
+        "source": "SRC-KORUS-2B",
+        "source_title": "KORUS FTA Annex 2-B, Tariff Schedule of the United States",
+        "line": "39269098",
+        "partner": "ALL",
+        "currency": "USD"
+       },
+       "mfn": {
+        "percent": 5.3,
+        "basis": "agreement_base_rate",
+        "as_of": "2006-01-01",
+        "reason": "the base rate recorded in the agreement schedule; the applied MFN of this line after 2006 is not in this snapshot",
+        "source": "SRC-KORUS-2B",
+        "source_title": "KORUS FTA Annex 2-B, Tariff Schedule of the United States",
+        "amount": 6360.0
+       },
+       "documents": {
+        "status": "OTHER_AGREEMENT",
+        "required": false,
+        "reason": "the approval on file is for RCEP",
+        "valid_to": "2027-04-30"
+       },
+       "claim": {
+        "allowed": false,
+        "blocked_by": "origin: NOT_ORIGINATING",
+        "rate": 0.0,
+        "duty": null,
+        "saving": null
+       },
+       "duty": {
+        "amount": 6360.0,
+        "currency": "USD",
+        "basis": "MFN"
+       },
+       "missing": [],
+       "potential": {
+        "rate": 0.0,
+        "duty": 0.0,
+        "saving": 6360.0
+       },
+       "verdict": "NO CLAIM",
+       "excluded_materials": []
+      },
+      {
+       "market": "EU",
+       "market_name": "European Union",
+       "agreement": "EUKOR",
+       "agreement_name": "Korea-European Union Free Trade Agreement",
+       "code": "39269097",
+       "nomenclature": "CN eight digit",
+       "origin": {
+        "agreement": "EUKOR",
+        "good": "39269097",
+        "rule": {
+         "id": "OR-0334",
+         "level": "range",
+         "code_from": "3922",
+         "code_to": "3926",
+         "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+        },
+        "verdict": "NOT_ORIGINATING",
+        "reason": "regional value content 37.50 percent under the build down and 5.00 percent under the build up are both under the thresholds the rule asks for (50 down, 0 up)",
+        "path": [
+         "build down 37.50 percent, build up 5.00 percent, non party materials 75000.0"
+        ],
+        "checks": [
+         {
+          "alternative": 1,
+          "holds": false,
+          "reason": "regional value content 37.50 percent under the build down and 5.00 percent under the build up are both under the thresholds the rule asks for (50 down, 0 up)",
+          "path": [
+           "build down 37.50 percent, build up 5.00 percent, non party materials 75000.0"
+          ],
+          "rvc_down": 37.5,
+          "rvc_up": 5.0,
+          "missing": []
+         }
+        ],
+        "rvc_build_down": 37.5,
+        "rvc_build_up": 5.0,
+        "non_party_value": 75000.0,
+        "missing": [],
+        "parties": [
+         "AT",
+         "BE",
+         "BG",
+         "CY",
+         "CZ",
+         "DE",
+         "DK",
+         "EE",
+         "ES",
+         "FI",
+         "FR",
+         "GR",
+         "HR",
+         "HU",
+         "IE",
+         "IT",
+         "KR",
+         "LT",
+         "LU",
+         "LV",
+         "MT",
+         "NL",
+         "PL",
+         "PT",
+         "RO",
+         "SE",
+         "SI",
+         "SK"
+        ],
+        "agreement_note": "product specific rules from the protocol's Annex II; rates from the EU schedule in Annex 2-A",
+        "coverage": "rules+rates",
+        "approved_exporter_required": true
+       },
+       "rate": {
+        "percent": 0.0,
+        "basis": "staged",
+        "staging": "0",
+        "base_rate_percent": 6.5,
+        "base_rate_text": "6,5",
+        "reason": "category 0 is eliminated on entry into force",
+        "source": "SRC-EUKOR-2A",
+        "source_title": "Korea-EU FTA Annex 2-A, tariff schedule of the EU Party (Korean language copy of OJ L 127)",
+        "line": "39269097",
+        "partner": "ALL",
+        "currency": "EUR"
+       },
+       "mfn": {
+        "percent": 6.5,
+        "basis": "schedule_base_rate",
+        "as_of": "2011-07-01",
+        "reason": "the base rate printed in the schedule; it is the MFN rate on the date the schedule records, not a live MFN query",
+        "source": "SRC-EUKOR-2A",
+        "source_title": "Korea-EU FTA Annex 2-A, tariff schedule of the EU Party (Korean language copy of OJ L 127)",
+        "amount": 7800.0
+       },
+       "documents": {
+        "status": "VALID",
+        "required": true,
+        "valid_from": "2023-03-01",
+        "valid_to": "2028-02-29",
+        "ref": "EU-AE-2023-0088"
+       },
+       "claim": {
+        "allowed": false,
+        "blocked_by": "origin: NOT_ORIGINATING",
+        "rate": 0.0,
+        "duty": null,
+        "saving": null
+       },
+       "duty": {
+        "amount": 7800.0,
+        "currency": "USD",
+        "basis": "MFN"
+       },
+       "missing": [],
+       "potential": {
+        "rate": 0.0,
+        "duty": 0.0,
+        "saving": 7800.0
+       },
+       "verdict": "NO CLAIM",
+       "excluded_materials": []
+      },
+      {
+       "market": "JP",
+       "market_name": "Japan",
+       "agreement": "RCEP",
+       "agreement_name": "Regional Comprehensive Economic Partnership",
+       "code": "392690029",
+       "nomenclature": "Japan nine digit",
+       "origin": {
+        "agreement": "RCEP",
+        "good": "392690029",
+        "rule": {
+         "id": "OR-0247",
+         "level": "heading",
+         "code_from": "39.26",
+         "code_to": "39.26",
+         "text": "CTH or RVC40"
+        },
+        "verdict": "NOT_ORIGINATING",
+        "reason": "M1 39269098 from SA: same heading 3926, so the CTH requirement fails",
+        "path": [
+         "M1 (39269098, SA) -[CTH]-> same heading 3926",
+         "M2 (32064990, DE) -[CTH]-> heading changes"
+        ],
+        "checks": [
+         {
+          "alternative": 1,
+          "holds": false,
+          "reason": "M1 39269098 from SA: same heading 3926, so the CTH requirement fails",
+          "path": [
+           "M1 (39269098, SA) -[CTH]-> same heading 3926",
+           "M2 (32064990, DE) -[CTH]-> heading changes"
+          ],
+          "rvc_down": 32.5,
+          "rvc_up": 0.0,
+          "missing": []
+         },
+         {
+          "alternative": 2,
+          "holds": false,
+          "reason": "regional value content 32.50 percent under the build down and 0.00 percent under the build up are both under the thresholds the rule asks for (40 down, 0 up)",
+          "path": [
+           "build down 32.50 percent, build up 0.00 percent, non party materials 81000.0"
+          ],
+          "rvc_down": 32.5,
+          "rvc_up": 0.0,
+          "missing": []
+         }
+        ],
+        "rvc_build_down": 32.5,
+        "rvc_build_up": 0.0,
+        "non_party_value": 81000.0,
+        "missing": [],
+        "parties": [
+         "AU",
+         "BN",
+         "CN",
+         "ID",
+         "JP",
+         "KH",
+         "KR",
+         "LA",
+         "MM",
+         "MY",
+         "NZ",
+         "PH",
+         "SG",
+         "TH",
+         "VN"
+        ],
+        "agreement_note": "product specific rules from Annex 3A; rates from Japan's schedule in Annex I; in force for Japan on 2022-01-01",
+        "coverage": "rules+rates",
+        "approved_exporter_required": true
+       },
+       "rate": {
+        "percent": 2.1,
+        "basis": "staged",
+        "staging": "SCHEDULE",
+        "base_rate_percent": 3.9,
+        "base_rate_text": "3.9%",
+        "reason": "year 5 of the schedule prints 2.1 percent",
+        "source": "SRC-RCEP-1-JP",
+        "source_title": "RCEP Annex I, Schedule of Tariff Commitments of Japan",
+        "line": "392690029",
+        "partner": "KR",
+        "currency": "JPY"
+       },
+       "mfn": {
+        "percent": 3.9,
+        "basis": "schedule_base_rate",
+        "as_of": "2022-01-01",
+        "reason": "the base rate printed in the schedule; it is the MFN rate on the date the schedule records, not a live MFN query",
+        "source": "SRC-RCEP-1-JP",
+        "source_title": "RCEP Annex I, Schedule of Tariff Commitments of Japan",
+        "amount": 4680.0
+       },
+       "documents": {
+        "status": "VALID",
+        "required": true,
+        "valid_from": "2022-05-01",
+        "valid_to": "2027-04-30",
+        "ref": "RCEP-AE-2205-0118"
+       },
+       "claim": {
+        "allowed": false,
+        "blocked_by": "origin: NOT_ORIGINATING",
+        "rate": 2.1,
+        "duty": null,
+        "saving": null
+       },
+       "duty": {
+        "amount": 4680.0,
+        "currency": "USD",
+        "basis": "MFN"
+       },
+       "missing": [],
+       "potential": {
+        "rate": 2.1,
+        "duty": 2520.0,
+        "saving": 2160.0
+       },
+       "verdict": "NO CLAIM",
+       "excluded_materials": []
+      }
+     ],
+     "best_claim": {
+      "market": null,
+      "agreement": null,
+      "duty": null,
+      "saving": null
+     },
+     "ranking": {
+      "cheapest": "JP",
+      "dearest": "EU",
+      "spread": 3120.0,
+      "currency": "USD"
+     },
+     "claim_window": {
+      "status": "OPEN",
+      "import_date": "2026-12-09",
+      "deadline": "2027-12-09",
+      "days_left": 365,
+      "months": 12,
+      "legal_ref": "협정관세 사후적용 신청기간 1년",
+      "note": "기획재정부 2025-02-12 자료는 이 기간을 최대 5년으로 넓히는 개정을 추진 과제로 적고 있다",
+      "source": "SRC-MOEF-2025-02",
+      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
+      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
+     }
     }
    }
   },
@@ -1393,7 +2148,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8501.20 through 8501.64 from any other heading.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0127",
+      "level": "range",
+      "code_from": "8501.20",
+      "code_to": "8501.64",
+      "text": "A change to subheading 8501.20 through 8501.64 from any other heading."
+     },
+     "EU": {
+      "id": "OR-0372",
+      "level": "chapter",
+      "code_from": "85",
+      "code_to": "85",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0300",
+      "level": "heading",
+      "code_from": "85.01",
+      "code_to": "85.01",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "SHP-2026-1201-001",
@@ -1878,7 +2772,127 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": [
+        "8504.10",
+        "8504.50"
+       ],
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0131",
+      "level": "range",
+      "code_from": "8504.32",
+      "code_to": "8504.50",
+      "text": "A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50."
+     },
+     "EU": {
+      "id": "OR-0373",
+      "level": "heading",
+      "code_from": "8504",
+      "code_to": "8504",
+      "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0302",
+      "level": "heading",
+      "code_from": "85.04",
+      "code_to": "85.04",
+      "text": "RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "SHP-2026-1201-005",
@@ -2331,7 +3345,118 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8507.90 from any other heading.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": []
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0140",
+      "level": "subheading",
+      "code_from": "8507.90",
+      "code_to": "8507.90",
+      "text": "A change to subheading 8507.90 from any other heading."
+     },
+     "EU": {
+      "id": "OR-0372",
+      "level": "chapter",
+      "code_from": "85",
+      "code_to": "85",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-01",
@@ -2800,7 +3925,127 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": [
+        "8504.10",
+        "8504.50"
+       ],
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0131",
+      "level": "range",
+      "code_from": "8504.32",
+      "code_to": "8504.50",
+      "text": "A change to subheading 8504.32 through 8504.50 from any subheading outside subheading 8504.10 through 8504.50."
+     },
+     "EU": {
+      "id": "OR-0373",
+      "level": "heading",
+      "code_from": "8504",
+      "code_to": "8504",
+      "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0302",
+      "level": "heading",
+      "code_from": "85.04",
+      "code_to": "85.04",
+      "text": "RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-02",
@@ -3271,7 +4516,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8501.20 through 8501.64 from any other heading.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0127",
+      "level": "range",
+      "code_from": "8501.20",
+      "code_to": "8501.64",
+      "text": "A change to subheading 8501.20 through 8501.64 from any other heading."
+     },
+     "EU": {
+      "id": "OR-0372",
+      "level": "chapter",
+      "code_from": "85",
+      "code_to": "85",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0300",
+      "level": "heading",
+      "code_from": "85.01",
+      "code_to": "85.01",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-03",
@@ -3719,7 +5103,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": 50.0
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 75.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0001",
+      "level": "range",
+      "code_from": "39.01",
+      "code_to": "39.15",
+      "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
+     },
+     "EU": {
+      "id": "OR-0331",
+      "level": "range",
+      "code_from": "3901",
+      "code_to": "3921",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 25% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0223",
+      "level": "heading",
+      "code_from": "39.01",
+      "code_to": "39.01",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-04",
@@ -4174,7 +5697,135 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0002",
+      "level": "range",
+      "code_from": "39.16",
+      "code_to": "39.26",
+      "text": "A change to heading 39.16 through 39.26 from any other heading. Chapter 40 Rubber and Articles Thereof"
+     },
+     "EU": {
+      "id": "OR-0334",
+      "level": "range",
+      "code_from": "3922",
+      "code_to": "3926",
+      "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0247",
+      "level": "heading",
+      "code_from": "39.26",
+      "code_to": "39.26",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-05",
@@ -4627,7 +6278,118 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8507.90 from any other heading.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": []
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0140",
+      "level": "subheading",
+      "code_from": "8507.90",
+      "code_to": "8507.90",
+      "text": "A change to subheading 8507.90 from any other heading."
+     },
+     "EU": {
+      "id": "OR-0372",
+      "level": "chapter",
+      "code_from": "85",
+      "code_to": "85",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-06",
@@ -5089,7 +6851,135 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8544.11 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 45.0,
+       "rvc_up": 35.0,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0213",
+      "level": "subheading",
+      "code_from": "8544.11",
+      "code_to": "8544.11",
+      "text": "A change to subheading 8544.11 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
+     },
+     "EU": {
+      "id": "OR-0397",
+      "level": "heading",
+      "code_from": "8544",
+      "code_to": "8544",
+      "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0324",
+      "level": "heading",
+      "code_from": "85.44",
+      "code_to": "85.44",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-07",
@@ -5535,7 +7425,131 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8481.10 through 8481.80 from any other heading",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "A change to subheading 8481.10 through 8481.80 from subheading 8481.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [
+        "848190"
+       ],
+       "rvc_down": 45.0,
+       "rvc_up": 35.0,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": []
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0112",
+      "level": "range",
+      "code_from": "8481.10",
+      "code_to": "8481.80",
+      "text": "A change to subheading 8481.10 through 8481.80 from any other heading; or A change to subheading 8481.10 through 8481.80 from subheading 8481.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
+     },
+     "EU": {
+      "id": "OR-0335",
+      "level": "chapter",
+      "code_from": "84",
+      "code_to": "84",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-08",
@@ -5990,7 +8004,137 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": 50.0
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0001",
+      "level": "range",
+      "code_from": "39.01",
+      "code_to": "39.15",
+      "text": "A change to heading 39.01 through 39.15 from any other heading, provided that the originating polymer content in heading 39.01 through 39.15 is not less than 50 percent by weight of the total polymer content."
+     },
+     "EU": {
+      "id": "OR-0333",
+      "level": "subheading",
+      "code_from": "3907.20",
+      "code_to": "3907.91",
+      "text": "Manufacture from materials of any heading"
+     },
+     "JP": {
+      "id": "OR-0229",
+      "level": "heading",
+      "code_from": "39.07",
+      "code_to": "39.07",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-09",
@@ -6459,7 +8603,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8413.11 through 8413.82 from any other subheading.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTSH",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0034",
+      "level": "range",
+      "code_from": "8413.11",
+      "code_to": "8413.82",
+      "text": "A change to subheading 8413.11 through 8413.82 from any other subheading."
+     },
+     "EU": {
+      "id": "OR-0335",
+      "level": "chapter",
+      "code_from": "84",
+      "code_to": "84",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0251",
+      "level": "heading",
+      "code_from": "84.13",
+      "code_to": "84.13",
+      "text": "CTSH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-10",
@@ -6921,7 +9204,146 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8535.10 through 8536.90 from any other subheading.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": [
+      {
+       "text": "CTH",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "RVC40",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 40.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ]
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0197",
+      "level": "range",
+      "code_from": "8535.10",
+      "code_to": "8536.90",
+      "text": "A change to subheading 8535.10 through 8536.90 from any other subheading."
+     },
+     "EU": {
+      "id": "OR-0392",
+      "level": "heading",
+      "code_from": "8536",
+      "code_to": "8536",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     },
+     "JP": {
+      "id": "OR-0319",
+      "level": "heading",
+      "code_from": "85.36",
+      "code_to": "85.36",
+      "text": "CTH or RVC40"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-11",
@@ -7380,7 +9802,131 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8513.10 from any other heading",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "A change to subheading 8513.10 from subheading 8513.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [
+        "851390"
+       ],
+       "rvc_down": 45.0,
+       "rvc_up": 35.0,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 55.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": []
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0153",
+      "level": "subheading",
+      "code_from": "8513.10",
+      "code_to": "8513.10",
+      "text": "A change to subheading 8513.10 from any other heading; or A change to subheading 8513.10 from subheading 8513.90, whether or not there is also a change from any other heading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
+     },
+     "EU": {
+      "id": "OR-0372",
+      "level": "chapter",
+      "code_from": "85",
+      "code_to": "85",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 45% of the ex-works price of the product"
+     }
+    }
+   },
+   "toggle": null
   },
   {
    "id": "GOLD-SKU-12",
@@ -7850,7 +10396,129 @@
      "source_title": "FTA 활용지원을 위한 관세행정 추진전략, 기획재정부, 2025-02-12",
      "scope": "the Korean post import claim window, the same for every route; the importing country's own refund period is not in this snapshot"
     }
-   }
+   },
+   "reading": {
+    "asks_on": "2026-12-08",
+    "parties": {
+     "US": [
+      "KR",
+      "US"
+     ],
+     "EU": [
+      "AT",
+      "BE",
+      "BG",
+      "CY",
+      "CZ",
+      "DE",
+      "DK",
+      "EE",
+      "ES",
+      "FI",
+      "FR",
+      "GR",
+      "HR",
+      "HU",
+      "IE",
+      "IT",
+      "KR",
+      "LT",
+      "LU",
+      "LV",
+      "MT",
+      "NL",
+      "PL",
+      "PT",
+      "RO",
+      "SE",
+      "SI",
+      "SK"
+     ],
+     "JP": [
+      "AU",
+      "BN",
+      "CN",
+      "ID",
+      "JP",
+      "KH",
+      "KR",
+      "LA",
+      "MM",
+      "MY",
+      "NZ",
+      "PH",
+      "SG",
+      "TH",
+      "VN"
+     ]
+    },
+    "alternatives": {
+     "US": [
+      {
+       "text": "A change to subheading 8509.40 through 8509.80 from any other heading",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "A change to subheading 8509.40 through 8509.80 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method.",
+       "kinds": [
+        "CTSH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 45.0,
+       "rvc_up": 35.0,
+       "weight_min": null
+      }
+     ],
+     "EU": [
+      {
+       "text": "Manufacture from materials of any heading, except that of the product",
+       "kinds": [
+        "CTH"
+       ],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": null,
+       "rvc_up": null,
+       "weight_min": null
+      },
+      {
+       "text": "Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product",
+       "kinds": [],
+       "group": null,
+       "allowed_from": [],
+       "rvc_down": 50.0,
+       "rvc_up": null,
+       "weight_min": null
+      }
+     ],
+     "JP": []
+    },
+    "rules": {
+     "US": {
+      "id": "OR-0143",
+      "level": "range",
+      "code_from": "8509.40",
+      "code_to": "8509.80",
+      "text": "A change to subheading 8509.40 through 8509.80 from any other heading; or A change to subheading 8509.40 through 8509.80 from any other subheading, provided that there is a regional value content of not less than: (a) 35 percent under the build-up method, or (b) 45 percent under the build-down method."
+     },
+     "EU": {
+      "id": "OR-0376",
+      "level": "heading",
+      "code_from": "8509",
+      "code_to": "8509",
+      "text": "Manufacture from materials of any heading, except that of the product; or Manufacture in which the value of all the materials used does not exceed 50% of the ex-works price of the product"
+     }
+    }
+   },
+   "toggle": null
   }
  ],
  "rates": {

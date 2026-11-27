@@ -56,22 +56,56 @@ def open_store(path: str, read_only: bool = False) -> Iterator:
 
 
 def _code_only(statement: str) -> str:
-    """The statement with string literals and comments cut out in one pass.
+    """The statement with literals, identifiers and comments cut out in one pass.
 
-    The two have to be removed together, because either one alone hides the
-    other.  Removing comments first reads the ``//`` in ``'http://x'`` as the
-    start of a comment and drops the rest of the line, so a ``CREATE`` written
-    after that literal is never named.  Removing literals first reads the
-    apostrophe in ``// don't`` as an opening quote and swallows the code that
-    follows.  A scanner that knows which of the two it is inside cannot make
-    either mistake: it walks the statement once, skips a literal or a comment
-    as a whole, and keeps everything else.
+    Three things can carry a piece of text that looks like code and is not:
+    a string literal, a backtick quoted identifier, and a comment.  They have
+    to be removed together and in the order they open, because any one of them
+    can hide the next.  Removing comments first reads the ``//`` in
+    ``'http://x'`` as the start of a comment and drops the rest of the line, so
+    a ``CREATE`` written after that literal is never named.  Removing literals
+    first reads the apostrophe in ``// don't`` as an opening quote and swallows
+    the code that follows.  And a scanner that knows literals but not
+    identifiers reads the apostrophe in the identifier ``` `a'` ``` as an
+    opening quote, which swallowed the ``CREATE`` in this statement:
+
+        MATCH (n) RETURN 1 AS `a'` CREATE (:X) RETURN 2 AS `'`
+
+    So the scanner keeps three opening states apart and skips each as a whole:
+
+    * a string literal opens with ``'`` or ``"``, closes on the same quote, and
+      honours a backslash escape (which is how the engine here writes a quote
+      inside a literal) and a doubled quote (which is how Cypher in general
+      writes it; the engine here refuses that, so reading it as part of the
+      literal cannot let a statement through that the engine would run),
+    * a quoted identifier opens with a backtick, closes on an unpaired backtick,
+      and honours the doubled backtick the engine accepts as one backtick,
+    * a comment opens with ``//`` (to the end of the line) or ``/*`` (to the
+      closing ``*/``).
+
+    A literal or an identifier left open runs to the end of the statement.  The
+    engine refuses such a statement, and treating the rest as literal keeps the
+    scanner from inventing code the engine would not read.
     """
     kept: list[str] = []
     index = 0
     length = len(statement)
     while index < length:
         char = statement[index]
+        if char == "`":
+            index += 1
+            while index < length:
+                if statement[index] == "`":
+                    if index + 1 < length and statement[index + 1] == "`":
+                        index += 2
+                        continue
+                    index += 1
+                    break
+                index += 1
+            # An identifier is a name, never a clause, so its text is dropped
+            # the same way a literal's is.
+            kept.append("``")
+            continue
         if char in ("'", '"'):
             index += 1
             while index < length:
@@ -79,13 +113,16 @@ def _code_only(statement: str) -> str:
                     index += 2
                     continue
                 if statement[index] == char:
+                    if index + 1 < length and statement[index + 1] == char:
+                        index += 2
+                        continue
                     index += 1
                     break
                 index += 1
             kept.append("''")
             continue
         if statement.startswith("//", index):
-            while index < length and statement[index] != "\n":
+            while index < length and statement[index] not in "\r\n":
                 index += 1
             kept.append(" ")
             continue
