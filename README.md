@@ -142,7 +142,7 @@ scores under either reading.
 | Criterion | Where it is answered | What to check |
 | --- | --- | --- |
 | Relate and connected context | `## How it uses Relate`, `cypher/`, `docs/MCP-SCENARIO.md` | one file store, 5,454 nodes and 13,559 relationships, the rule to interval to material join, the same file over MCP |
-| Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 167 tests, the three verdicts and the case that answers `UNDECIDABLE` |
+| Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 173 tests, the three verdicts and the case that answers `UNDECIDABLE` |
 | Usefulness | `## Use case`, `## Limits and honest statements` | duty, saving and claim window per market, priced on the entry date |
 | Documentation and reproducibility | `## Setup and run`, `docs/SOURCES.md`, `docs/BENCHMARK-EVAL.md` | nine documents with URL and sha256, `python scripts/benchmark.py` |
 | Creativity | `## The three markets`, `## What the snapshot covers` | three schedules read in their own format, the provisions a rule names kept as interval nodes |
@@ -280,28 +280,52 @@ their sha256, so the extraction can be repeated and checked.
 
 ## The screen
 
-`docs/demo/index.html` opens from the file system and makes no network call. It
-shows one shipment, the three markets, the rate on a date the reader picks, the
-duty on a value the reader types, the material the rule excludes, and the date
-until which a refund can be claimed. The rate arithmetic runs in the browser
-from the schedule rows; the origin verdict comes from the engine, and the page
-says which is which. Selecting the `store/dutypath-rules.rl` file makes the page
-hash it with WebCrypto and compare it with the hash the bundle was built from.
+`docs/demo/index.html` shows one shipment, the three markets, the rate on a date
+the reader picks, the duty on a value the reader types, the material the rule
+excludes, and the date until which a refund can be claimed. The rate arithmetic
+runs in the browser from the schedule rows; the verdict cards are the engine's
+build time answers, and the page says which is which. Selecting the
+`store/dutypath-rules.rl` file makes the page hash it with WebCrypto and compare
+it with the hash the bundle was built from.
 
 The first screen states the two things a reader would otherwise have to work
 out: a one line legend for `CLAIM`, `MFN`, `ORIGINATING`, `NOT ORIGINATING` and
-`UNDECIDABLE`, and a notice that every verdict on the page was computed at build
-time and is stored in the bundle, so the page reads a static result and queries
-no graph while it is open.
+`UNDECIDABLE`, and a notice that the verdict cards are a build time bundle.
 
-`python scripts/check_demo.py` opens it in Chromium at 1440 and 390 pixels,
-checks that neither width scrolls sideways, that the visible text carries none
-of the characters machine written text gives itself away with, and that the
-page's own rate arithmetic agrees with `duty.line_rate` for every rate row in
-the bundle on seven dates. It needs Playwright, which the dev extras do not
-install because a plain `pytest` run should not depend on a browser:
-`pip install playwright && playwright install chromium`. The screenshots under
-`docs/demo/screenshots/` are its output.
+### The graph, running in the tab
+
+Below the verdict cards the page runs the engine itself. A worker loads
+`@relate/relate-wasm` 1.3.0 (Apache-2.0, the package Neo4j publishes), rebuilds
+the snapshot's 5,454 nodes and 13,559 relationships in memory, and answers the
+committed `cypher/` files for the shipment on screen: the rule for the good, the
+rate row and its source, the heading and chapter above it, the agreement
+coverage, and the material against every interval the rule excludes. It reports
+what it built, how long the build took, and which package version did it.
+
+Each value the engine returns is compared with the bundle the page was built
+from, and the panel states the score (15 of 15 on every fixture). The two cannot
+disagree without the page saying so.
+
+Why the tab rebuilds the graph instead of opening the file: the wasm package
+offers `new RelateDb()` for an in-memory database and `RelateDb.open("opfs://")`
+for its own browser store, and no call that opens an existing `.rl` file. The
+rows come from `scripts/build_wasm_seed.py`, which reads the snapshot and writes
+`docs/demo/wasm/dutypath-graph.json` with the source path, byte count and
+sha256. The `.rl` file remains the artifact the CLI, the MCP server and a native
+`relate` run open, and `tests/test_wasm_seed.py` rebuilds the graph from the
+export and holds its answers to the store's.
+
+`python scripts/check_demo.py` opens the static page in Chromium at 1440 and 390
+pixels, checks that neither width scrolls sideways, that the visible text
+carries none of the characters machine written text gives itself away with, and
+that the page's own rate arithmetic agrees with `duty.line_rate` for every rate
+row in the bundle on seven dates. `python scripts/check_wasm_demo.py` serves the
+repository over http, waits for the panel to finish, and fails if the engine and
+the bundle disagree on any value, at both widths and on a second shipment. Both
+need Playwright, which the dev extras do not install because a plain `pytest`
+run should not depend on a browser: `pip install playwright && playwright
+install chromium`. The screenshots under `docs/demo/screenshots/` are their
+output.
 
 ## The benchmark
 

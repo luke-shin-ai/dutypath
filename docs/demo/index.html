@@ -38,6 +38,8 @@
   .brand h1 { font-size: 21px; margin: 0; letter-spacing: 0.2px; }
   .brand .sub { color: #b6c2cf; font-size: 14px; }
   .snap { color: #93a4b6; font-size: 12.5px; margin-top: 8px; word-break: break-word; }
+  .snap.live { color: #6ee7b7; }
+  .snap.live::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #34d399; margin-right: 7px; vertical-align: 1px; }
   .legend {
     display: flex;
     flex-wrap: wrap;
@@ -48,6 +50,23 @@
   }
   .legend b { color: #fff; }
   .legend .static { flex-basis: 100%; color: #93a4b6; }
+  .engine { margin-top: 18px; }  .engine h3 { margin: 0 0 6px; font-size: 16px; }
+  .engine .lede { margin: 0 0 12px; color: var(--muted); font-size: 13.5px; }
+  .engine-status { font-size: 13px; color: var(--muted); padding: 8px 10px; border-radius: 8px; background: #f8fafc; border: 1px solid var(--line); }
+  .engine-build { font-size: 12.5px; color: var(--muted); margin: 0 0 8px; }
+  .engine-build b { color: var(--ink); }
+  .engine-status.busy { color: #1d4ed8; border-color: #c7d2fe; background: #eef2ff; }
+  .engine-status.ok { color: var(--claim); border-color: #99f6e4; background: #ecfdf5; }
+  .engine-status.warn { color: var(--blocked); border-color: #fcd34d; background: #fffbeb; }
+  .engine-status.fail { color: var(--refused); border-color: #fecaca; background: #fef2f2; }
+  .engine-body { margin-top: 12px; overflow-x: auto; }
+  .engine-table table { width: 100%; min-width: 680px; border-collapse: collapse; font-size: 13px; }
+  .engine-table th { text-align: left; font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.4px; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  .engine-table td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .engine-table tr:last-child td { border-bottom: none; }
+  .engine-parity { margin-top: 10px; font-size: 13px; }
+  .engine-parity.ok { color: var(--claim); }
+  .engine-parity.fail { color: var(--refused); }
   .panel {
     background: var(--card);
     border: 1px solid var(--line);
@@ -146,13 +165,14 @@
       <span class="sub">One bill of materials, three markets, three answers</span>
     </div>
     <div class="snap" id="snapshot-line">loading snapshot</div>
+    <div class="snap live" id="engine-live" hidden></div>
     <div class="legend">
       <span><b>CLAIM</b> = preferential rate applied, duty 0</span>
       <span><b>MFN</b> = no preference, the general rate applies</span>
       <span><b>ORIGINATING</b> = the origin rule is met</span>
       <span><b>NOT ORIGINATING</b> = the rule is not met</span>
       <span><b>UNDECIDABLE</b> = the snapshot cannot answer, the missing piece is named</span>
-      <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page. Nothing is fetched and no graph is queried while you read it, so the origin column does not change when the entry date does; the rate and the duty arithmetic below do run in the browser.</span>
+      <span class="static">Static bundle: these verdicts were computed at build time from the committed snapshot and are stored in the page, so the origin column does not change when the entry date does. The rate and the duty arithmetic below do run in the browser. The panel titled "The graph, running in this tab" builds the same graph in the Relate WebAssembly engine and runs the committed Cypher for the shipment on screen.</span>
     </div>
   </div>
 </header>
@@ -199,6 +219,25 @@
 
   <section class="markets" id="markets"></section>
 
+  <section class="panel engine" id="engine">
+    <h3>The graph, running in this tab</h3>
+    <p class="lede">The numbers above were computed at build time. This panel is the engine itself:
+    it loads the Relate WebAssembly build, rebuilds the snapshot's graph in memory inside a worker,
+    and runs the committed Cypher files (<span class="mono">cypher/01</span>, <span class="mono">03</span>,
+    <span class="mono">04</span>, <span class="mono">05</span>, <span class="mono">06</span>,
+    <span class="mono">07</span>) for the shipment on screen. Each value it returns is compared with
+    the bundle, so the two are shown to agree rather than asserted to.</p>
+    <div id="engine-build" class="engine-build">the engine has not started yet</div>
+    <div id="engine-status" class="engine-status">waiting for the page to settle</div>
+    <div id="engine-body" class="engine-body"></div>
+    <div id="engine-parity" class="engine-parity"></div>
+    <p class="note">The engine package opens an in-memory database or its own browser store, and it has no
+    call that opens an existing <span class="mono">.rl</span> file, so the tab rebuilds the graph from rows
+    exported out of the snapshot (<span class="mono">scripts/build_wasm_seed.py</span>). The committed
+    <span class="mono">.rl</span> file stays the artifact the CLI, the MCP server and your own
+    <span class="mono">relate</span> run open.</p>
+  </section>
+
   <section class="foot">
     <div class="panel">
       <h3>What this page computes, and what it does not</h3>
@@ -212,8 +251,10 @@
       <p>The rate arithmetic above is the only thing the page does twice. 
       <span class="mono">scripts/check_demo.py</span> compares it with the engine's on seven dates
       for every schedule row in the bundle, so the two cannot drift apart quietly.</p>
-      <p>The page makes no network call and writes nothing. The claim window is the Korean one year
-      post import period, quoted from the snapshot's own deadline row.</p>
+      <p>The page writes nothing and sends nothing. The verdicts and the schedule rows arrive with the
+      page. The engine panel is the one thing that loads more: the Relate WebAssembly build and the rows
+      exported out of the snapshot, both served from this site, requested once when the panel starts.
+      The claim window is the Korean one year post import period, quoted from the snapshot's own deadline row.</p>
     </div>
     <div class="panel">
       <h3>Snapshot</h3>
@@ -231,6 +272,7 @@
 </main>
 
 <script src="dutypath-demo.js"></script>
+<script src="wasm-panel.js"></script>
 <script>
 (function () {
   var DATA = window.DUTYPATH_DEMO;
