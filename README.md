@@ -26,6 +26,20 @@ second runs the suite on a bare install and prints the count. The project sets
 `-q` in `pyproject.toml`, so a second `-q` on the command line keeps the
 dots and hides that line.
 
+One command checks the demo page itself, without a reader opening it:
+
+```
+python scripts/check_demo.py
+```
+
+It opens the page in Chromium at 1440 and 390 pixels and compares the rate the
+page computes with the engine's own answer for the 36 rate rows in the bundle
+on seven dates, which is 252 comparisons, then selects the committed rule file
+and expects the browser to report the same sha256. It prints the comparison
+count with an empty mismatch list and exits 0. It needs Playwright
+(`pip install playwright && playwright install chromium`), which the dev extras
+leave out so a plain `pytest` run needs no browser.
+
 In a browser, with nothing to install:
 **https://luke-shin-ai.github.io/dutypath/demo/**
 The page root, **https://luke-shin-ai.github.io/dutypath/**, forwards there.
@@ -149,7 +163,7 @@ scores under either reading.
 | Relate and connected context | `## How it uses Relate`, `cypher/`, `docs/MCP-SCENARIO.md` | one file store, 5,454 nodes and 13,559 relationships, the rule to interval to material join, the same graph rebuilt and walked in the browser, the same file over MCP |
 | Functionality and completeness | `## 60 seconds`, `## The three markets`, `## What the snapshot covers` | five fixtures through `dutypath compare`, 182 tests, the three verdicts and the case that answers `UNDECIDABLE` |
 | Usefulness | `## Use case`, `## Limits and honest statements` | duty, saving and claim window per market, priced on the entry date |
-| Documentation and reproducibility | `## Setup and run`, `docs/SOURCES.md`, `docs/BENCHMARK-EVAL.md` | nine documents with URL and sha256, `python scripts/benchmark.py` |
+| Documentation and reproducibility | `## Setup and run`, `docs/SOURCES.md`, `docs/BENCHMARK-EVAL.md` | nine documents with URL and sha256, `python scripts/benchmark.py`, `python scripts/check_demo.py` with 252 rate comparisons |
 | Creativity | `## The three markets`, `## What the snapshot covers` | three schedules read in their own format, the provisions a rule names kept as interval nodes |
 
 ## How it uses Relate
@@ -275,6 +289,9 @@ dutypath footprint
 dutypath pull-check --market US
 dutypath mcp --store store/dutypath-rules.rl
 pytest
+
+# optional, needs Playwright: the page at both widths, 252 rate comparisons
+python scripts/check_demo.py
 ```
 
 To rebuild the snapshot from the documents:
@@ -385,9 +402,14 @@ export and holds its answers to the store's.
 
 `python scripts/check_demo.py` opens the static page in Chromium at 1440 and 390
 pixels, checks that neither width scrolls sideways, that the visible text
-carries none of the characters machine written text gives itself away with, and
-that the page's own rate arithmetic agrees with `duty.line_rate` for every rate
-row in the bundle on seven dates. `python scripts/check_wasm_demo.py` serves the
+carries none of the characters machine written text gives itself away with,
+compares the page's own rate arithmetic with `duty.line_rate` for each of the 36
+rate rows in the bundle on seven dates, 36 x 7 = 252 comparisons printed with
+no mismatch, and selects `store/dutypath-rules.rl` so the page
+hashes it and reports `rule file matches` against the sha256 the bundle was
+built from. The script puts `src` on its own path, so it also runs before the
+package is installed: `PYTHONPATH=src python3 scripts/check_demo.py` is the same
+run. `python scripts/check_wasm_demo.py` serves the
 repository over http, waits for the panel to finish, and fails if the engine and
 the bundle disagree on any value, if any of the three path pictures is missing,
 if the three verdicts it draws differ from the bundle's, if the key material
